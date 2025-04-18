@@ -45,4 +45,9 @@ export const API_CONSTANT = {
     salesList:'SalesManager/GetGenerateSales',
     createSales:'SalesManager/GenerateSales',
     deviceBalance:'SalesManager/CheckDeviceBalance',
+    requestById : 'Request/GetRequestById',
+    shippingAdderss : 'Shipping/GetShippingAddressList',
+    interIntraStatus :'Request/GetInterIntraStatusById',
+    deviceVahanList :"Device/GetVahanDeviceList"
+
 }

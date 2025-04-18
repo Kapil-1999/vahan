@@ -1,0 +1,47 @@
+
+<div class="modal-header text-center">
+    <h5>Device List</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="overflow-auto">
+                <div id="datatable_wrapper">
+                    <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline"
+                        role="grid" aria-describedby="datatable_info" style="width: 100%" width="100%">
+                        <thead>
+                            <tr role="row">
+                                <th>
+                                    <input type="checkbox" 
+                                           [checked]="isAllSelected" 
+                                           (change)="toggleSelectAll($event)">
+                                </th>
+                                @for (vehicleHeading of columns; track $index) {
+                                <th>
+                                    <span>{{ vehicleHeading?.title }}</span>
+                                </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                           <tr *ngFor="let row of vahanDeviceList; let i = index">
+                            <td>
+                                <input type="checkbox" 
+                                       [checked]="row.isSelected" 
+                                       (change)="toggleRowSelection(i)">
+                            </td>
+                            <td>{{row.deviceId}}</td>
+                            <td>{{row.deviceName}}</td>
+                            <td>{{row.deviceType}}</td>
+                            <!-- Add your row data cells here -->
+                           </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
