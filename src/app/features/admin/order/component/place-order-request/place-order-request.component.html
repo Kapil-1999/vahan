@@ -1,0 +1,56 @@
+<div class="modal-header text-center">
+    <h5>Place Order</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="placeOrderForm">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Product</label>
+                <ngx-select-dropdown place [config]="config1" [options]="productList" formControlName="productId" (change)="onProductChange($event)">
+                </ngx-select-dropdown>
+                @if (placeOrderForm.get('productId')?.invalid && placeOrderForm.get('productId')?.touched) {
+                    <span class="text-danger">Product is required</span>
+                    }
+            </div>
+            @if(selectedProduct?.isState) {
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">State</label>
+                    <ngx-select-dropdown place [config]="config" [options]="stateList" formControlName="stateId" (change)="onChangeState($event)">
+                    </ngx-select-dropdown>
+                </div>
+            }
+            @if(selectedProduct?.isPlan){
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Plan</label>
+                    <ngx-select-dropdown place [config]="config" [options]="planList" formControlName="planId">
+                    </ngx-select-dropdown>
+                    @if(selectedProduct?.isState && !placeOrderForm.get('stateId')?.value) {
+                        <div class="text-info small mt-1">Please select a state first to see available plans</div>
+                      }
+                </div>
+            }
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Quanity</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" placeholder="Enter Quanity" formControlName="quantity" />
+                </div>
+                @if (placeOrderForm.get('quantity')?.invalid && placeOrderForm.get('quantity')?.touched) {
+                    <span class="text-danger">Quanity is required</span>
+                    }
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Remarks</label>
+                <textarea class="form-control" placeholder="Enter Remarks" rows="3" formControlName="remarks"></textarea>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(placeOrderForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

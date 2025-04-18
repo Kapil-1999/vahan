@@ -1,0 +1,121 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}} Sales Order</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="salesOrderForm">
+        <div class="_card white-bg">
+            <!-- Row 1: 3 Columns -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Date</label>
+                    <input type="date" class="form-control" placeholder="Enter Date" formControlName="date" />
+                    @if (salesOrderForm.get('date')?.invalid &&
+                    (salesOrderForm.get('date')?.dirty || salesOrderForm.get('date')?.touched)) {
+                    <span class="text-danger">Date is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">PO Number</label>
+                    <input type="text" class="form-control" placeholder="Enter PO Number" formControlName="poNumber" />
+                    @if (salesOrderForm.get('poNumber')?.invalid &&
+                    (salesOrderForm.get('poNumber')?.dirty || salesOrderForm.get('poNumber')?.touched)) {
+                    <span class="text-danger">PO Number is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Model</label>
+                    <ngx-select-dropdown [config]="config" [options]="productList" formControlName="model">
+                    </ngx-select-dropdown>
+
+                    @if (salesOrderForm.get('model')?.invalid &&
+                    (salesOrderForm.get('model')?.dirty || salesOrderForm.get('model')?.touched)) {
+                    <span class="text-danger">Model is Required</span>
+                    }
+                </div>
+
+            </div>
+
+            <!-- Row 2: 3 Columns -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Rate</label>
+                    <input type="number" class="form-control" placeholder="Enter Rate" formControlName="rate" />
+
+                    @if (salesOrderForm.get('rate')?.invalid &&
+                    (salesOrderForm.get('rate')?.dirty || salesOrderForm.get('rate')?.touched)) {
+                    <span class="text-danger">Rate is Required</span>
+                    }
+                </div>
+
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Quantity ( Bal :- {{balanceData || 0}} )</label>
+                    <input type="text" class="form-control" placeholder="Enter Quantity" formControlName="quantity"
+                        (input)="checkBalance($event)" />
+                    @if(isBalanceExceeded){
+                    <span class="text-danger">Balance not available</span>
+                    }
+                    @if (salesOrderForm.get('quantity')?.invalid &&
+                    (salesOrderForm.get('quantity')?.dirty || salesOrderForm.get('quantity')?.touched)) {
+                    <span class="text-danger">Quantity is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Tax</label>
+                    <input type="text" class="form-control" placeholder="Enter Tax" formControlName="tax" />
+                    @if (salesOrderForm.get('tax')?.invalid &&
+                    (salesOrderForm.get('tax')?.dirty || salesOrderForm.get('tax')?.touched)) {
+                    <span class="text-danger">Tax is Required</span>
+                    }
+                </div>
+            </div>
+
+            <!-- Row 3: 3 Columns -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Invoice No</label>
+                    <input type="text" class="form-control" placeholder="Enter Invoice No"
+                        formControlName="invoiceNo" />
+                    @if (salesOrderForm.get('invoiceNo')?.invalid &&
+                    (salesOrderForm.get('invoiceNo')?.dirty || salesOrderForm.get('invoiceNo')?.touched)) {
+                    <span class="text-danger">Invoice No is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Sales Manager</label>
+                    <ngx-select-dropdown [config]="config" formControlName="salesManager" [options]="salesManagerList">
+                    </ngx-select-dropdown> 
+                    @if (salesOrderForm.get('salesManager')?.invalid &&
+                    (salesOrderForm.get('salesManager')?.dirty || salesOrderForm.get('salesManager')?.touched)) {
+                    <span class="text-danger">Sales Manager is Required</span>
+                    }
+                </div>
+
+            </div>
+
+            <!-- Row 5: Address (Full Width) -->
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label class="form-label">Remarks</label>
+                    <textarea class="form-control" placeholder="Enter Remarks" formControlName="remarks"
+                        rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Buttons -->
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(salesOrderForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,118 @@
+<div class="card">
+    <div class="card-header">
+        <div class="header-part">
+            <span>Certificate List</span>
+            <div class="counting">
+                <span>
+                    {{ pagesize.count > 0 ? startValue : 0 }} -
+                    {{ pagesize.count > 0 ? lastValue : 0 }}
+                    OF {{ pagesize.count > 0 ? pagesize.count : 0 }} Certificate
+                </span>
+            </div>
+            @if (pagesize.count && pagesize.count > 0) {
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <pagination-controls id="cerId" [maxSize]="10" [responsive]="true" [nextLabel]="''"
+                        [previousLabel]="''" (pageChange)="onTablePageChange($event)">
+                    </pagination-controls>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="header-container flex flex-col sm:flex-row justify-between gap-4 pb-2">
+            <div class="left-section">
+                <div class="flex items-center justify-between sm:justify-start space-x-2">
+                    <label for="itemsPerPage" class="text-sm text-gray-700 whitespace-nowrap">Items per page:</label>
+                    <select id="itemsPerPage"
+                        class="block w-20 p-2 bg-white border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
+                        [(ngModel)]="pagesize.limit" (change)="onPageSizeChange($event)">
+                        @for (size of [25, 50, 100]; track $index) {
+                        <option [value]="size">{{ size }}</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="right-section flex flex-col sm:flex-row gap-4 sm:gap-x-2 w-full sm:w-auto">                
+                <ngx-select-dropdown class="whitespace-nowrap text-sm p-2 md:w-full lg:w-[250px] sm:w-full"
+                    [config]="config" [options]="manuFactDrop" [ngModel]="selectManu" [disabled]="this.userDetails?.RoleId == '6'"
+                    (change)="onChangeManufacturer($event)">
+                </ngx-select-dropdown>
+                    @if(this.userDetails?.RoleId !== "6") {
+                        <button (click)="onUploadCertificate('')" [disabled]="!selectManu"                      
+                            class="!btn !btn-primary bg-[#696cff] hover:bg-[#787bff] text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 w-full sm:w-auto">
+                            <i class="fa fa-upload" aria-hidden="true"></i> Upload Certificate
+                        </button>
+                    }
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="overflow-auto">
+                    <div id="datatable_wrapper">
+                        @if(isLoading) {
+                            <app-loader />
+                        } @else {
+                            <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline"
+                                role="grid" aria-describedby="datatable_info" style="width: 100%" width="100%">
+                                <thead>
+                                    <tr role="row">
+                                        @for (vehicleHeading of columns; track $index) {
+                                        <th>
+                                            <span>{{ vehicleHeading?.title }}</span>
+                                        </th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (item of certificateList | paginate: {id: 'cerId',
+                                    itemsPerPage: pagesize.limit, currentPage: pagesize.offset, totalItems:
+                                    pagesize.count}; track $index) {
+                                    <tr>
+                                        <td>{{ (pagesize.offset - 1) * pagesize.limit + $index + 1 }}</td>
+                                        <td>{{item?.pk_emp_name || 'NA'}}</td>
+                                        <td>{{item?.pk_product_name || 'NA'}}</td>
+                                        <td>{{item?.pk_issueby_name || 'NA'}}</td>
+                                        <td>
+                                            <img *ngIf="item?.certificate1_path != '#'" src="images/pdf-icon.png"
+                                                alt="PDF Icon" style="cursor: pointer; width: 30px; height: 30px;" (click)="openPdf(item?.certificate1_path)"/>
+                                            <span *ngIf="item?.certificate1_path == '#'">#</span>
+                                        </td>
+                                        <td>{{ item?.from_date1 ? (item.from_date1 | date:'dd/MM/yyyy') : 'N/A' }}</td>
+                                        <td>{{item?.expiry_date1 ? (item?.expiry_date1 | date:'dd/MM/yyyy') : 'N/A'  }}</td>
+                                        <td>
+                                            <img *ngIf="item?.certificate2_path != '#'" src="images/pdf-icon.png"
+                                                alt="PDF Icon" style="cursor: pointer; width: 30px; height: 30px;" (click)="openPdf(item?.certificate2_path)"/>
+                                            <span *ngIf="item?.certificate2_path == '#'">#</span>
+                                        </td>
+    
+                                        <td>{{ item?.from_date2 ? (item.from_date2 | date:'dd/MM/yyyy') : 'N/A' }}</td>
+                                        <td>{{ item?.expiry_date2 ? (item.expiry_date2 | date:'dd/MM/yyyy') : 'N/A' }}</td>
+                                        <td>{{ item?.createdDate ? (item.createdDate | date:'dd/MM/yyyy') : 'N/A' }}</td>
+                                        
+                                        <td class="flex !space-x-2">
+                                            <button class="btn btn-success" (click)="onUploadCertificate(item)">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                            <!-- <button class="btn btn-danger">
+                                                <i class="fa fa-trash"></i>
+                                            </button> -->
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+                @if(!certificateList?.length) {
+                    <div class="text-center py-4 text-gray-500">
+                        No Certificate Available
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

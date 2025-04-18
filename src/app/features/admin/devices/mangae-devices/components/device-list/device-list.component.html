@@ -1,0 +1,114 @@
+<div class="card">
+    <div class="card-header">
+        <div class="header-part">
+            <span>Device List</span>
+            <div class="counting">
+                <span>
+                    {{ pagesize.count > 0 ? startValue : 0 }} -
+                    {{ pagesize.count > 0 ? lastValue : 0 }}
+                    OF {{ pagesize.count > 0 ? pagesize.count : 0 }} Device
+                </span>
+            </div>
+            @if (pagesize.count && pagesize.count > 0) {
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <pagination-controls id="deviceId" [maxSize]="10" [responsive]="true" [nextLabel]="''"
+                        [previousLabel]="''" (pageChange)="onTablePageChange($event)">
+                    </pagination-controls>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="header-container flex flex-col sm:flex-row justify-between gap-4 py-2">
+            <div class="left-section">
+                <div class="flex items-center justify-between sm:justify-start space-x-2">
+                    <label for="itemsPerPage" class="text-sm text-gray-700 whitespace-nowrap">Items per page:</label>
+                    <select id="itemsPerPage"
+                        class="block w-20 p-2 bg-white border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
+                        [(ngModel)]="pagesize.limit" (change)="onPageSizeChange($event)">
+                        @for (size of [25, 50, 100]; track $index) {
+                        <option [value]="size">{{ size }}</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            @if(this.userDetails?.RoleId !== "2") {
+            <div class="right-section flex flex-col sm:flex-row gap-4 sm:gap-x-2 w-full sm:w-auto">
+                <ngx-select-dropdown [config]="config" [(ngModel)]="selectedManufacture" [options]="manuFacuturerList"
+                    (change)="onSelectManufacture($event)" class="lg:w-[250px] sm:w-full md:w-full"
+                    [disabled]="this.userDetails?.RoleId == '6'">
+                </ngx-select-dropdown>
+                @if(this.userDetails?.RoleId == "6") {
+                <button (click)="onAdddevice('')"
+                    class="!btn !btn-primary bg-[#696cff] hover:bg-[#787bff] text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 w-full sm:w-auto">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Create Device
+                </button>
+                }
+            </div>
+            }
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="overflow-auto">
+                    <div id="datatable_wrapper">
+                        @if (isLoading) {
+                        <app-loader />
+                        } @else {
+                        <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline"
+                            role="grid" #TABLE aria-describedby="datatable_info" style="width: 100%" width="100%">
+                            <thead>
+                                <tr role="row">
+                                    @for (vehicleHeading of columns; track $index) {
+                                    <th>
+                                        <span>{{ vehicleHeading?.title }}</span>
+                                    </th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (item of deviceList | paginate: {id: 'deviceId',
+                                itemsPerPage: pagesize.limit, currentPage: pagesize.offset, totalItems:
+                                pagesize.count}; track $index) {
+                                <tr>
+                                    <td>
+                                        {{ (pagesize.offset - 1) * pagesize.limit + $index + 1 }}
+                                    </td>
+                                    <td>{{item?.uid || 'NA'}}</td>
+                                    <td>{{item?.imei || 'NA'}}</td>
+                                    <td>{{item?.iccid || 'NA'}}</td>
+                                    <td>{{item?.vahan_sno || 'NA'}}</td>
+                                    <td>{{item?.integrator_name || 'NA' }}</td>
+                                    <td>{{item?.first_tsp || 'NA' }}</td>
+                                    <td>{{item?.first_sim || 'NA' }}</td>
+                                    <td>{{item?.second_tsp || 'NA' }}</td>
+                                    <td>{{item?.second_sim || 'NA' }}</td>
+                                    <td>{{item?.card_state || 'NA' }}</td>
+                                    <td>{{item?.card_status || 'NA' }}</td>
+                                    <td>{{item?.duration || 'NA' }}</td>
+                                    <td>{{(item?.activated_date | date:'dd/MM/yyyy') || 'NA'}}</td>
+                                    <td>{{(item?.valid_till_date | date:'dd/MM/yyyy') || 'NA'}}</td>
+                                    <td class="flex !space-x-2">
+                                        <button class="btn btn-info" (click)="getDeviceModify(item)"><i
+                                                class="fa fa-upload" aria-hidden="true"></i></button>
+                                    </td>
+
+
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                        }
+                    </div>
+                </div>
+                @if(!deviceList?.length) {
+                <div class="text-center py-4 text-gray-500">
+                    No Device Available
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

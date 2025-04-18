@@ -1,0 +1,55 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}} {{selectManu.text}}'s Deivce</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form action="" [formGroup]="stockForm">
+        <div class="row">
+            @if(!this.editData) {                
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Product </label>
+                    <ngx-select-dropdown place [config]="config" [options]="productList" formControlName="product">
+                    </ngx-select-dropdown>
+                    @if (stockForm.get('product')?.invalid && stockForm.get('product')?.touched) {
+                    <span class="text-danger">Product is required</span>
+                    }
+                </div>
+            }
+            <div class="col-md-6 mb-3">
+                <label class="form-label">UID</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Enter UID" formControlName="uid" />
+                </div>
+                @if (stockForm.get('uid')?.invalid && stockForm.get('uid')?.touched) {
+                    <span class="text-danger">UID is required</span>
+                    }
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">IMEI</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Enter IMEI" formControlName="imei"/>
+                </div>
+                @if (stockForm.get('imei')?.invalid && stockForm.get('imei')?.touched) {
+                    <span class="text-danger">IMEI is required</span>
+                    }
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">ICCID</label>
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" placeholder="Enter ICCID" formControlName="iccid"/>
+                </div>
+                @if (stockForm.get('iccid')?.invalid && stockForm.get('iccid')?.touched) {
+                    <span class="text-danger">ICCID is required</span>
+                    }
+            </div>
+        </div>
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(stockForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

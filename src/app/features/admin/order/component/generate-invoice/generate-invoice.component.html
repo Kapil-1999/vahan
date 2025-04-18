@@ -1,0 +1,99 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Billing</label>
+                <ngx-select-dropdown>
+                </ngx-select-dropdown>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Shipping Address</label>
+                <ngx-select-dropdown>
+                </ngx-select-dropdown>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Billing Date</label>
+                <input type="date" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="overflow-auto">
+                    <div id="datatable_wrapper">
+                        <table class="table table-striped nowrap" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>S.No.</th>
+                                    <th>Item Name</th>
+                                    <th>HSN</th>
+                                    <th>Request Qty</th>
+                                    <th>Sale Qty</th>
+                                    <th>Rate</th>
+                                    <th>Amount(₹)</th>
+                                    <th>Discount</th>
+                                    <th>Dis Amount(₹)</th>
+                                    <th>Total Amount(₹)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Sample Row 1 -->
+                                <tr>
+                                    <td>1</td>
+                                    <td>Stainless Steel Pipe</td>
+                                    <td><input class="form-control" type="text" value="7306" /></td>
+                                    <td>100</td>
+                                    <td><input class="form-control" type="number" value="95" /></td>
+                                    <td>1,250</td>
+                                    <td><input class="form-control" type="text" value="5%" /></td>
+                                    <td></td>
+                                    <td><input class="form-control" type="text" value="62.50" /></td>
+                                    <td><input class="form-control" type="text" value="1,187.50" /></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <h2>Tax Slab</h2>
+            </div>
+            <div class="col-md-12">
+                <div class="overflow-auto">
+                    <div id="datatable_wrapper">
+                        <table class="table table-striped nowrap" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>CGST</th>
+                                    <th>CGST Amount</th>
+                                    <th>SGST</th>
+                                    <th>SGST Amount</th>
+                                    <th>Total Tax</th>
+                                    <th>Net Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Sample Row 1 -->
+                                <tr>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 text-end">  
+                <button class="btn btn-primary"><i class="fa fa-plus pr-2" aria-hidden="true"></i>
+                     Add</button>
+              </div>
+        </div>
+    </div>
+</div>
