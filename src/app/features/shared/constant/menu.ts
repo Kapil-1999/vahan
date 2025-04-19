@@ -104,7 +104,8 @@ export const ADMIN_MENU = [
         iconPath: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
       }
     ]
-  }
+  },
+  
 ];
 
 export const MANUFACUTE_MENU = [
@@ -244,7 +245,6 @@ export const DISTRIBUTER_MENU = [
     iconPath: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
 
   },
-
   {
     id: 2,
     name: "Dealer",
@@ -273,6 +273,11 @@ export const DISTRIBUTER_MENU = [
           iconPath: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
 ,
   },
+  {
+    id: 6,
+    name: "Shipping Address",
+    path: "/admin/shipping-address/shipping-details",
+    iconPath: "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"  },
 ];
 
 export const DEALER_MENU = [
@@ -290,5 +295,10 @@ export const DEALER_MENU = [
     path: "user/geofacne/list-geofence",
     iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
     ,
-  }
+  },
+  {
+    id: 6,
+    name: "Shipping Address",
+    path: "/admin/shipping-address/shipping-details",
+    iconPath: "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"  },
 ];
