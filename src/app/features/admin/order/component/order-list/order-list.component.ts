@@ -68,7 +68,7 @@ export class OrderListComponent {
   getOrderDashboardData() {
     this.isLoading = true;
     let payload = {
-      "request_by": this.userDetails?.RoleId == '6' || this.userDetails?.RoleId == '1' ? 0 : Number(this.userDetails?.Id),
+      "request_by":  Number(this.userDetails?.Id),
       "status_id": this.statusType
     }
     this.orderService.orderDashboard(payload).subscribe((res: any) => {
