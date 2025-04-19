@@ -297,10 +297,10 @@ export class GenerateInvoiceComponent {
       this.orderForm.markAllAsTouched();
       return;
     }
-    // if(this.netAmt === 0) {
-    //   this.notificationService.showInfo('Please calculate taxes first');
-    //   return; 
-    // }
+    if(this.netAmt === 0) {
+      this.notificationService.showInfo('Please calculate taxes first');
+      return; 
+    }
     this.orderForm.get('hsn')?.enable();
     this.orderForm.get('reqQty')?.enable();
     this.orderForm.get('saleQty')?.enable();
@@ -346,7 +346,9 @@ export class GenerateInvoiceComponent {
     this.orderService.generateInvoice(payload).subscribe((res: any) => {
      if(res?.status === 200) {
       this.notificationService.showSuccess(res?.body?.actionResponse);
-      this.router.navigate(['/admin/orders/order-details']);
+      setTimeout(() => {        
+        this.router.navigate(['/admin/orders/order-details']);
+      }, 2000);
      } else {
       this.notificationService.showError(res?.body?.actionResponse);
      }
