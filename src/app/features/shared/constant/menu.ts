@@ -70,39 +70,58 @@ export const ADMIN_MENU = [
       {
         id: 701,
         name: "Backend",
-        path: "/admin/backend/backend-list",
+        path: "/admin/masters/backend-list",
         iconPath: "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"
       },
       {
         id: 702,
         name: "States",
-        path: "/admin/state/state-list",
+        path: "/admin/masters/state-list",
         iconPath: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
       },
       {
         id: 703,
         name: "RTO",
-        path: "/admin/rto/rto-page",
+        path: "/admin/masters/rto-list",
         iconPath: "M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
       },
       {
         id: 704,
         name: "Product",
-        path: "/admin/product/product-page",
+        path: "/admin/masters/product-list",
         iconPath: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
       },
       {
         id: 705,
         name: "Authority",
-        path: "/admin/authority/authority-page",
+        path: "/admin/masters/authority-list",
         iconPath: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
       },
       {
         id: 706,
+        name: "Authority Plan",
+        path: "/admin/masters/authority-plan-list",
+        iconPath: "M12 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z M12 6v3 M12 9l-6 2 M12 9v2 M12 9l6 2 M6 11a2 2 0 1 0 0 4 2 2 0 0 0 0-4z M12 11a2 2 0 1 0 0 4 2 2 0 0 0 0-4z M18 11a2 2 0 1 0 0 4 2 2 0 0 0 0-4z M6 15v2 M12 15v2 M18 15v2 M6 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z M12 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z M18 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"
+      },
+      {
+        id: 707,
         name: "City",
-        path: "/admin/city/city-list",
+        path: "/admin/masters/city-list",
         iconPath: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-      }
+      },
+      {
+        id: 708,
+        name: "Category",
+        path: "/admin/masters/category-list",
+        iconPath: "M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zM4 10h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 16h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z"
+      },
+      {
+        id: 709,
+        name: "Sub Category",
+        path: "/admin/masters/sub-category-list",
+        iconPath: "M4 6h2v2H4V6zm4 0h12v2H8V6zM4 11h2v2H4v-2zm4 0h8v2H8v-2zM4 16h2v2H4v-2zm4 0h6v2H8v-2z"
+      },
+     
     ]
   }
 ];
@@ -193,37 +212,37 @@ export const MANUFACUTE_MENU = [
       {
         id: 701,
         name: "Backend",
-        path: "/admin/backend/backend-list",
+        path: "/admin/masters/backend-list",
         iconPath: "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"
       },
       {
         id: 702,
         name: "States",
-        path: "/admin/state/state-list",
+        path: "/admin/masters/state-list",
         iconPath: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
       },
       {
         id: 703,
         name: "RTO",
-        path: "/admin/rto/rto-page",
+        path: "/admin/masters/rto-list",
         iconPath: "M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
       },
       {
         id: 704,
         name: "Product",
-        path: "/admin/product/product-page",
+        path: "/admin/masters/product-list",
         iconPath: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
       },
       {
         id: 705,
         name: "Authority",
-        path: "/admin/authority/authority-page",
+        path: "/admin/masters/authority-list",
         iconPath: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
       },
       {
         id: 706,
         name: "City",
-        path: "/admin/city/city-list",
+        path: "/admin/masters/city-list",
         iconPath: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
       }
     ]

@@ -1,0 +1,33 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}} Backend</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="backendForm">
+        <div class="_card white-bg">
+            <!-- Row 1: 3 Columns -->
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label class="form-label">Backend Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Backend Name"
+                        formControlName="backendName" />
+                    @if (backendForm.get('backendName')?.invalid &&
+                    (backendForm.get('backendName')?.dirty || backendForm.get('backendName')?.touched)) {
+                    <span class="text-danger">Backend Name is Required</span>
+                    }
+                </div>
+                  
+            </div>
+        </div>
+
+        <!-- Footer Buttons -->
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(backendForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
