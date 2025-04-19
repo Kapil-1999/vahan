@@ -48,6 +48,7 @@ export const API_CONSTANT = {
     requestById : 'Request/GetRequestById',
     shippingAdderss : 'Shipping/GetShippingAddressList',
     interIntraStatus :'Request/GetInterIntraStatusById',
-    deviceVahanList :"Device/GetVahanDeviceList"
+    deviceVahanList :"Device/GetVahanDeviceList",
+    generateInvoice:'Billing/GenerateInvoice'
 
 }
