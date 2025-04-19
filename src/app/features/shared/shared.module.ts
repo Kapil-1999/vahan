@@ -20,6 +20,7 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { DeleteConfirmationComponent } from './component/delete-confirmation/delete-confirmation.component';
 
 
 
@@ -33,7 +34,8 @@ import { MatIconModule } from '@angular/material/icon';
     PageNotFoundComponent,
     LoaderComponent,
     SearchFilterPipe,
-    ProfileComponent
+    ProfileComponent,
+    DeleteConfirmationComponent
   ],
   imports: [
     CommonModule,
@@ -65,7 +67,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatMenuModule,
     MatNativeDateModule,
-    MatIconModule
+    MatIconModule,
+    DeleteConfirmationComponent
   ]
 })
 export class SharedModule { }

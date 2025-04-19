@@ -29,6 +29,10 @@ const routes: Routes = [
   {
     path : 'orders',
     loadChildren: () => import('../admin/order/order.module').then(m => m.OrderModule)
+  },
+  {
+   path : "shipping-address",
+   loadChildren: () => import('../admin/shipping-address/shipping-address.module').then(m => m.ShippingAddressModule) 
   }
 
 ];

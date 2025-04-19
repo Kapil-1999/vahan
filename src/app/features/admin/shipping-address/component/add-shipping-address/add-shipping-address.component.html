@@ -1,0 +1,97 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}} Shipping</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="shippingForm">
+        <div class="_card white-bg">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Organization Name</label>
+                    <input type="text" class="form-control" formControlName="orgName"
+                        placeholder="Enter Organization Name" />
+                    @if (shippingForm.get('orgName')?.invalid &&
+                    (shippingForm.get('orgName')?.dirty || shippingForm.get('orgName')?.touched)) {
+                    <span class="text-danger">Organization Name is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Contact Person Name</label>
+                    <input type="text" class="form-control" formControlName="name"
+                        placeholder="Enter Contact Person Name" />
+                    @if (shippingForm.get('name')?.invalid &&
+                    (shippingForm.get('name')?.dirty || shippingForm.get('name')?.touched)) {
+                    <span class="text-danger">Contact Person Name is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Contact Person Email</label>
+                    <input type="email" class="form-control" formControlName="email" placeholder="Enter Email" />
+                    @if (shippingForm.get('email')?.touched || shippingForm.get('email')?.dirty) {
+                    @if (shippingForm.get('email')?.hasError('required')) {
+                    <span class="text-danger">Contact Person Email is required</span>
+                    } @else if (shippingForm.get('email')?.hasError('email')) {
+                    <span class="text-danger">Please enter a valid email address</span>
+                    }
+                    }
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Contact Person Mobile</label>
+                    <input type="number" class="form-control" formControlName="mobileNo"
+                        placeholder="Enter Mobile Number" />
+                    @if (shippingForm.get('mobileNo')?.touched || shippingForm.get('mobileNo')?.dirty) {
+                    @if (shippingForm.get('mobileNo')?.hasError('required')) {
+                    <span class="text-danger">Contact Person Mobile is required</span>
+                    } @else if (shippingForm.get('mobileNo')?.hasError('pattern')) {
+                    <span class="text-danger">Please enter a valid 10-digit mobile number</span>
+                    }
+                    }
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">State</label>
+                    <ngx-select-dropdown [config]="config" formControlName="state" [options]="stateData"
+                        (change)="onSelectState($event)">
+                    </ngx-select-dropdown>
+                    @if (shippingForm.get('state')?.invalid &&
+                    (shippingForm.get('state')?.dirty || shippingForm.get('state')?.touched)) {
+                    <span class="text-danger">State is Required</span>
+                    }
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">City</label>
+                    <ngx-select-dropdown [config]="config" formControlName="city" [options]="cityData">
+                    </ngx-select-dropdown>
+                    @if (shippingForm.get('city')?.invalid &&
+                    (shippingForm.get('city')?.dirty || shippingForm.get('city')?.touched)) {
+                    <span class="text-danger">City is Required</span>
+                    }
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Pincode</label>
+                    <input type="text" class="form-control" formControlName="pincode" placeholder="Enter Pincode" />
+                    @if (shippingForm.get('pincode')?.invalid &&
+                    (shippingForm.get('pincode')?.dirty || shippingForm.get('pincode')?.touched)) {
+                    <span class="text-danger">Pincode is Required</span>
+                    }
+                </div>
+                <div class="col-md-8 mb-3">
+                    <label class="form-label">Address</label>
+                    <textarea class="form-control" formControlName="address" placeholder="Enter Address"
+                        rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Buttons -->
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(shippingForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
