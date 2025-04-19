@@ -33,6 +33,10 @@ const routes: Routes = [
   {
     path : 'masters',
     loadChildren: () => import('../admin/master/master.module').then(m => m.MasterModule)
+  },
+  {
+   path : "shipping-address",
+   loadChildren: () => import('../admin/shipping-address/shipping-address.module').then(m => m.ShippingAddressModule) 
   }
 
 ];

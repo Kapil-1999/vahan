@@ -66,11 +66,13 @@ export class OrderListComponent {
   }
 
   getOrderDashboardData() {
+    this.isLoading = true;
     let payload = {
-      "request_by": this.userDetails?.RoleId == '6' || this.userDetails?.RoleId == '1' ? 0 : Number(this.userDetails?.Id),
+      "request_by":  Number(this.userDetails?.Id),
       "status_id": this.statusType
     }
     this.orderService.orderDashboard(payload).subscribe((res: any) => {
+      this.isLoading = false;
       this.orderDashData = res?.body?.result || {};
       this.pagesize.count = this.orderDashData?.requestList?.length;
     })
@@ -130,12 +132,13 @@ export class OrderListComponent {
   }
 
   generateInvoice(item: any) {
-    if (!item?.pk_request_id) {
-      console.error('Missing request ID', item);
-      return;
-    }
-
-    this.router.navigate(['/admin/orders/order-details', item.pk_request_id])
+      if (!item?.pk_request_id) {
+        console.error('Missing request ID', item);
+        return;
+      }
+  
+      this.router.navigate(
+      ['/admin/orders/order-details', item.pk_request_id, item.created_by]);
   }
 
   processOrder(item: any) {

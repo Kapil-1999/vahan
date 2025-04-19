@@ -8,7 +8,7 @@ const routes: Routes = [
     path : 'order-details' , component :ManageOrderComponent
   },
   {
-    path : 'order-details/:id', component : GenerateInvoiceComponent
+    path : 'order-details/:id/:createdBy', component : GenerateInvoiceComponent
   }
 ];
 

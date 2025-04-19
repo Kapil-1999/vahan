@@ -7,6 +7,7 @@ import { OrderListComponent } from './component/order-list/order-list.component'
 import { SharedModule } from '../../shared/shared.module';
 import { PlaceOrderRequestComponent } from './component/place-order-request/place-order-request.component';
 import { GenerateInvoiceComponent } from './component/generate-invoice/generate-invoice.component';
+import { VahanDeviceDropdownComponent } from './component/vahan-device-dropdown/vahan-device-dropdown.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { GenerateInvoiceComponent } from './component/generate-invoice/generate-
     ManageOrderComponent,
     OrderListComponent,
     PlaceOrderRequestComponent,
-    GenerateInvoiceComponent
+    GenerateInvoiceComponent,
+    VahanDeviceDropdownComponent
   ],
   imports: [
     CommonModule,

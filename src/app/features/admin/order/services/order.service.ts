@@ -33,4 +33,41 @@ export class OrderService {
      .post(url, payload)
      .pipe(catchError((error: HttpErrorResponse) => of(error))); 
   }
+
+  requestById(payload: any): Observable<any> {
+    let url = API_CONSTANT.requestById
+    return this.apiService
+     .post(url, payload)
+     .pipe(catchError((error: HttpErrorResponse) => of(error))); 
+  }
+
+  shippingAdderss(payload: any): Observable<any> {
+    let url = API_CONSTANT.shippingAdderss
+    return this.apiService
+     .post(url, payload)
+     .pipe(catchError((error: HttpErrorResponse) => of(error))); 
+  }
+
+  interIntraStatus(payload: any): Observable<any> {
+    let url = API_CONSTANT.interIntraStatus
+    return this.apiService
+     .post(url, payload)
+     .pipe(catchError((error: HttpErrorResponse) => of(error))); 
+  }
+
+  deviceVahanList(payload: any): Observable<any> {
+    let url = API_CONSTANT.deviceVahanList
+    return this.apiService
+     .post(url, payload)
+     .pipe(catchError((error: HttpErrorResponse) => of(error))); 
+  }
+
+  generateInvoice(payload: any): Observable<any> {
+    let url = API_CONSTANT.generateInvoice
+    return this.apiService
+     .post(url, payload)
+     .pipe(catchError((error: HttpErrorResponse) => of(error))); 
+  }
+
+
 }

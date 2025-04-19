@@ -10,7 +10,7 @@
             <!-- Product Dropdown -->
             <div class="col-md-6 mb-3">
                 <label class="form-label">Product</label>
-                <ngx-select-dropdown place [config]="config" [options]="productList" formControlName="product">
+                <ngx-select-dropdown  [config]="config" [options]="productList" formControlName="product">
                 </ngx-select-dropdown>
                 @if (certificateForm.get('product')?.invalid && certificateForm.get('product')?.touched) {
                 <span class="text-danger">Product is required</span>
@@ -20,7 +20,7 @@
             <!-- Authority Dropdown -->
             <div class="col-md-6 mb-3">
                 <label class="form-label">Authority</label>
-                <ngx-select-dropdown place [config]="config" [options]="authorityList" formControlName="authority">
+                <ngx-select-dropdown  [config]="config" [options]="authorityList" formControlName="authority">
                 </ngx-select-dropdown>
                 @if (certificateForm.get('authority')?.invalid && certificateForm.get('authority')?.touched) {
                 <span class="text-danger">Authority is required</span>

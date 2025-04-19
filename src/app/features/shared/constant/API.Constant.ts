@@ -68,5 +68,15 @@ export const API_CONSTANT = {
     subCategoryList:'DeviceSubCategory/GetDeviceSubCategoryList',
     createSubCategory:'DeviceSubCategory/AddDeviceSubCategoryData',
     updateSubCategory:'DeviceSubCategory/UpdateDeviceSubCategoryData',
-    gstList:'GST/GetGSTList'
+    gstList:'GST/GetGSTList',
+    requestById : 'Request/GetRequestById',
+    shippingAdderss : 'Shipping/GetShippingAddressList',
+    interIntraStatus :'Request/GetInterIntraStatusById',
+    deviceVahanList :"Device/GetVahanDeviceList",
+    generateInvoice:'Billing/GenerateInvoice',
+    shippingList :'Shipping/GetShippingAddressList',
+    addShippingAddress :'Shipping/AddShippingAddress',
+    updateShippingAddress :'Shipping/UpdateShippingAddress',
+    deleteShippingAddress :'Shipping/DeleteShippingAddress',
+
 }
