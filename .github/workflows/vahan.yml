@@ -42,14 +42,11 @@ jobs:
         run: |
           echo "Connecting to FTP: $FTP_HOST:$FTP_PORT"
           lftp -c "
-            set ftp:charset utf8;
-            set ftp:passive-mode true;
-            set ftp:ssl-allow no;
-            set mirror:set-permissions false;
-            set xfer:clobber on;
-            open -u $FTP_USER,$FTP_PASSWORD -p $FTP_PORT $FTP_HOST;
-            mkdir -p '$FTP_REMOTE_DIR';
-            mirror --no-perms --no-umask --reverse --verbose --ignore-time --only-newer --continue ./artifacts/ '$FTP_REMOTE_DIR';
-          "
-
-          name: Node.js CI and FTP Deployment
+          set ftp:charset utf8;
+          set ftp:passive-mode true;
+          set ftp:ssl-allow no;
+          set mirror:set-permissions false;
+          set xfer:clobber on;
+          open -u $FTP_USER,$FTP_PASSWORD -p $FTP_PORT $FTP_HOST;
+          mirror --no-perms --no-umask --reverse --verbose --ignore-time --only-newer --continue ./artifacts/ '$FTP_REMOTE_DIR';
+        "
