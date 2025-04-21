@@ -48,7 +48,6 @@ jobs:
             set mirror:set-permissions false;
             set xfer:clobber on;
             open -u $FTP_USER,$FTP_PASSWORD -p $FTP_PORT $FTP_HOST;
-            # Try to make the dir, ignore errors
-            try mkdir '$FTP_REMOTE_DIR';
+            mkdir -p '$FTP_REMOTE_DIR';
             mirror --no-perms --no-umask --reverse --verbose --ignore-time --only-newer --continue ./artifacts/ '$FTP_REMOTE_DIR';
           "
