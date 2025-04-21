@@ -36,6 +36,9 @@ import { ManageServiceComponent } from './service-master/pages/manage-service/ma
 import { ServiceListComponent } from './service-master/components/service-list/service-list.component';
 import { CreateServiceComponent } from './service-master/components/create-service/create-service.component';
 import { SharedModule } from '../../shared/shared.module';
+import { ManageHsnComponent } from './hsn-master/pages/manage-hsn/manage-hsn.component';
+import { HsnListComponent } from './hsn-master/compoents/hsn-list/hsn-list.component';
+import { CreateHsnComponent } from './hsn-master/compoents/create-hsn/create-hsn.component';
 
 
 @NgModule({
@@ -72,7 +75,10 @@ import { SharedModule } from '../../shared/shared.module';
     CreateComplainComponent,
     ManageServiceComponent,
     ServiceListComponent,
-    CreateServiceComponent
+    CreateServiceComponent,
+    ManageHsnComponent,
+    HsnListComponent,
+    CreateHsnComponent
   ],
   imports: [
     CommonModule,

@@ -78,5 +78,13 @@ export const API_CONSTANT = {
     addShippingAddress :'Shipping/AddShippingAddress',
     updateShippingAddress :'Shipping/UpdateShippingAddress',
     deleteShippingAddress :'Shipping/DeleteShippingAddress',
-
+    hsnList:'GST/GetGSTList',
+    addHsn:'GST/CreateGST',
+    updateHsn:'GST/UpdateGST',
+    complainList:'Compliant/GetDeviceComplaintList',
+    addComplain:'Compliant/AddDeviceComplaint',
+    updateComplain:'Compliant/UpdateDeviceComplaint',
+    serviceList:'Service/GetDeviceServiceList',
+    createService:'Service/AddDeviceService',
+    updateService:'Service/UpdateDeviceService'
 }

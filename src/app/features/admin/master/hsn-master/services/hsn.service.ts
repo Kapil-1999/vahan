@@ -1,32 +1,32 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
-import { ApiService } from '../../../../shared/http-service/api.service';
 import { API_CONSTANT } from '../../../../shared/constant/API.Constant';
+import { ApiService } from '../../../../shared/http-service/api.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ComplainService {
+export class HsnService {
 
   constructor(private apiService: ApiService) { }
-  
-    complainList(): Observable<any> {
-      let url = API_CONSTANT.complainList
+
+  hsnList(): Observable<any> {
+      let url = API_CONSTANT.hsnList
       return this.apiService
         .get(url)
         .pipe(catchError((error: HttpErrorResponse) => of(error)));
     }
   
-    addComplain(payload: any): Observable<any> {
-      let url = API_CONSTANT.addComplain
+    addHsn(payload: any): Observable<any> {
+      let url = API_CONSTANT.addHsn
       return this.apiService
         .post(url, payload)
         .pipe(catchError((error: HttpErrorResponse) => of(error)));
     }
   
-    updateComplain(payload: any): Observable<any> {
-      let url = API_CONSTANT.updateComplain
+    updateHsn(payload: any): Observable<any> {
+      let url = API_CONSTANT.updateHsn
       return this.apiService
         .post(url, payload)
         .pipe(catchError((error: HttpErrorResponse) => of(error)));

@@ -85,12 +85,12 @@ export const ADMIN_MENU = [
         path: "/admin/masters/rto-list",
         iconPath: "M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
       },
-      {
-        id: 704,
-        name: "Product",
-        path: "/admin/masters/product-list",
-        iconPath: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-      },
+      // {
+      //   id: 704,
+      //   name: "Product",
+      //   path: "/admin/masters/product-list",
+      //   iconPath: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+      // },
       {
         id: 705,
         name: "Authority",
@@ -111,16 +111,34 @@ export const ADMIN_MENU = [
       },
       {
         id: 708,
-        name: "Category",
+        name: "Product Type",
         path: "/admin/masters/category-list",
         iconPath: "M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zM4 10h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 16h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z"
       },
       {
         id: 709,
-        name: "Sub Category",
+        name: "Product",
         path: "/admin/masters/sub-category-list",
         iconPath: "M4 6h2v2H4V6zm4 0h12v2H8V6zM4 11h2v2H4v-2zm4 0h8v2H8v-2zM4 16h2v2H4v-2zm4 0h6v2H8v-2z"
       },
+      {
+        id: 709,
+        name: "HSN",
+        path: "/admin/masters/hsn-list",
+        iconPath: "M21 2H3v20l3-3 3 3 3-3 3 3 3-3 3 3V2zM19 16H5V4h14v12zM7 6h10v2H7V6zm0 4h10v2H7v-2z"
+      },
+      {
+        id: 710,
+        name: "Complain",
+        path: "/admin/masters/complain-list",
+        iconPath: "M12 2C6.48 2 2 6.03 2 11c0 2.08.79 3.99 2.11 5.5L2 22l5.63-2.36C9 20.25 10.47 20.5 12 20.5c5.52 0 10-4.03 10-9.5S17.52 2 12 2zm-1 5h2v5h-2V7zm0 6h2v2h-2v-2z"
+      },
+       {
+        id: 711,
+        name: "Service",
+        path: "/admin/masters/service-list",
+        iconPath: "M19.43 12.98c.04-.32.07-.66.07-1s-.03-.68-.07-1l2.11-1.65a.5.5 0 00.11-.64l-2-3.46a.5.5 0 00-.6-.22l-2.49 1a7.007 7.007 0 00-1.5-.87L14.5 2h-5l-.35 2.14c-.52.2-1.01.46-1.5.87l-2.49-1a.5.5 0 00-.6.22l-2 3.46a.5.5 0 00.11.64L4.57 10c-.04.32-.07.66-.07 1s.03.68.07 1l-2.11 1.65a.5.5 0 00-.11.64l2 3.46a.5.5 0 00.6.22l2.49-1c.49.41.98.67 1.5.87L9.5 22h5l.35-2.14c.52-.2 1.01-.46 1.5-.87l2.49 1a.5.5 0 00.6-.22l2-3.46a.5.5 0 00-.11-.64l-2.11-1.65zM12 15.5A3.5 3.5 0 1115.5 12 3.5 3.5 0 0112 15.5z"
+      }
      
     ]
   },
@@ -228,12 +246,12 @@ export const MANUFACUTE_MENU = [
         path: "/admin/masters/rto-list",
         iconPath: "M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
       },
-      {
-        id: 704,
-        name: "Product",
-        path: "/admin/masters/product-list",
-        iconPath: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-      },
+      // {
+      //   id: 704,
+      //   name: "Product",
+      //   path: "/admin/masters/product-list",
+      //   iconPath: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+      // },
       {
         id: 705,
         name: "Authority",
@@ -242,12 +260,50 @@ export const MANUFACUTE_MENU = [
       },
       {
         id: 706,
+        name: "Authority Plan",
+        path: "/admin/masters/authority-plan-list",
+        iconPath: "M12 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z M12 6v3 M12 9l-6 2 M12 9v2 M12 9l6 2 M6 11a2 2 0 1 0 0 4 2 2 0 0 0 0-4z M12 11a2 2 0 1 0 0 4 2 2 0 0 0 0-4z M18 11a2 2 0 1 0 0 4 2 2 0 0 0 0-4z M6 15v2 M12 15v2 M18 15v2 M6 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z M12 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z M18 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"
+      },
+      {
+        id: 707,
         name: "City",
         path: "/admin/masters/city-list",
         iconPath: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+      },
+      {
+        id: 708,
+        name: "Product Type",
+        path: "/admin/masters/category-list",
+        iconPath: "M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zM4 10h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 16h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z"
+      },
+      {
+        id: 709,
+        name: "Product",
+        path: "/admin/masters/sub-category-list",
+        iconPath: "M4 6h2v2H4V6zm4 0h12v2H8V6zM4 11h2v2H4v-2zm4 0h8v2H8v-2zM4 16h2v2H4v-2zm4 0h6v2H8v-2z"
+      },
+      {
+        id: 709,
+        name: "HSN",
+        path: "/admin/masters/hsn-list",
+        iconPath: "M21 2H3v20l3-3 3 3 3-3 3 3 3-3 3 3V2zM19 16H5V4h14v12zM7 6h10v2H7V6zm0 4h10v2H7v-2z"
+      },
+      {
+        id: 710,
+        name: "Complain",
+        path: "/admin/masters/complain-list",
+        iconPath: "M12 2C6.48 2 2 6.03 2 11c0 2.08.79 3.99 2.11 5.5L2 22l5.63-2.36C9 20.25 10.47 20.5 12 20.5c5.52 0 10-4.03 10-9.5S17.52 2 12 2zm-1 5h2v5h-2V7zm0 6h2v2h-2v-2z"
+      },
+       {
+        id: 711,
+        name: "Service",
+        path: "/admin/masters/service-list",
+        iconPath: "M19.43 12.98c.04-.32.07-.66.07-1s-.03-.68-.07-1l2.11-1.65a.5.5 0 00.11-.64l-2-3.46a.5.5 0 00-.6-.22l-2.49 1a7.007 7.007 0 00-1.5-.87L14.5 2h-5l-.35 2.14c-.52.2-1.01.46-1.5.87l-2.49-1a.5.5 0 00-.6.22l-2 3.46a.5.5 0 00.11.64L4.57 10c-.04.32-.07.66-.07 1s.03.68.07 1l-2.11 1.65a.5.5 0 00-.11.64l2 3.46a.5.5 0 00.6.22l2.49-1c.49.41.98.67 1.5.87L9.5 22h5l.35-2.14c.52-.2 1.01-.46 1.5-.87l2.49 1a.5.5 0 00.6-.22l2-3.46a.5.5 0 00-.11-.64l-2.11-1.65zM12 15.5A3.5 3.5 0 1115.5 12 3.5 3.5 0 0112 15.5z"
       }
+      
+     
     ]
-  }
+  },
 ];
 
 export const DISTRIBUTER_MENU = [

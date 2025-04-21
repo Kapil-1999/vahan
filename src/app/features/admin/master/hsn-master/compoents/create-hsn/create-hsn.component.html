@@ -1,0 +1,77 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}} HSN</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="hsnForm">
+        <div class="_card white-bg">
+            <!-- Row 1: 3 Columns -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">HSN Name</label>
+                    <input type="text" class="form-control" placeholder="Enter HSN Name" formControlName="hsnName" />
+                    @if (hsnForm.get('hsnName')?.invalid &&
+                    (hsnForm.get('hsnName')?.dirty || hsnForm.get('hsnName')?.touched)) {
+                    <span class="text-danger">HSN Name is Required</span>
+                    }
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">HSN Code</label>
+                    <input type="text" class="form-control" placeholder="Enter HSN Code" formControlName="hsnCode" />
+                    @if (hsnForm.get('hsnCode')?.invalid &&
+                    (hsnForm.get('hsnCode')?.dirty || hsnForm.get('hsnCode')?.touched)) {
+                    <span class="text-danger">HSN Code is Required</span>
+                    }
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">CGST</label>
+                    <input type="number" class="form-control" placeholder="Enter CGST" formControlName="cgst" />
+                    @if (hsnForm.get('cgst')?.invalid &&
+                    (hsnForm.get('cgst')?.dirty || hsnForm.get('cgst')?.touched)) {
+                    <span class="text-danger">CGST is Required</span>
+                    }
+                </div>
+
+            </div>
+
+                <!-- Row 2: 3 Columns -->
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">SGST</label>
+                        <input type="number" class="form-control" placeholder="Enter SGST" formControlName="sgst" />
+                        @if (hsnForm.get('sgst')?.invalid &&
+                        (hsnForm.get('sgst')?.dirty || hsnForm.get('sgst')?.touched)) {
+                        <span class="text-danger">SGST is Required</span>
+                        }
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">IGST</label>
+                        <input type="number" class="form-control" placeholder="IGST" formControlName="igst" [readonly]="true"/>
+                        @if (hsnForm.get('igst')?.invalid &&
+                        (hsnForm.get('igst')?.dirty || hsnForm.get('igst')?.touched)) {
+                        <span class="text-danger">IGST is Required</span>
+                        }
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Date</label>
+                        <input type="date" class="form-control" placeholder="Enter Date" formControlName="date" />
+                        @if (hsnForm.get('date')?.invalid &&
+                        (hsnForm.get('date')?.dirty || hsnForm.get('date')?.touched)) {
+                        <span class="text-danger">Date is Required</span>
+                        }
+                    </div>
+    
+                </div>
+        </div>
+
+        <!-- Footer Buttons -->
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(hsnForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

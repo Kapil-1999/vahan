@@ -1,18 +1,18 @@
 <div class="card">
     <div class="card-header">
         <div class="header-part">
-            <span>Category List</span>
+            <span>Product Type List</span>
             <div class="counting">
                 <span>
                     {{ pagesize.count > 0 ? startValue : 0 }} -
                     {{ pagesize.count > 0 ? lastValue : 0 }}
-                    OF {{ pagesize.count > 0 ? pagesize.count : 0 }} Category
+                    OF {{ pagesize.count > 0 ? pagesize.count : 0 }} Product Type
                 </span>
             </div>
             @if (pagesize.count && pagesize.count > 0) {
             <div class="row">
                 <div class="d-flex justify-content-center">
-                    <pagination-controls id="categoryId" [maxSize]="10" [responsive]="true" [nextLabel]="''"
+                    <pagination-controls id="productTypeId" [maxSize]="10" [responsive]="true" [nextLabel]="''"
                         [previousLabel]="''" (pageChange)="onTablePageChange($event)">
                     </pagination-controls>
                 </div>
@@ -36,7 +36,7 @@
             </div>
             <button (click)="onAddCategory('')"
                 class="!btn !btn-primary bg-[#696cff] hover:bg-[#787bff] text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 w-full sm:w-auto">
-                <i class="fa fa-plus" aria-hidden="true"></i> Create Category
+                <i class="fa fa-plus" aria-hidden="true"></i> Create Product Type
             </button>
 
         </div>
@@ -59,7 +59,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @for (item of categoryList | paginate: {id: 'categoryId',
+                                @for (item of categoryList | paginate: {id: 'productTypeId',
                                 itemsPerPage: pagesize.limit, currentPage: pagesize.offset, totalItems:
                                 pagesize.count}; track $index) {
                                 <tr>
@@ -83,7 +83,7 @@
                 </div>
                 @if(!categoryList?.length) {
                 <div class="text-center py-4 text-gray-500">
-                    No Category Available
+                    No Product Type Available
                 </div>
                 }
             </div>

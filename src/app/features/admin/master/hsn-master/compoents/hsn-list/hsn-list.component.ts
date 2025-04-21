@@ -1,26 +1,26 @@
 import { Component } from '@angular/core';
-import { ProductService } from '../../services/product.service';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { HsnService } from '../../services/hsn.service';
 import { CommonService } from '../../../../../shared/services/common.service';
-import { CreateProductComponent } from '../create-product/create-product.component';
+import { CreateHsnComponent } from '../create-hsn/create-hsn.component';
 
 @Component({
-  selector: 'app-product-list',
+  selector: 'app-hsn-list',
   standalone: false,
-  templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.scss'
+  templateUrl: './hsn-list.component.html',
+  styleUrl: './hsn-list.component.scss'
 })
-export class ProductListComponent {
-isLoading: boolean = false;
+export class HsnListComponent {
+ isLoading: boolean = false;
   pagesize = {
     limit: 25,
     offset: 1,
     count: 0,
   };
+  hsnList: any
   public columns!: any;
   bsModalRef!: BsModalRef;
   userDetails: any
-  productList: any;
   get startValue(): number {
     return this.pagesize.offset * this.pagesize.limit - (this.pagesize.limit - 1);
   }
@@ -30,7 +30,7 @@ isLoading: boolean = false;
   }
 
   constructor(
-    private ProductService: ProductService,
+    private hsnService: HsnService,
     private commonService: CommonService,
     private modalService: BsModalService
   ) {
@@ -41,38 +41,42 @@ isLoading: boolean = false;
 
   ngOnInit() {
     this.setInitialValue()
-    this.getProductlist()
+    this.getHsnList()
   }
 
   setInitialValue() {
     this.columns = [
       { key: 'S.No.', title: 'S.No.' },
-      { key: 'Product Name', title: 'Product Name' },
-      { key: 'Description', title: 'Description' },
+      { key: 'HSN Name', title: 'HSN Name' },
+      { key: 'Hsn Code', title: 'Hsn Code' },
+      { key: 'CGST', title: 'CGST' },
+      { key: 'sGST', title: 'SGST' },
+      { key: 'IGST', title: 'IGST' },
+      { key: 'Date', title: 'Date' },
       { key: 'Action', title: 'Action' }
-    
     ]
   }
 
-getProductlist(){
+  getHsnList(){
     this.isLoading =true
-    this.ProductService.productList().subscribe((res:any)=> {
+    this.hsnService.hsnList().subscribe((res:any)=> {
       this.isLoading =false
       if(res?.body?.isSuccess == true){
-        this.productList = res?.body?.result
-        this.pagesize.count = this.productList?.length
+        this.hsnList = res?.body?.result || []
+        this.pagesize.count = this.hsnList?.length
+
       }      
     })
   }
 
-  onAddProduct(value: any) {
+  onAddHsn(value: any) {
     const initialState: ModalOptions = {
       initialState: {
         editData: value ? value : '',
       },
     };
     this.bsModalRef = this.modalService.show(
-      CreateProductComponent,
+      CreateHsnComponent,
       Object.assign(initialState, {
         class: 'modal-lg modal-dialog-centered alert-popup',
       })
@@ -80,7 +84,7 @@ getProductlist(){
     this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {
       this.pagesize.offset = 1;
       this.pagesize.limit = 25;
-      this.getProductlist()
+      this.getHsnList()
     });
   }
 

@@ -11,6 +11,7 @@ import { ManageCategoryComponent } from './category-master/pages/manage-category
 import { ManageSubCategoryComponent } from './sub-category-master/pages/manage-sub-category/manage-sub-category.component';
 import { ManageComplainComponent } from './complain-master/pages/manage-complain/manage-complain.component';
 import { ManageServiceComponent } from './service-master/pages/manage-service/manage-service.component';
+import { ManageHsnComponent } from './hsn-master/pages/manage-hsn/manage-hsn.component';
 
 const routes: Routes = [
   {path:'backend-list',component:ManageBackendMasterComponent},
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path:'sub-category-list',component:ManageSubCategoryComponent},
   {path:'complain-list',component:ManageComplainComponent},
   {path:'service-list',component:ManageServiceComponent},
+  {path:'hsn-list',component:ManageHsnComponent},
 ];
 
 @NgModule({
