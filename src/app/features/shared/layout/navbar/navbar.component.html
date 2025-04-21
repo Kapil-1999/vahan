@@ -18,11 +18,11 @@
       @for(data of menu ; track data) {
         <li>
           <div [class.!cursor-pointer]="data.subNav?.length > 0"
-            [class.!bg-[#e7e7ff]]="isMenuSelected(data.name)"
-            [class.!text-[#696cff]]="isMenuSelected(data.name)"
+            [class.!bg-[#e7e7ff]]="isMenuSelected(data.name) || hasActiveChild(data.name)"
+            [class.!text-[#696cff]]="isMenuSelected(data.name)  || hasActiveChild(data.name)"
             [routerLink]="!data.subNav?.length ? data.path : null"
             [routerLinkActive]="!data.subNav?.length ? '!bg-[#e7e7ff] !text-[#696cff]' : ''"
-            (click)="data.subNav?.length > 0 ? toggleSubmenu(data.name) : null"
+            (click)="toggleSubmenu(data.name)"
             class="!flex !items-center !justify-between !px-4 !py-2.5 !mx-3 !rounded-lg !text-[#697a8d] hover:!bg-[#e7e7ff] hover:!text-[#696cff]">
             <div class="!flex !items-center">
               <svg class="!w-5 !h-5" [class.!mr-3]="!isSidebarCollapsed()" 

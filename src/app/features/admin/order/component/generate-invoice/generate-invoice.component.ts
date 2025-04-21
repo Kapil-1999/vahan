@@ -183,7 +183,7 @@ export class GenerateInvoiceComponent {
     this.bsModalRef = this.modalService.show(
       VahanDeviceDropdownComponent,
       Object.assign(initialState, {
-        class: 'modal-lg modal-dialog-centered alert-popup',
+        class: 'modal-xl modal-dialog-centered alert-popup',
       })
     );
 

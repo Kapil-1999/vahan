@@ -4,6 +4,7 @@ import { CommonService } from '../../../../../shared/services/common.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { NotificationService } from '../../../../../shared/services/notification.service';
 import { CertificateService } from '../../services/certificate.service';
+import { OrderService } from '../../../../order/services/order.service';
 
 @Component({
   selector: 'app-upload-certificate',
@@ -35,16 +36,15 @@ export class UploadCertificateComponent {
     private commonService : CommonService,
     private modalService : BsModalService,
     private NotificationService : NotificationService,
-    private certificateService : CertificateService
+    private certificateService : CertificateService,
+    private OrderService : OrderService,
   ) {
     this.commonService.getUserDetails().subscribe((res:any) => {
       this.userDetails = res
     })
   };
 
-  ngOnInit() {
-    console.log(this.editData);
-    
+  ngOnInit() {        
     this.setInitialForm();
     this.getProductList();
     this.getAuthorityList();
@@ -131,11 +131,14 @@ export class UploadCertificateComponent {
   
   // product dropdown
   getProductList() {
-    this.commonService.productList().subscribe((res: any) => {
+    let payload = {
+      fk_device_category_id: 0
+    }
+    this.OrderService.orderProductList(payload).subscribe((res: any) => {      
       if (res?.status == 200) {
         this.productList = res.body.result.map((item: any) => ({
-          value: item.productId,
-          text: item.product_Name
+          value: item.fk_device_category_id,
+          text: item.device_subcategory_name
         }));
 
         if (this.editData?.pk_product_id) {

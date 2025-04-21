@@ -77,10 +77,21 @@ export class NavbarComponent implements OnInit {
     if (this.isSidebarCollapsed()) {
       this.isSidebarCollapsed.set(false);
     }
-    this.openSubmenus.update(prev => ({
-      ...prev,
-      [menu]: !prev[menu]
-    }));
+  
+    this.openSubmenus.update(prev => {
+      const newState: Record<string, boolean> = {};
+      for (const key in prev) {
+        newState[key] = false;
+      }
+      newState[menu] = !prev[menu];
+      return newState;
+    });
+  
+    const menuItem = this.menu.find((m:any) => m.name === menu);
+    if (!menuItem?.subNav?.length) {
+      this.selectedMenu.set(menu);
+      this.selectedSubmenu.set('');
+    }
   }
 
   isSubmenuOpen(menu: string): boolean {
@@ -88,10 +99,27 @@ export class NavbarComponent implements OnInit {
   }
 
   isMenuSelected(menuId: string): boolean {
+  if (this.hasActiveChild(menuId)) return true;
     return this.selectedMenu() === menuId;
   }
 
   isSubmenuSelected(submenuId: string): boolean {
     return this.selectedSubmenu() === submenuId;
   }
+
+  hasActiveChild(menuName: string): boolean {
+    const menuItem = this.menu.find((m: any) => m.name === menuName);
+    if (!menuItem?.subNav) return false;
+    
+    return menuItem.subNav.some((subItem:any) => 
+      this.router.isActive(subItem.path, {
+        paths: 'exact',
+        queryParams: 'ignored',
+        fragment: 'ignored',
+        matrixParams: 'ignored'
+      })
+    );
+  }
+
+
 }

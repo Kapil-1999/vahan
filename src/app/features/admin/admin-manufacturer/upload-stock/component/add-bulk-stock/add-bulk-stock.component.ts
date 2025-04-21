@@ -49,8 +49,8 @@ export class AddBulkStockComponent {
     this.commonService.productList().subscribe((res: any) => {
       if (res?.status == 200) {
         this.productList = res.body.result.map((item: any) => ({
-          value: item.productId,
-          text: item.product_Name
+          value: item.fk_device_category_id,
+          text: item.device_subcategory_name
         }));
       }
     })
