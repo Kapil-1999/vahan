@@ -151,7 +151,7 @@
                 </div>
             </div>
             <div class="right-section flex flex-col sm:flex-row gap-4 sm:gap-x-2 w-full sm:w-auto">
-                @if(this.userDetails?.RoleId == "2") {
+                @if(this.userDetails?.RoleId == "2" || this.userDetails?.RoleId == "3") {
                 <button (click)="onPlaceOrder()"
                     class="!btn !btn-primary bg-[#696cff] hover:bg-[#787bff] text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 w-full sm:w-auto">
                     <i class="fa fa-upload" aria-hidden="true"></i> Place Order

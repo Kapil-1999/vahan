@@ -8,6 +8,7 @@ import { setToken, setUser } from '../../../../core/app.action';
 import { CommonService } from '../../services/common.service';
 import { NotificationService } from '../../services/notification.service';
 import { StorageService } from '../../services/storage.service';
+import { selectUser } from '../../../../core/app.selectors';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   isLoading = false;
   showPassword = false;
+  userDetails: any;
 
   constructor(
     private fb: FormBuilder,
@@ -33,15 +35,26 @@ export class LoginComponent {
       phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       password: ['', [Validators.required]]
     });
+    this.store.select(selectUser).subscribe((res: any) => {
+      this.userDetails = res;
+    })
   }
 
-  ngOnInit(): void {    
-   let token:any =  this.storageService.getToken();   
-   if(token){
-    this.router.navigate(['/admin/manufacturer/manufacturer-list']);
-   } else {
-    this.router.navigate(['/login']);
-   }
+  ngOnInit(): void {
+    let token:any =  this.storageService.getToken();   
+    console.log(token);
+    
+    if(token){     
+     if(this.userDetails.RoleId == '2' || this.userDetails.RoleId == '3') {
+       this.router.navigate(['/admin/orders/order-details']);
+       return; 
+     } else {
+       this.router.navigate(['/admin/manufacturer/manufacturer-list']);
+       return;
+     }
+    } else {
+     this.router.navigate(['/login']);
+    } 
   }
 
   togglePassword() {
@@ -68,7 +81,7 @@ export class LoginComponent {
         this.store.dispatch(setUser({ user: decodedToken }));
         this.NotificationService.successAlert('Login Successfully');
         setTimeout(() => {   
-          if(decodedToken.RoleId == '2') {
+          if(decodedToken.RoleId == '2' || decodedToken.RoleId == '3') {
             this.router.navigate(['/admin/orders/order-details']);
           } else {
             this.router.navigate(['/admin/manufacturer/manufacturer-list']);

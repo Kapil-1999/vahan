@@ -4,6 +4,7 @@ import { CommonService } from '../../../../../shared/services/common.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from '../../../../../shared/services/notification.service';
 import { StockService } from '../../services/stock.service';
+import { OrderService } from '../../../../order/services/order.service';
 
 @Component({
   selector: 'app-create-stock',
@@ -29,11 +30,12 @@ export class CreateStockComponent {
     private commonService : CommonService,
     private fb : FormBuilder,
     private NotificationService : NotificationService,
-    private stockService : StockService
+    private stockService : StockService,
+    private OrderService : OrderService
   ){}
 
   ngOnInit() {        
-    this.setInitialForm();
+    this.setInitialForm();    
     if(!this.editData) {
       this.getProductList();
     }
@@ -62,11 +64,14 @@ export class CreateStockComponent {
 
   // product dropdown
   getProductList() {
-    this.commonService.productList().subscribe((res: any) => {
+    let payload = {
+      fk_device_category_id: 0
+    }
+    this.OrderService.orderProductList(payload).subscribe((res: any) => {
       if (res?.status == 200) {
         this.productList = res.body.result.map((item: any) => ({
-          value: item.productId,
-          text: item.product_Name
+          value: item.fk_device_category_id,
+          text: item.device_subcategory_name
         }));
 
         if (this.editData) {

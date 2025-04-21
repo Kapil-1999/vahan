@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { CommonService } from '../../../../../shared/services/common.service';
 import { StockService } from '../../services/stock.service';
@@ -12,6 +12,7 @@ import { AddBulkStockComponent } from '../add-bulk-stock/add-bulk-stock.componen
   styleUrl: './stock-list.component.scss'
 })
 export class StockListComponent {
+  @ViewChild('dropdownWrapper', { static: false }) dropdownWrapperRef!: ElementRef;
   isLoading: boolean = false;
   pagesize = {
     limit: 25,
@@ -119,11 +120,21 @@ export class StockListComponent {
     this.pagesize.limit = selectedSize;
   }
 
+  
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const clickedInside = this.dropdownWrapperRef?.nativeElement.contains(event.target);
+    if (!clickedInside) {
+      this.isDropdownOpen = false;
+    }
+  }
+
   onSingleDevice(value: any) {
+    this.isDropdownOpen = false;
     const initialState: ModalOptions = {
       initialState: {
         editData: value ? value : '',
@@ -144,6 +155,7 @@ export class StockListComponent {
   }
 
   onBulkDevice() {
+    this.isDropdownOpen = false;
     const initialState: ModalOptions = {
       initialState: {
         selectManu: this.selectManu
