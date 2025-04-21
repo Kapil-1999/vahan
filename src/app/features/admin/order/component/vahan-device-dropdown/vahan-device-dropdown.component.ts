@@ -81,8 +81,8 @@ export class VahanDeviceDropdownComponent {
     .map((device: any) => device.device_id);  
   }
 
-  submit() {    
-    this.mapdata.emit(this.selectedCount);
+  submit() {            
+    this.mapdata.emit(this.selectedCount || []);
     this.modalService.hide()
   }
 
