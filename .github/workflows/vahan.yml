@@ -19,7 +19,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22.13.1'
-          cache: 'npm'  # Remove this if you don't want caching
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
@@ -36,7 +35,7 @@ jobs:
       - name: Install LFTP
         run: sudo apt-get update && sudo apt-get install -y lftp
 
-      - name: Deploy to FTP (with retries)
+      - name: Deploy to FTP
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
