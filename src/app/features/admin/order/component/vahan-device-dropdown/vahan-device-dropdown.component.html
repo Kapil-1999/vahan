@@ -39,11 +39,15 @@
                                        [checked]="row.isSelected" 
                                        (change)="toggleRowSelection(i)" [disabled]="!row.isSelected && selectedCount >= (editData?.qty || 10)">
                             </td>
-                            <td>{{row.manufactureName}}</td>
-                            <td>{{row.productName}}</td>
+                            <td>{{ i + 1 }}</td>
+                            <td>{{row.vahan_sno}}</td>
                             <td>{{row.uid}}</td>
                             <td>{{row.imei}}</td>
-                            <td>{{row.iccid}}</td>
+                            <td>{{row.first_sim}}</td>
+                            <td>{{row.second_sim}}</td>
+                            <td>{{row.card_status}}</td>
+                            <td>{{row.activated_date ? (row?.activated_date | date : 'yyyy-MM-dd') : 'yyyy-MM-dd'}}</td>
+                            <td>{{row.valid_till_date ? (row?.valid_till_date | date : 'yyyy-MM-dd') : 'yyyy-MM-dd'  }}</td>
                            </tr>
                         </tbody>
                     </table>

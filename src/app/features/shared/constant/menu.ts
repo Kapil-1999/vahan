@@ -19,7 +19,7 @@ export const ADMIN_MENU = [
       },
       {
         id: 10,
-        name: "Upload Stock",
+        name: "Upload Device",
         path: "/admin/manufacturer/stock-list",
         iconPath: "M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
       }
@@ -166,7 +166,7 @@ export const MANUFACUTE_MENU = [
       },
       {
         id: 10,
-        name: "Upload Stock",
+        name: "Upload Device",
         path: "/admin/manufacturer/stock-list",
         iconPath: "M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
       },
@@ -363,6 +363,12 @@ export const DEALER_MENU = [
     path: "/admin/dealer/dealer-list",
     iconPath: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
     ,
+  },
+  {
+    id: 8,
+    name: "Order",
+    path: "/admin/orders/order-details",
+    iconPath: "M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
   },
   {
     id: 2,

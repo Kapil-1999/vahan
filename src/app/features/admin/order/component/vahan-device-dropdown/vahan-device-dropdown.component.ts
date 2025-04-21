@@ -2,6 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { OrderService } from '../../services/order.service';
 import { CommonService } from '../../../../shared/services/common.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { DeviceService } from '../../../devices/mangae-devices/services/device.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-vahan-device-dropdown',
@@ -19,7 +21,7 @@ export class VahanDeviceDropdownComponent {
   selectedCount: number = 0;
 
   constructor(
-    private orderService: OrderService,
+    private DeviceService: DeviceService,
     private commonService: CommonService,
     private modalService: BsModalService
   ) {}
@@ -29,11 +31,16 @@ export class VahanDeviceDropdownComponent {
       this.userDetails = res;     
     })   
     this.columns = [
-      { key: 'Manufacture Name', title: 'Manufacture Name' },
-      { key: 'Product Name', title: 'Product Name' },
+      { key: 'S.No.', title: 'S.No.' },
+      {key : 'Vahan Sno', title : 'Vahan Sno'},
       { key: 'UID', title: 'UID' },
       { key: 'IMEI', title: 'IMEI' },
-      { key: 'ICCID', title: 'ICCID' },
+      { key: 'P Sim No.', title: 'P Sim No.' },
+      { key: 'S. SIM No', title: 'S. SIM No' },
+      { key: 'Card Status', title: 'Card Status' },
+      { key: 'Activation Date', title: 'Activation Date' },
+      { key: 'Valid Till', title: 'Valid Till' },
+
     ];
     this.getDeviceVahanList()
    
@@ -44,7 +51,7 @@ export class VahanDeviceDropdownComponent {
       "manufacturerId": Number(this.userDetails?.Id),
       "devicetypeId": (this.editData?.devicetypeId)
     }
-    this.orderService.deviceVahanList(payload).subscribe((res: any) => {
+    this.DeviceService.deviceList(payload).subscribe((res: any) => {
      this.vahanDeviceList =  res?.body?.result || [];
     })
   }
