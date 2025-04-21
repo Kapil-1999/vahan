@@ -1,0 +1,55 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}} RTO</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="rtoForm">
+        <div class="_card white-bg">
+            <!-- Row 1: 3 Columns -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">RTO Code</label>
+                    <input type="text" class="form-control" placeholder="Enter RTO Code"
+                        formControlName="rtoCode" />
+                    @if (rtoForm.get('rtoCode')?.invalid &&
+                    (rtoForm.get('rtoCode')?.dirty || rtoForm.get('rtoCode')?.touched)) {
+                    <span class="text-danger">RTO Code is Required</span>
+                    }
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">RTO Name</label>
+                    <input type="text" class="form-control" placeholder="Enter RTO Name"
+                        formControlName="rtoName" />
+                    @if (rtoForm.get('rtoName')?.invalid &&
+                    (rtoForm.get('rtoName')?.dirty || rtoForm.get('rtoName')?.touched)) {
+                    <span class="text-danger">RTO Name is Required</span>
+                    }
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">State</label>
+                    <!-- <ngx-select-dropdown [config]="config" formControlName="state" [options]="stateData">
+                    </ngx-select-dropdown> -->
+
+                    <ngx-select-dropdown place [config]="config" [options]="stateListData"formControlName="stateName"
+                    >
+                </ngx-select-dropdown>
+                    @if (rtoForm.get('stateName')?.invalid &&
+                    (rtoForm.get('stateName')?.dirty || rtoForm.get('stateName')?.touched)) {
+                    <span class="text-danger">State is Required</span>
+                    }
+                </div>
+                  
+            </div>
+        </div>
+
+        <!-- Footer Buttons -->
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(rtoForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

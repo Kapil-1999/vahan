@@ -1,0 +1,63 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}} Authority Plan</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="authorityPlanForm">
+        <div class="_card white-bg">
+            <!-- Row 1: 3 Columns -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Plan Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Plan Name"
+                        formControlName="planName" />
+                    @if (authorityPlanForm.get('planName')?.invalid &&
+                    (authorityPlanForm.get('planName')?.dirty || authorityPlanForm.get('planName')?.touched)) {
+                    <span class="text-danger">Plan Name is Required</span>
+                    }
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Validity In Days</label>
+                    <input type="text" class="form-control" placeholder="Enter Validity In Days"
+                        formControlName="validityInDays" />
+                    @if (authorityPlanForm.get('validityInDays')?.invalid &&
+                    (authorityPlanForm.get('validityInDays')?.dirty || authorityPlanForm.get('validityInDays')?.touched)) {
+                    <span class="text-danger">Validity In Days is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Plan Price</label>
+                    <input type="text" class="form-control" placeholder="Enter Plan Price"
+                        formControlName="planRate" />
+                    @if (authorityPlanForm.get('planRate')?.invalid &&
+                    (authorityPlanForm.get('planRate')?.dirty || authorityPlanForm.get('planRate')?.touched)) {
+                    <span class="text-danger">Plan Price is Required</span>
+                    }
+                </div>
+
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Description</label>
+                    <input type="text" class="form-control" placeholder="Enter Description"
+                        formControlName="description" />
+                    @if (authorityPlanForm.get('description')?.invalid &&
+                    (authorityPlanForm.get('description')?.dirty || authorityPlanForm.get('description')?.touched)) {
+                    <span class="text-danger">Description is Required</span>
+                    }
+                </div>
+                  
+            </div>
+        </div>
+
+        <!-- Footer Buttons -->
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(authorityPlanForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

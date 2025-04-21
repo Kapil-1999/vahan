@@ -118,5 +118,21 @@ export class CommonService {
       .post(url, payload)
       .pipe(catchError((error: HttpErrorResponse) => of(error)));
   }
+  
+  categoryList(): Observable<any> {
+    let url = API_CONSTANT.categoryList
+    return this.apiService
+      .get(url)
+      .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
+  getGstList(): Observable<any> {
+    let url = API_CONSTANT.gstList
+    return this.apiService
+      .get(url)
+      .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
+
 
 }
