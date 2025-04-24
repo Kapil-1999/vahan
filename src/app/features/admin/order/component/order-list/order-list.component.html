@@ -183,12 +183,12 @@
                                         {{ (pagesize.offset - 1) * pagesize.limit + $index + 1 }}
                                     </td>
                                     <td>{{item?.created_date ? (item?.created_date | date: 'dd/MM/yyyy') : 'NA'}}</td>
-                                    <td>NA</td>
+                                    <td>{{item?.party_name}}
                                     <td>{{item?.subCategoryName}}</td>
                                     <td>{{item?.planName || 'NA'}}</td>
                                     <td>{{item?.state_name || 'NA' }}</td>
                                     <td>{{item?.request_qty || 'NA' }}</td>
-                                    <td>NA</td>
+                                    <td></td>
                                     <td>{{item?.remarks}}</td>
                                     <td>
                                         <button mat-icon-button [matMenuTriggerFor]="menu">

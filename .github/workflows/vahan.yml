@@ -1,6 +1,8 @@
+name: Node.js CI and FTP Deployment
+
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ] # Only run on push to main
 
 jobs:
   deploy:
@@ -14,7 +16,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22.13.1'
-          cache: 'npm'
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
@@ -31,7 +32,7 @@ jobs:
       - name: Install LFTP
         run: sudo apt-get update && sudo apt-get install -y lftp
 
-      - name: Deploy to FTP (with retries)
+      - name: Deploy to FTP
         env:
           FTP_HOST: ${{ secrets.FTP_HOST }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
@@ -40,15 +41,13 @@ jobs:
           FTP_REMOTE_DIR: ${{ secrets.FTP_REMOTE_DIR }}
         run: |
           echo "Connecting to FTP: $FTP_HOST:$FTP_PORT"
-          for i in {1..3}; do
-            lftp -c "
-              set ftp:charset utf8;
-              set ftp:passive-mode true;
-              set ftp:ssl-allow no;
-              set mirror:set-permissions false;
-              set xfer:clobber on;
-              open -u $FTP_USER,$FTP_PASSWORD -p $FTP_PORT $FTP_HOST;
-              mkdir -p '$FTP_REMOTE_DIR';
-              mirror --no-perms --no-umask --reverse --verbose --ignore-time --only-newer --continue ./artifacts/ '$FTP_REMOTE_DIR';
-            " && break || sleep 15
-          done
+          lftp -c "
+            set ftp:charset utf8;
+            set ftp:passive-mode true;
+            set ftp:ssl-allow no;
+            set mirror:set-permissions false;
+            set xfer:clobber on;
+            open -u $FTP_USER,$FTP_PASSWORD -p $FTP_PORT $FTP_HOST;
+            mkdir -p '$FTP_REMOTE_DIR';
+            mirror --no-perms --no-umask --reverse --verbose --ignore-time --only-newer --continue ./artifacts/ '$FTP_REMOTE_DIR';
+          "

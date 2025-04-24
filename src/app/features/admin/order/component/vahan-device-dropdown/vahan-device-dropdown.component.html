@@ -52,6 +52,11 @@
                         </tbody>
                     </table>
                 </div>
+                @if(!vahanDeviceList?.length) {
+                    <div class="text-center py-4 text-gray-500">
+                        No Device Available
+                    </div>
+                    }
             </div>
         </div>
     </div>

@@ -187,11 +187,13 @@ export class GenerateInvoiceComponent {
       })
     );
 
-    this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {
+    this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {    
+      console.log(val);
+        
       this.selectDeviceData = null;
       this.selectDeviceData = val;
       this.orderForm.patchValue({
-        saleQty: val?.length,
+        saleQty: val.length > 0 ?  val?.length : 0,
       });
     });
   }
