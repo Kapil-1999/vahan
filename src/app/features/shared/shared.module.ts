@@ -21,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { DeleteConfirmationComponent } from './component/delete-confirmation/delete-confirmation.component';
+import { ClipboardModule } from 'ngx-clipboard';
 
 
 

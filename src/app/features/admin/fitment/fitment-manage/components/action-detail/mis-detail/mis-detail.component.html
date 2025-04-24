@@ -1,0 +1,89 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}}</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="misForm">
+        <div class="_card white-bg">
+            <div class="row">
+                <div class="col-md-6 mb-3 ">
+                    <label class="form-label">Invoice No</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" placeholder="Enter Invoice No" formControlName="invoiceNo"
+                            aria-describedby="button-addon2"  />
+                    </div>
+                    @if (misForm.get('invoiceNo')?.invalid &&
+                    (misForm.get('invoiceNo')?.dirty || misForm.get('invoiceNo')?.touched))
+                    {
+                    <span class="text-danger">Invoice No is Required</span>
+                    }
+
+                </div>
+                <div class="col-md-6 mb-3 ">
+                    <label class="form-label">Invoice Date</label>
+                    <div class="input-group mb-2">
+                        <input type="date" class="form-control" placeholder="Enter Invoice Date" formControlName="invoiceDate"
+                            aria-describedby="button-addon2" bsDatepicker />
+                    </div>
+                    @if (misForm.get('invoiceDate')?.invalid &&
+                    (misForm.get('invoiceDate')?.dirty || misForm.get('invoiceDate')?.touched))
+                    {
+                    <span class="text-danger">Invoice Date is Required</span>
+                    }
+
+                </div>
+
+                <div class="col-md-6 mb-3 ">
+                    <label class="form-label">Calibration Date</label>
+                    <div class="input-group mb-2">
+                        <input type="date" class="form-control" placeholder="Enter Calibration Date" formControlName="calibrationDate"
+                            aria-describedby="button-addon2" bsDatepicker />
+                    </div>
+                    @if (misForm.get('calibrationDate')?.invalid &&
+                    (misForm.get('calibrationDate')?.dirty || misForm.get('calibrationDate')?.touched))
+                    {
+                    <span class="text-danger">Calibration Date is Required</span>
+                    }
+
+                </div>
+
+                <div class="col-md-6 mb-3 ">
+                    <label class="form-label">Recalibration Date</label>
+                    <div class="input-group mb-2">
+                        <input type="date" class="form-control" placeholder="Enter Recalibration Date" formControlName="reCalibrationDate"
+                            aria-describedby="button-addon2" bsDatepicker />
+                    </div>
+                    @if (misForm.get('reCalibrationDate')?.invalid &&
+                    (misForm.get('reCalibrationDate')?.dirty || misForm.get('reCalibrationDate')?.touched))
+                    {
+                    <span class="text-danger">Recalibration Date is Required</span>
+                    }
+
+                </div>
+
+                <div class="col-md-6 mb-3 ">
+                    <label class="form-label">Panic Count</label>
+                    <div class="input-group mb-2">
+                        <input type="number" class="form-control" placeholder="Enter Panic Count" formControlName="panicCount"
+                            aria-describedby="button-addon2"  />
+                    </div>
+                    @if (misForm.get('panicCount')?.invalid &&
+                    (misForm.get('panicCount')?.dirty || misForm.get('panicCount')?.touched))
+                    {
+                    <span class="text-danger">Panic Count is Required</span>
+                    }
+
+                </div>
+
+            </div>
+        </div>
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(misForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

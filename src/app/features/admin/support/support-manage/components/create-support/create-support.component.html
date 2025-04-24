@@ -1,0 +1,157 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}} Support</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="supportForm">
+        <div class="_card white-bg">
+            <!-- Row 1: 3 Columns -->
+            <div class="row">
+              
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Contact Person Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Contact Person Name"
+                        formControlName="personName" />
+                    @if (supportForm.get('personName')?.invalid &&
+                    (supportForm.get('personName')?.dirty || supportForm.get('personName')?.touched)) {
+                    <span class="text-danger">Contact Person Name is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="text" class="form-control" placeholder="Enter Email" formControlName="email" />
+                  
+                    @if (supportForm.get('email')?.touched || supportForm.get('email')?.dirty) {
+                      @if (supportForm.get('email')?.hasError('required')) {
+                        <span class="text-danger">Email is required</span>
+                      } @else if (supportForm.get('email')?.hasError('email')) {
+                        <span class="text-danger">Please enter a valid email address</span>
+                      }
+                    }
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label class="form-label">Mobile Number</label>
+                    <input type="number" class="form-control" placeholder="Enter Mobile Number" formControlName="mobileNo" />
+                  
+                    @if (supportForm.get('mobileNo')?.touched || supportForm.get('mobileNo')?.dirty) {
+                      @if (supportForm.get('mobileNo')?.hasError('required')) {
+                        <span class="text-danger">Mobile Number is required</span>
+                      } @else if (supportForm.get('mobileNo')?.hasError('pattern')) {
+                        <span class="text-danger">Please enter a valid 10-digit mobile number</span>
+                      }
+                    }
+                  </div>
+                  
+            </div>
+            <!-- Row 3: 3 Columns -->
+            <div class="row">
+                
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" placeholder="Enter Password" formControlName="password" />
+                    @if (supportForm.get('password')?.invalid &&
+                    (supportForm.get('password')?.dirty || supportForm.get('password')?.touched)) {
+                    <span class="text-danger">Password is Required</span>
+                    }
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Pin Code</label>
+                    <input type="text" class="form-control" placeholder="Enter Pin Code"
+                        formControlName="pincode" />
+                    @if (supportForm.get('pincode')?.invalid &&
+                    (supportForm.get('pincode')?.dirty || supportForm.get('pincode')?.touched)) {
+                    <span class="text-danger">Organization Name is Required</span>
+                    }
+                </div>
+
+
+            </div>
+
+            <!-- Row 4: State & City (2 Columns) -->
+            <div class="row">
+                @if(showInput) {
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">State
+                        <button class="btn btn-info btn-sm" (click)="toggleButton()">
+                            <i class="fa fa-times"></i> Cancel
+                        </button>
+                    </label>
+                    <div class="input-group flex !space-x-2">
+                        <input type="text" class="form-control" placeholder="Enter State Name" formControlName="stateValue" />
+                        <button class="btn btn-info" (click)="addState()">
+                            <i class="fa fa-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
+                } @else {
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">
+                        State
+                        <button class="btn btn-primary btn-sm" (click)="toggleButton()">
+                            <i class="fa fa-plus"></i> Add State
+                        </button>
+                    </label>
+                    <ngx-select-dropdown [config]="config" formControlName="state" [options]="stateData" (change)="onSelectState($event)">
+                    </ngx-select-dropdown>
+                    @if (supportForm.get('state')?.invalid &&
+                    (supportForm.get('state')?.dirty || supportForm.get('state')?.touched)) {
+                    <span class="text-danger">State is Required</span>
+                    }
+                </div>
+                }
+
+                @if(!showCityInput) {
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">
+                        City
+                        <button class="btn btn-primary btn-sm" (click)="toggleCityButton()" [disabled]="supportForm.get('state')?.invalid">
+                            <i class="fa fa-plus"></i> Add City
+                        </button>
+                    </label>
+                    <ngx-select-dropdown [config]="config" formControlName="city" [options]="cityData">
+                    </ngx-select-dropdown>
+                    @if (supportForm.get('city')?.invalid &&
+                    (supportForm.get('city')?.dirty || supportForm.get('city')?.touched)) {
+                    <span class="text-danger">City is Required</span>
+                    }
+                </div>
+                } @else {
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">City
+                        <button class="btn btn-info btn-sm" (click)="toggleCityButton()">
+                            <i class="fa fa-times"></i> Cancel
+                        </button>
+                    </label>
+                    <div class="input-group flex !space-x-2">
+                        <input type="text" class="form-control" placeholder="Enter City Name" formControlName="cityValue" />
+                        <button class="btn btn-info" (click)="addCity()">
+                            <i class="fa fa-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
+                }
+            </div>
+
+            <!-- Row 5: Address (Full Width) -->
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label class="form-label">Address</label>
+                    <textarea class="form-control" placeholder="Enter Address" formControlName="address" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Buttons -->
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(supportForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

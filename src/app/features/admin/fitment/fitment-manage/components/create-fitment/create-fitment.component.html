@@ -1,0 +1,259 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}} Fitment</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="fitmentForm">
+        <div class="row">
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Device IMEI</label>
+                <input type="text" class="form-control" placeholder="Enter Device IMEI" (input)="getActivationdetail($event)"
+                    formControlName="deviceImei" />
+                @if (fitmentForm.get('deviceImei')?.invalid &&
+                (fitmentForm.get('deviceImei')?.dirty || fitmentForm.get('deviceImei')?.touched)) {
+                <span class="text-danger">Device IMEI is Required</span>
+                }
+                @if(errorMessage){
+                    <span class="text-danger">
+                       {{errorMessage}}
+                    </span>
+                    }@else if(activatiDetailById) {
+                        <span class="text-success">
+                            {{activatiDetailById}}
+                         </span>
+                    }
+            </div>
+
+            @if(showInput) {
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">State
+                        <button class="btn btn-info btn-sm" (click)="toggleButton()">
+                            <i class="fa fa-times"></i> Cancel
+                        </button>
+                    </label>
+                    <div class="input-group flex !space-x-2">
+                        <input type="text" class="form-control" placeholder="Enter State Name" formControlName="stateValue" />
+                        <button class="btn btn-info" (click)="addState()">
+                            <i class="fa fa-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
+                } @else {
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">
+                        State
+                        <button class="btn btn-primary btn-sm" (click)="toggleButton()">
+                            <i class="fa fa-plus"></i> Add State
+                        </button>
+                    </label>
+                    <ngx-select-dropdown [config]="config" formControlName="state" [options]="stateData" (change)="onSelectState($event)">
+                    </ngx-select-dropdown>
+                    @if (fitmentForm.get('state')?.invalid &&
+                    (fitmentForm.get('state')?.dirty || fitmentForm.get('state')?.touched)) {
+                    <span class="text-danger">State is Required</span>
+                    }
+                </div>
+                }
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Backend</label>
+                <ngx-select-dropdown  [config]="config" [options]="backendListData" formControlName="backend">
+                </ngx-select-dropdown>
+                @if (fitmentForm.get('backend')?.invalid && fitmentForm.get('backend')?.touched) {
+                <span class="text-danger">Backend is required</span>
+                }
+            </div>
+
+      
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">RTO</label>
+                <ngx-select-dropdown  [config]="config" [options]="rtoList" formControlName="rto">
+                </ngx-select-dropdown>
+                @if (fitmentForm.get('rto')?.invalid && fitmentForm.get('rto')?.touched) {
+                <span class="text-danger">RTO is required</span>
+                }
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Registration Type</label>
+                <ngx-select-dropdown  [config]="config" [options]="vehicleTypeData" formControlName="registrationType">
+                </ngx-select-dropdown>
+                @if (fitmentForm.get('registrationType')?.invalid && fitmentForm.get('registrationType')?.touched) {
+                <span class="text-danger">Registration Type is required</span>
+                }
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Vehicle Make</label>
+                <input type="text" class="form-control" placeholder="Enter Vehicle Make"
+                    formControlName="vehicleMake" />
+                @if (fitmentForm.get('vehicleMake')?.invalid &&
+                (fitmentForm.get('vehicleMake')?.dirty || fitmentForm.get('vehicleMake')?.touched)) {
+                <span class="text-danger">Vehicle Make is Required</span>
+                }
+            </div>
+
+            <!-- <div class="col-md-4 mb-3">
+                <label class="form-label">Image 1</label>
+                <input type="file" class="form-control"
+                    formControlName="image_1" />
+                @if (fitmentForm.get('image_1')?.invalid &&
+                (fitmentForm.get('image_1')?.dirty || fitmentForm.get('image_1')?.touched)) {
+                <span class="text-danger">Image 1 is Required</span>
+                }
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Image 2</label>
+                <input type="file" class="form-control"
+                    formControlName="image_2" />
+                @if (fitmentForm.get('image_2')?.invalid &&
+                (fitmentForm.get('image_2')?.dirty || fitmentForm.get('image_2')?.touched)) {
+                <span class="text-danger">Image 2 is Required</span>
+                }
+            </div> -->
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Vehicle Model</label>
+                <input type="text" class="form-control" placeholder="Enter Vehicle Model"
+                    formControlName="vehicleModel" />
+                @if (fitmentForm.get('vehicleModel')?.invalid &&
+                (fitmentForm.get('vehicleModel')?.dirty || fitmentForm.get('vehicleModel')?.touched)) {
+                <span class="text-danger">Vehicle Model is Required</span>
+                }
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Registration Year</label>
+                <input type="text" class="form-control" placeholder="Enter Registration Year"
+                    formControlName="registraionYear" />
+                @if (fitmentForm.get('registraionYear')?.invalid &&
+                (fitmentForm.get('registraionYear')?.dirty || fitmentForm.get('registraionYear')?.touched)) {
+                <span class="text-danger">Registration Year is Required</span>
+                }
+            </div>
+
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Engine No.</label>
+                <input type="text" class="form-control" placeholder="Enter Engine No."
+                    formControlName="engineNo" />
+                @if (fitmentForm.get('engineNo')?.invalid &&
+                (fitmentForm.get('engineNo')?.dirty || fitmentForm.get('engineNo')?.touched)) {
+                <span class="text-danger">Engine No. is Required</span>
+                }
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Chassis No.</label>
+                <input type="text" class="form-control" placeholder="Enter Chassis No."
+                    formControlName="chassisNo" />
+                @if (fitmentForm.get('chassisNo')?.invalid &&
+                (fitmentForm.get('chassisNo')?.dirty || fitmentForm.get('chassisNo')?.touched)) {
+                <span class="text-danger">Chassis No. is Required</span>
+                }
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Vehicle No.</label>
+                <input type="text" class="form-control" placeholder="Enter Vehicle No."
+                    formControlName="vehicleNo" />
+                @if (fitmentForm.get('vehicleNo')?.invalid &&
+                (fitmentForm.get('vehicleNo')?.dirty || fitmentForm.get('vehicleNo')?.touched)) {
+                <span class="text-danger">Vehicle No. is Required</span>
+                }
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Mobile Number</label>
+                <input type="number" class="form-control" placeholder="Enter Mobile Number" formControlName="mobileNo" />
+              
+                @if (fitmentForm.get('mobileNo')?.touched || fitmentForm.get('mobileNo')?.dirty) {
+                  @if (fitmentForm.get('mobileNo')?.hasError('required')) {
+                    <span class="text-danger">Mobile Number is required</span>
+                  } @else if (fitmentForm.get('mobileNo')?.hasError('pattern')) {
+                    <span class="text-danger">Please enter a valid 10-digit mobile number</span>
+                  }
+                }
+              </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Customer Name</label>
+                <input type="text" class="form-control" placeholder="Enter Customer Name"
+                    formControlName="customerName" />
+                @if (fitmentForm.get('customerName')?.invalid &&
+                (fitmentForm.get('customerName')?.dirty || fitmentForm.get('customerName')?.touched)) {
+                <span class="text-danger">Customer Name is Required</span>
+                }
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Aadhar No.</label>
+                <input type="text" class="form-control" placeholder="Enter Aadhar No."
+                    formControlName="aadharNo" />
+                @if (fitmentForm.get('aadharNo')?.invalid &&
+                (fitmentForm.get('aadharNo')?.dirty || fitmentForm.get('aadharNo')?.touched)) {
+                <span class="text-danger">Aadhar No. is Required</span>
+                }
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Aadhar Image</label>
+                <div  class="flex justify-between item-center gap-2">
+                    <img *ngIf="aadharImage" [src]="getImageUrl(aadharImage)" alt="Aadhar image" class="w-10 h-10 rounded-full user-image mb-2" />
+                    <input type="file" accept=".jpg,jpeg" class="form-control" formControlName="aadharFile" (change)="onFileChange($event,'aadharImage')" />
+                  </div>
+                @if (fitmentForm.get('aadharFile')?.invalid &&
+                (fitmentForm.get('aadharFile')?.dirty || fitmentForm.get('aadharFile')?.touched)) {
+                <span class="text-danger">Aadhar Image is Required</span>
+                }
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Vehicle RC</label>
+                <div  class="flex justify-between item-center gap-2">
+                    <img *ngIf="vehicleRc" [src]="getImageUrl(vehicleRc)" alt="Vehicle RC Image" class="w-10 h-10 rounded-full  user-image mb-2" />
+                    <input type="file" accept=".jpg,jpeg" class="form-control" formControlName="vehicleFile" (change)="onFileChange($event,'vehicleRc')" />
+                  </div>
+                @if (fitmentForm.get('vehicleFile')?.invalid &&
+                (fitmentForm.get('vehicleFile')?.dirty || fitmentForm.get('vehicleFile')?.touched)) {
+                <span class="text-danger">Vehicle RC is Required</span>
+                }
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <label class="form-label">Address</label>
+                <textarea class="form-control" placeholder="Enter Address" formControlName="address" rows="3"></textarea>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(fitmentForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
