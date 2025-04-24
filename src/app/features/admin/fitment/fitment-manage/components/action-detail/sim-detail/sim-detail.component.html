@@ -1,0 +1,112 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}}</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="simForm">
+        <div class="_card white-bg">
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label class="form-label">Iccid</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" placeholder="Enter Iccid" formControlName="iccid"
+                            aria-describedby="button-addon2" readonly />
+                    </div>
+                    @if (simForm.get('iccid')?.invalid &&
+                    (simForm.get('iccid')?.dirty || simForm.get('iccid')?.touched))
+                    {
+                    <span class="text-danger">Iccid is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <label class="form-label">Activation Date</label>
+                    <div class="input-group mb-2">
+                        <input type="date" class="form-control" placeholder="Enter Activation Date"
+                            formControlName="activationDate" aria-describedby="button-addon2" bsDatepicker />
+                    </div>
+                    @if (simForm.get('activationDate')?.invalid &&
+                    (simForm.get('activationDate')?.dirty || simForm.get('activationDate')?.touched))
+                    {
+                    <span class="text-danger">Activation Date is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <label class="form-label">Valid Till</label>
+                    <div class="input-group mb-2">
+                        <input type="date" class="form-control" placeholder="Enter Valid Till"
+                            formControlName="validTill" aria-describedby="button-addon2" bsDatepicker />
+                    </div>
+                    @if (simForm.get('validTill')?.invalid &&
+                    (simForm.get('validTill')?.dirty || simForm.get('validTill')?.touched))
+                    {
+                    <span class="text-danger">Valid Till is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <label class="form-label">Primary Imsi</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" placeholder="Enter Primary Imsi"
+                            formControlName="primaryImsi" aria-describedby="button-addon2" />
+                    </div>
+                    @if (simForm.get('primaryImsi')?.invalid &&
+                    (simForm.get('primaryImsi')?.dirty || simForm.get('primaryImsi')?.touched))
+                    {
+                    <span class="text-danger">Primary Imsi is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <label class="form-label">Primary Msidn</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" placeholder="Enter Primary Msidn"
+                            formControlName="primaryMsidn" aria-describedby="button-addon2" />
+                    </div>
+                    @if (simForm.get('primaryMsidn')?.invalid &&
+                    (simForm.get('primaryMsidn')?.dirty || simForm.get('primaryMsidn')?.touched))
+                    {
+                    <span class="text-danger">Primary Msidn is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <label class="form-label">Secondary Imsi</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" placeholder="Enter Secondary Imsi"
+                            formControlName="secondryImsi" aria-describedby="button-addon2" />
+                    </div>
+                    @if (simForm.get('secondryImsi')?.invalid &&
+                    (simForm.get('secondryImsi')?.dirty || simForm.get('secondryImsi')?.touched))
+                    {
+                    <span class="text-danger">Secondary Imsi is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-6 mb-2">
+                    <label class="form-label">Secondary Msidn</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" placeholder="Enter Secondary Msidn"
+                            formControlName="secondryMsidn" aria-describedby="button-addon2" />
+                    </div>
+                    @if (simForm.get('secondryMsidn')?.invalid &&
+                    (simForm.get('secondryMsidn')?.dirty || simForm.get('secondryMsidn')?.touched))
+                    {
+                    <span class="text-danger">Secondary Msidn is Required</span>
+                    }
+                </div>
+
+
+            </div>
+        </div>
+        <div class="footer mt-3">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(simForm?.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

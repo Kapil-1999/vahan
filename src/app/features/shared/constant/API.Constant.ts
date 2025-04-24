@@ -86,5 +86,19 @@ export const API_CONSTANT = {
     updateComplain:'Compliant/UpdateDeviceComplaint',
     serviceList:'Service/GetDeviceServiceList',
     createService:'Service/AddDeviceService',
-    updateService:'Service/UpdateDeviceService'
+    updateService:'Service/UpdateDeviceService',
+    headListDD:'Support/GetSupportHeadList',
+    supportList:'Support/GetSupportMemberList',
+    addSupport:'Support/AddSupportMember',
+    updateSupport:'Support/UpdateSupportMember',
+    activationDetail:'Device/GetVahanSubInfo',
+    activationList:'Device/VahanActivationRequestList',
+    updateMis:'Device/vahan_update_misdetail',
+    updateSim:'Device/vahan_update_simdetail',
+    updateStatus:'Device/vahan_update_ar_request_status',
+    certificatedata:'Device/vahan_vehicle_certificate_upload',
+    deleteListData:'Device/vahan_vehicle_ar_request_delete',
+    updateActivation:'Device/AddVahanSubInfo',
+    vehicleType:'Device/GetVahanRegistrationTypeList',
+
 }

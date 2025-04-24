@@ -37,7 +37,19 @@ const routes: Routes = [
   {
    path : "shipping-address",
    loadChildren: () => import('../admin/shipping-address/shipping-address.module').then(m => m.ShippingAddressModule) 
-  }
+  },
+  {
+    path : "kyc-pending",
+    loadChildren: () => import('../admin/kyc-pending/kyc-pending.module').then(m => m.KycPendingModule) 
+   },
+   {
+    path : "fitment",
+    loadChildren: () => import('../admin/fitment/fitment.module').then(m => m.FitmentModule) 
+   },
+   {
+    path : "support",
+    loadChildren: () => import('../admin/support/support.module').then(m => m.SupportModule) 
+   }
 
 ];
 

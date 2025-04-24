@@ -132,7 +132,33 @@ export class CommonService {
       .get(url)
       .pipe(catchError((error: HttpErrorResponse) => of(error)));
   }
+  
+  headtList(payload: any): Observable<any> {
+    let url = API_CONSTANT.headListDD
+    return this.apiService
+      .post(url, payload)
+      .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
 
+  vehicleTypeDropdown(){
+    let url = API_CONSTANT.vehicleType
+    return this.apiService
+      .get(url)
+      .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
 
+  backendList(): Observable<any> {
+    let url = API_CONSTANT.backendList
+    return this.apiService
+    .get(url)
+    .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
+  rtoListdetail(payload: any): Observable<any> {
+    let url = API_CONSTANT.rtoList
+    return this.apiService
+      .post(url, payload)
+      .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
 
 }
