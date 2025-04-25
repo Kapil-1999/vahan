@@ -13,7 +13,16 @@ import { NotificationService } from '../../../../shared/services/notification.se
 })
 export class AddShippingAddressComponent {
   @Output() mapdata = new EventEmitter()
-
+  shippingAddress = [
+    {
+      "value": 1,
+      "text": "Yes"
+    },
+    {
+      "value": 0,
+      "text": "No"
+    },
+  ];
   tittle : string = 'Create';
   cityData: any;
   stateData: any;
@@ -50,6 +59,7 @@ export class AddShippingAddressComponent {
       email : ['', [Validators.required , Validators.email]],
       mobileNo : ['', [Validators.required , Validators.pattern(/^\d{10}$/)]],
       pincode : ['', [Validators.required]],
+      isDefault : [0, [Validators.required]],
       address : [''],
       state : ['', [Validators.required]],
       city : ['', [Validators.required]]
@@ -62,6 +72,7 @@ export class AddShippingAddressComponent {
         name: this.editData.contact_person_name,
         email: this.editData.contact_person_email,
         mobileNo: this.editData.contact_person_mobile,
+        isDefault: this.editData.contact_person_mobile,
         pincode: this.editData.pinCode,
         address: this.editData.address, 
       })
@@ -130,7 +141,8 @@ export class AddShippingAddressComponent {
       "pinCode": formvalue?.pincode,
       "contact_person_name": formvalue?.name,
       "contact_person_email": formvalue?.email,
-      "contact_person_mobile": formvalue?.mobileNo.toString()
+      "contact_person_mobile": formvalue?.mobileNo.toString(),
+      "isDefault": formvalue?.isDefault == 1 ? true : false 
     };
     let service = this.shippingService.addShippingAddress(payload);
     if(this.editData?.shipingId) {

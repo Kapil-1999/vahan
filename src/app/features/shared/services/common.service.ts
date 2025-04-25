@@ -161,4 +161,11 @@ export class CommonService {
       .pipe(catchError((error: HttpErrorResponse) => of(error)));
   }
 
+  paymentMode(): Observable<any> {
+    let url = API_CONSTANT.paymentMode
+    return this.apiService
+     .get(url)
+     .pipe(catchError((error: HttpErrorResponse) => of(error))); 
+  }
+
 }

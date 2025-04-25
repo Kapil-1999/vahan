@@ -1,18 +1,18 @@
 <div class="card">
     <div class="card-header">
         <div class="header-part">
-            <span>Shipping Address List</span>
+            <span>Inventory List</span>
             <div class="counting">
                 <span>
                     {{ pagesize.count > 0 ? startValue : 0 }} -
                     {{ pagesize.count > 0 ? lastValue : 0 }}
-                    OF {{ pagesize.count > 0 ? pagesize.count : 0 }} Shipping Address
+                    OF {{ pagesize.count > 0 ? pagesize.count : 0 }} Inventory
                 </span>
             </div>
             @if (pagesize.count && pagesize.count > 0) {
             <div class="row">
                 <div class="d-flex justify-content-center">
-                    <pagination-controls id="dealerId" [maxSize]="10" [responsive]="true" [nextLabel]="''"
+                    <pagination-controls id="inventoryId" [maxSize]="10" [responsive]="true" [nextLabel]="''"
                         [previousLabel]="''" (pageChange)="onTablePageChange($event)">
                     </pagination-controls>
                 </div>
@@ -34,14 +34,8 @@
                     </select>
                 </div>
             </div>
-            <div class="right-section flex flex-col sm:flex-row gap-4 sm:gap-x-2 w-full sm:w-auto">
+        
 
-                <button (click)="onAddShipping('')"
-                    class="!btn !btn-primary bg-[#696cff] hover:bg-[#787bff] text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 w-full sm:w-auto">
-                    <i class="fa fa-plus" aria-hidden="true"></i> Add Shipping Address
-                </button>
-
-            </div>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -62,39 +56,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @for (item of shippinglist | paginate: {id: 'dealerId',
+                                @for (item of inventoryList | paginate: {id: 'inventoryId',
                                 itemsPerPage: pagesize.limit, currentPage: pagesize.offset, totalItems:
                                 pagesize.count}; track $index) {
                                 <tr>
                                     <td>
                                         {{ (pagesize.offset - 1) * pagesize.limit + $index + 1 }}
                                     </td>
-                                    <td>{{item?.orgName || 'NA'}}</td>
-                                    <td>{{item?.contact_person_name || 'NA'}}</td>
-                                    <td>{{item?.contact_person_email || 'NA'}}</td>
-                                    <td>{{item?.contact_person_mobile || 'NA'}}</td>
-                                    <td>{{item?.city_name || 'NA'}}</td>
-                                    <td>{{item?.state_name || 'NA'}}</td>
-                                    <td>{{item?.pinCode || 'NA'}}</td>
-                                    <td>
-                                        @if (item?.isDefault == true) {
-                                        <span class="badge badge-success">Yes</span>
-                                        }@else {
-                                        <span >No</span>
-                                        }
-                                    </td>
-                                    <td>{{item?.address || 'NA'}}</td>
-                                    <td class="">
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-success" (click)="onAddShipping(item)">
-                                                <i class="fa fa-pencil"></i>
-                                            </button>
-                                            <button class="btn btn-danger" (click)="onDeleteShipping(item)">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </div>
-
-                                    </td>
+                                    <td>{{item?.uid || 'NA'}}</td>
+                                    <td>{{item?.imei || 'NA'}}</td>
+                                    <td>{{item?.iccid || 'NA'}}</td>
+                                    <td>{{item?.vahan_sno || 'NA'}}</td>
+                                    <td>{{item?.integrator_name || 'NA' }}</td>
+                                    <td>{{item?.first_tsp || 'NA' }}</td>
+                                    <td>{{item?.first_sim || 'NA' }}</td>
+                                    <td>{{item?.second_tsp || 'NA' }}</td>
+                                    <td>{{item?.second_sim || 'NA' }}</td>
+                                    <td>{{item?.card_state || 'NA' }}</td>
+                                    <td>{{item?.card_status || 'NA' }}</td>
+                                    <td>{{item?.duration || 'NA' }}</td>
+                                    <td>{{(item?.activated_date | date:'dd/MM/yyyy') || 'NA'}}</td>
+                                    <td>{{(item?.valid_till_date | date:'dd/MM/yyyy') || 'NA'}}</td>
+                                  
 
                                 </tr>
                                 }
@@ -103,9 +86,9 @@
                         }
                     </div>
                 </div>
-                @if(!shippinglist?.length) {
+                @if(!inventoryList?.length) {
                 <div class="text-center py-4 text-gray-500">
-                    No Shipping Address Available
+                    No Inventory Available
                 </div>
                 }
             </div>

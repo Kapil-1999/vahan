@@ -39,7 +39,7 @@
                     }
                     }
                 </div>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-6 mb-3">
                     <label class="form-label">Contact Person Mobile</label>
                     <input type="number" class="form-control" formControlName="mobileNo"
                         placeholder="Enter Mobile Number" />
@@ -49,6 +49,18 @@
                     } @else if (shippingForm.get('mobileNo')?.hasError('pattern')) {
                     <span class="text-danger">Please enter a valid 10-digit mobile number</span>
                     }
+                    }
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label" style="color: rgb(195, 10, 10);">Is Default</label>
+                    <select class="form-control" formControlName="isDefault">
+                        @for(data of shippingAddress; track data) {
+                        <option [value]="data?.value">{{data?.text}}</option>
+                        }
+                    </select>
+                    @if (shippingForm.get('isDefault')?.invalid &&
+                    (shippingForm.get('isDefault')?.dirty || shippingForm.get('isDefault')?.touched)) {
+                    <span class="text-danger">Is Default is Required</span>
                     }
                 </div>
                 <div class="col-md-4 mb-3">
@@ -78,7 +90,7 @@
                     <span class="text-danger">Pincode is Required</span>
                     }
                 </div>
-                <div class="col-md-8 mb-3">
+                <div class="col-md-12 mb-3">
                     <label class="form-label">Address</label>
                     <textarea class="form-control" formControlName="address" placeholder="Enter Address"
                         rows="3"></textarea>
