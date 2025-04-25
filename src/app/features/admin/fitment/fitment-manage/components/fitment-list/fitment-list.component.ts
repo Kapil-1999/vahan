@@ -78,20 +78,6 @@ export class FitmentListComponent {
 
   setInitialValue() {
     this.columns = [
-      // { key: 'S.No.', title: 'S.No.' },
-      // { key: 'Created On', title: 'Created On' },
-      // { key: 'Serial Number', title: 'Serial Number' },
-      // { key: 'Vehicle Number', title: 'Vehicle Number' },
-      // { key: 'Status', title: 'Status' },
-      // { key: 'Vehicle Model', title: 'Vehicle Model' },
-      // { key: 'Customer Name', title: 'Customer Name' },
-      // { key: 'Seller Name', title: 'Seller Name' },
-      // { key: 'Other Seller', title: 'Other Seller' },
-      // { key: 'RTO Name', title: 'RTO Name' },
-      // { key: 'Tracking', title: 'Tracking' },
-      // { key: 'Certificates', title: 'Certificates' },
-      // { key: 'Action', title: 'Action' },
-
       { key: 'S No.', title: 'S No.' },
       { key: 'AR Id', title: 'AR Id' },
       { key: 'Date', title: 'Date' },
@@ -150,6 +136,7 @@ export class FitmentListComponent {
       this.isLoading = false
       if (res?.body?.isSuccess === true) {
         this.fitmentList = res?.body?.result
+        this.pagesize.count = this.fitmentList?.length
 
       }
     })

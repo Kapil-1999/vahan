@@ -58,6 +58,7 @@ export class ShippingListComponent {
       { key: 'City', title: 'City' },
       { key: 'State', title: 'State' },
       { key: 'Pin code', title: 'Pin code' },
+      { key: 'Is Default', title: 'Is Default' },
       { key: 'Address', title: 'Address' },
       { key: 'Action', title: 'Action' },
     ]

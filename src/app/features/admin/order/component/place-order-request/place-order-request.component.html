@@ -7,7 +7,7 @@
 <div class="modal-body">
     <form [formGroup]="placeOrderForm">
         <div class="row">
-            <div class="col-md-6 mb-3">
+            <div class="col-md-4 mb-3">
                 <label class="form-label">Product</label>
                 <ngx-select-dropdown place [config]="config1" [options]="productList" formControlName="productId" (change)="onProductChange($event)">
                 </ngx-select-dropdown>
@@ -15,15 +15,15 @@
                     <span class="text-danger">Product is required</span>
                     }
             </div>
-            @if(selectedProduct?.isState) {
-                <div class="col-md-6 mb-3">
+            <!-- @if(selectedProduct?.isState) { -->
+                <div class="col-md-4 mb-3">
                     <label class="form-label">State</label>
-                    <ngx-select-dropdown place [config]="config" [options]="stateList" formControlName="stateId" (change)="onChangeState($event)">
+                    <ngx-select-dropdown place [config]="config" [options]="stateList" formControlName="stateId" [disabled]="!selectedProduct?.isState" (change)="onChangeState($event)">
                     </ngx-select-dropdown>
                 </div>
-            }
-            @if(selectedProduct?.isPlan){
-                <div class="col-md-6 mb-3">
+            <!-- } -->
+            <!-- @if(selectedProduct?.isPlan){ -->
+                <div class="col-md-4 mb-3">
                     <label class="form-label">Plan</label>
                     <ngx-select-dropdown place [config]="config" [options]="planList" formControlName="planId">
                     </ngx-select-dropdown>
@@ -31,8 +31,38 @@
                         <div class="text-info small mt-1">Please select a state first to see available plans</div>
                       }
                 </div>
-            }
+            <!-- } -->
             <div class="col-md-6 mb-3">
+                <label class="form-label">Shipping Address</label>
+                <ngx-select-dropdown [config]="config" [options]="shippingList" formControlName="shippingAddress"
+                    >
+                </ngx-select-dropdown>
+                @if (placeOrderForm.get('shippingAddress')?.invalid && placeOrderForm.get('shippingAddress')?.touched) {
+                <span class="text-danger">Shipping Address is required</span>
+                }
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Payment Mode</label>
+                <ngx-select-dropdown [config]="config" [options]="paymentModeList" formControlName="paymentMode"
+                    >
+                </ngx-select-dropdown>
+                @if (placeOrderForm.get('paymentMode')?.invalid && placeOrderForm.get('paymentMode')?.touched) {
+                <span class="text-danger">Payment Mode is required</span>
+                }
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Rate</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" placeholder="Enter Rate" formControlName="rate" readonly />
+                </div>
+                @if (placeOrderForm.get('rate')?.invalid && placeOrderForm.get('rate')?.touched) {
+                    <span class="text-danger">Rate is required</span>
+                    }
+            </div>
+
+            <div class="col-md-4 mb-3">
                 <label class="form-label">Quanity</label>
                 <div class="input-group">
                     <input type="number" class="form-control" placeholder="Enter Quanity" formControlName="quantity" />
@@ -41,7 +71,69 @@
                     <span class="text-danger">Quanity is required</span>
                     }
             </div>
-            <div class="col-md-6 mb-3">
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Amount</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" placeholder="Enter Amount" formControlName="amount" readonly/>
+                </div>
+                @if (placeOrderForm.get('amount')?.invalid && placeOrderForm.get('amount')?.touched) {
+                    <span class="text-danger">Amount is required</span>
+                    }
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">CGST</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" placeholder="Enter CGST" formControlName="cgst" readonly/>
+                </div>
+                @if (placeOrderForm.get('cgst')?.invalid && placeOrderForm.get('cgst')?.touched) {
+                    <span class="text-danger">CGST is required</span>
+                    }
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">SGST</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" placeholder="Enter SGST" formControlName="sgst" readonly/>
+                </div>
+                @if (placeOrderForm.get('sgst')?.invalid && placeOrderForm.get('sgst')?.touched) {
+                    <span class="text-danger">SGST is required</span>
+                    }
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">IGST</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" placeholder="Enter IGST" formControlName="igst" readonly/>
+                </div>
+                @if (placeOrderForm.get('igst')?.invalid && placeOrderForm.get('igst')?.touched) {
+                    <span class="text-danger">IGST is required</span>
+                    }
+            </div>
+            <div class="col-md-4 mb-3"></div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Total Tax</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" placeholder="Enter Total Tax" formControlName="tax" readonly/>
+                </div>
+                @if (placeOrderForm.get('tax')?.invalid && placeOrderForm.get('tax')?.touched) {
+                    <span class="text-danger">Total Tax is required</span>
+                    }
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Billing Amount</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" placeholder="Enter Billing Amount" formControlName="billingAmount" readonly/>
+                </div>
+                @if (placeOrderForm.get('billingAmount')?.invalid && placeOrderForm.get('billingAmount')?.touched) {
+                    <span class="text-danger">Billing Amount is required</span>
+                    }
+            </div>
+
+           
+            <div class="col-md-12 mb-3">
                 <label class="form-label">Remarks</label>
                 <textarea class="form-control" placeholder="Enter Remarks" rows="3" formControlName="remarks"></textarea>
             </div>

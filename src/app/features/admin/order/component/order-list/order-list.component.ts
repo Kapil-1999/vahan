@@ -103,7 +103,7 @@ export class OrderListComponent {
     this.bsModalRef = this.modalService.show(
       PlaceOrderRequestComponent,
       Object.assign(initialState, {
-        class: 'modal-md modal-dialog-centered alert-popup',
+        class: 'modal-lg modal-dialog-centered alert-popup',
       })
     );
     this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {

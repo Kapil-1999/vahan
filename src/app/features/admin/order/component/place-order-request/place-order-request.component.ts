@@ -30,6 +30,8 @@ export class PlaceOrderRequestComponent {
   planList: any;
   selectedProduct: any;
   userDetails: any;
+  shippingList: any;
+  paymentModeList:any
 
   constructor(
     private modalService: BsModalService,
@@ -46,6 +48,8 @@ export class PlaceOrderRequestComponent {
   ngOnInit() {
     this.setInitialTable();
     this.getProductList();
+    this.getShippingAddress()
+    this.getpaymentMode()
   }
 
   setInitialTable() {
@@ -53,7 +57,16 @@ export class PlaceOrderRequestComponent {
       productId: ['', [Validators.required]],
       stateId: [''],
       planId: [''],
+      rate: [''],
       quantity: ['', [Validators.required]],
+      amount: [''],
+      cgst: [''],
+      sgst: [''],
+      igst: [''],
+      tax: [''],
+      billingAmount: [''],
+      shippingAddress: ['', [Validators.required]],
+      paymentMode: ['', [Validators.required]],
       remarks: ['']
     })
   }
@@ -66,6 +79,25 @@ export class PlaceOrderRequestComponent {
       this.productList = res?.body?.result
 
     })
+  }
+
+  getShippingAddress() {
+    let payload = {
+      "empId": this.userDetails?.Id
+    }
+    this.OrderService.shippingAdderss(payload).subscribe((res: any) => {
+      this.shippingList = res.body.result.map((item: any) => ({
+        value: item.empId,
+        text: item.contact_person_name
+      }));
+    });
+  }
+
+  getpaymentMode() {
+    this.commonService.paymentMode().subscribe((res: any) => {
+      console.log("res12345678",res);
+      this.paymentModeList = res.body || []
+    });
   }
 
   onProductChange(event: any) {

@@ -100,5 +100,6 @@ export const API_CONSTANT = {
     deleteListData:'Device/vahan_vehicle_ar_request_delete',
     updateActivation:'Device/AddVahanSubInfo',
     vehicleType:'Device/GetVahanRegistrationTypeList',
-
+    inventoryList:'Device/GetUserDeviceInventory',
+    paymentMode:'Common/GetPaymentModeList'
 }

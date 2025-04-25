@@ -378,8 +378,15 @@ export const DISTRIBUTER_MENU = [
     path: "/admin/shipping-address/shipping-details",
     iconPath: "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"  
   },
+ 
   {
     id: 7,
+    name: "Inventory",
+    path: "/admin/device/inventory-list",
+    iconPath: "M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+  },
+  {
+    id: 8,
     name: "Fitment",
     path: "/admin/fitment/fitment-list",
     iconPath: "M22 13v-2h-2.07a5.978 5.978 0 00-1.14-2.72l1.48-1.48-1.41-1.41-1.48 1.48A5.978 5.978 0 0013 4.07V2h-2v2.07a5.978 5.978 0 00-2.72 1.14L6.8 3.73 5.39 5.14l1.48 1.48A5.978 5.978 0 004.07 11H2v2h2.07a5.978 5.978 0 001.14 2.72l-1.48 1.48 1.41 1.41 1.48-1.48A5.978 5.978 0 0011 19.93V22h2v-2.07a5.978 5.978 0 002.72-1.14l1.48 1.48 1.41-1.41-1.48-1.48A5.978 5.978 0 0019.93 13H22zM12 17a5 5 0 115-5 5 5 0 01-5 5z"
@@ -396,26 +403,33 @@ export const DEALER_MENU = [
     ,
   },
   {
-    id: 8,
+    id: 2,
     name: "Order",
     path: "/admin/orders/order-details",
     iconPath: "M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
   },
   {
-    id: 2,
+    id: 3,
     name: "Raw Data",
     path: "user/geofacne/list-geofence",
     iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
     ,
   },
   {
-    id: 6,
+    id: 4,
     name: "Shipping Address",
     path: "/admin/shipping-address/shipping-details",
     iconPath: "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"  
   },
+
   {
-    id: 7,
+    id: 5,
+    name: "Inventory",
+    path: "/admin/device/inventory-list",
+    iconPath: "M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+  },
+  {
+    id: 6,
     name: "Fitment",
     path: "/admin/fitment/fitment-list",
     iconPath: "M22 13v-2h-2.07a5.978 5.978 0 00-1.14-2.72l1.48-1.48-1.41-1.41-1.48 1.48A5.978 5.978 0 0013 4.07V2h-2v2.07a5.978 5.978 0 00-2.72 1.14L6.8 3.73 5.39 5.14l1.48 1.48A5.978 5.978 0 004.07 11H2v2h2.07a5.978 5.978 0 001.14 2.72l-1.48 1.48 1.41 1.41 1.48-1.48A5.978 5.978 0 0011 19.93V22h2v-2.07a5.978 5.978 0 002.72-1.14l1.48 1.48 1.41-1.41-1.48-1.48A5.978 5.978 0 0019.93 13H22zM12 17a5 5 0 115-5 5 5 0 01-5 5z"

@@ -40,4 +40,12 @@ export class DeviceService {
       .post(url, payload)
       .pipe(catchError((error: HttpErrorResponse) => of(error)));
   }
+
+  inventoryList(payload: any): Observable<any> {
+    let url = API_CONSTANT.inventoryList
+    return this.apiService
+      .post(url, payload)
+      .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
 }
