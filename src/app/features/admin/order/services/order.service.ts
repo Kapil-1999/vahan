@@ -69,5 +69,12 @@ export class OrderService {
      .pipe(catchError((error: HttpErrorResponse) => of(error))); 
   }
 
+  getTaxCalculation(payload: any): Observable<any> {
+    let url = API_CONSTANT.getTaxCalculation
+    return this.apiService
+     .post(url, payload)
+     .pipe(catchError((error: HttpErrorResponse) => of(error))); 
+  }
+
  
 }
