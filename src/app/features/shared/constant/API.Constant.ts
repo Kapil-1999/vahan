@@ -101,5 +101,6 @@ export const API_CONSTANT = {
     updateActivation:'Device/AddVahanSubInfo',
     vehicleType:'Device/GetVahanRegistrationTypeList',
     inventoryList:'Device/GetUserDeviceInventory',
-    paymentMode:'Common/GetPaymentModeList'
+    paymentMode:'Common/GetPaymentModeList',
+    getTaxCalculation:'Request/GetTaxCalculation'
 }
