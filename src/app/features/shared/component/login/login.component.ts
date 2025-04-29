@@ -42,7 +42,6 @@ export class LoginComponent {
 
   ngOnInit(): void {
     let token:any =  this.storageService.getToken();   
-    console.log(token);
     
     if(token){     
      if(this.userDetails.RoleId == '2' || this.userDetails.RoleId == '3') {

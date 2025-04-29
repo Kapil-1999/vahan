@@ -102,5 +102,6 @@ export const API_CONSTANT = {
     vehicleType:'Device/GetVahanRegistrationTypeList',
     inventoryList:'Device/GetUserDeviceInventory',
     paymentMode:'Common/GetPaymentModeList',
-    getTaxCalculation:'Request/GetTaxCalculation'
+    getTaxCalculation:'Request/GetTaxCalculation',
+    updateRazorPaymentAsync :'Request/UpdateRazorPaymentAsync'
 }

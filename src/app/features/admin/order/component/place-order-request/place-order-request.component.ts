@@ -4,6 +4,7 @@ import { CommonService } from '../../../../shared/services/common.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderService } from '../../services/order.service';
 import { NotificationService } from '../../../../shared/services/notification.service';
+import { PaymentService } from '../../../../shared/services/payment.service';
 
 @Component({
   selector: 'app-place-order-request',
@@ -34,24 +35,31 @@ export class PlaceOrderRequestComponent {
   paymentModeList: any;
   taxCalculationData: any;
   baseUrlPath: any;
+  paymentDetails: any;
 
   constructor(
     private modalService: BsModalService,
     private commonService: CommonService,
     private fb: FormBuilder,
     private OrderService: OrderService,
-    private notficationService: NotificationService
+    private notficationService: NotificationService,
+    private paymentService: PaymentService
   ) {
     this.commonService.getUserDetails().subscribe((res: any) => {
       this.userDetails = res;
-    })
+    });
+
+    this.paymentService.paymentSuccess$.subscribe((res) => {
+      this.paymentDetails = res?.body;
+      this.submit(this.placeOrderForm.value);
+    });
   };
 
   ngOnInit() {
     this.setInitialTable();
     this.getProductList();
     this.getShippingAddress()
-    this.getpaymentMode()
+    this.getpaymentMode();
   }
 
   setInitialTable() {
@@ -277,9 +285,7 @@ export class PlaceOrderRequestComponent {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         const base64String = e.target.result.split(',')[1];
-        this.baseUrlPath = base64String;
-        console.log(this.baseUrlPath);
-        
+        this.baseUrlPath = base64String;        
       };
       reader.readAsDataURL(file);
     }
@@ -290,7 +296,6 @@ export class PlaceOrderRequestComponent {
       this.placeOrderForm.markAllAsTouched();
       return;
     };
-
     
     const updatedFormValue = this.placeOrderForm.getRawValue();
     if(Number(updatedFormValue?.billingAmount) === 0) {
@@ -324,13 +329,13 @@ export class PlaceOrderRequestComponent {
         "refrence_no": formValue.refrence_no,
         "image_file": "",
         "image_byte": this.baseUrlPath,
-        "request_status": "",
-        "request_responce": "",
+        "request_status": this.paymentDetails?.result.pStatus || "",
+        "request_responce": this.paymentDetails?.actionResponse || "",
         "provider_order_id": "",
-        "payment_id": "",
+        "payment_id": this.paymentDetails?.result?.id || "",
         "signature_id": ""
       }
-    }
+    }    
 
     this.OrderService.generateOrder(payload).subscribe((res: any) => {
       if (res?.body?.statusCode == 200) {
@@ -345,5 +350,18 @@ export class PlaceOrderRequestComponent {
 
   cancel() {
     this.modalService.hide();
+  }
+
+  onPayment() {
+    if (this.placeOrderForm.invalid) {
+      this.placeOrderForm.markAllAsTouched();
+      return;
+    };
+    const updatedFormValue = this.placeOrderForm.getRawValue();
+    if(Number(updatedFormValue?.billingAmount) === 0) {
+      this.notficationService.showInfo('Amount will be greater then Zero');
+      return; 
+    }
+    this.paymentService.initiatePayment(updatedFormValue?.billingAmount); 
   }
 }
