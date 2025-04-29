@@ -76,5 +76,12 @@ export class OrderService {
      .pipe(catchError((error: HttpErrorResponse) => of(error))); 
   }
 
+  itemIssue(payload: any): Observable<any> {
+    let url = API_CONSTANT.itemIssue
+    return this.apiService
+    .post(url, payload)
+    .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
  
 }

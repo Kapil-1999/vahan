@@ -103,5 +103,6 @@ export const API_CONSTANT = {
     inventoryList:'Device/GetUserDeviceInventory',
     paymentMode:'Common/GetPaymentModeList',
     getTaxCalculation:'Request/GetTaxCalculation',
-    updateRazorPaymentAsync :'Request/UpdateRazorPaymentAsync'
+    updateRazorPaymentAsync :'Request/UpdateRazorPaymentAsync',
+    itemIssue :'Billing/ItemIssue'
 }

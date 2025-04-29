@@ -4,6 +4,7 @@ import { CommonService } from '../../../../shared/services/common.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { DeviceService } from '../../../devices/mangae-devices/services/device.service';
 import { Title } from '@angular/platform-browser';
+import { NotificationService } from '../../../../shared/services/notification.service';
 
 @Component({
   selector: 'app-vahan-device-dropdown',
@@ -16,17 +17,21 @@ export class VahanDeviceDropdownComponent {
   isAllSelected: boolean = false;
   columns: any;
   editData: any;
+  type :any
   userDetails: any;
   vahanDeviceList: any;
   selectedCount: number = 0;
+  selectedCountData: any;
 
   constructor(
     private DeviceService: DeviceService,
     private commonService: CommonService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private orderService: OrderService,
+    private notificationService: NotificationService,
   ) {}
 
-  ngOnInit() {     
+  ngOnInit() {         
     this.commonService.getUserDetails().subscribe((res: any) => {
       this.userDetails = res;     
     })   
@@ -49,7 +54,7 @@ export class VahanDeviceDropdownComponent {
   getDeviceVahanList() {
     let payload = {
       "manufacturerId": Number(this.userDetails?.Id),
-      "devicetypeId": (this.editData?.devicetypeId)
+      "devicetypeId": (this.editData?.fk_category_id)
     }
     this.DeviceService.deviceList(payload).subscribe((res: any) => {
      this.vahanDeviceList =  res?.body?.result || [];
@@ -65,25 +70,38 @@ export class VahanDeviceDropdownComponent {
 
   toggleRowSelection(index: number) {
     const currentSelectedCount = this.vahanDeviceList.filter((row:any) => row.isSelected).length;
-    const qty = this.editData?.qty || 10; 
+    const qty = this.editData?.request_qty; 
   
     if (!this.vahanDeviceList[index].isSelected) {
       if (currentSelectedCount >= qty) {
-        alert(`You can only select ${qty} items as per the quantity limit.`);
         return; 
       }
     }
   
     this.vahanDeviceList[index].isSelected = !this.vahanDeviceList[index].isSelected;
     this.isAllSelected = this.vahanDeviceList.every((row:any) => row.isSelected);
-    this.selectedCount = this.vahanDeviceList
+    this.selectedCount = this.vahanDeviceList.filter((row:any) => row.isSelected).length;    
+    this.selectedCountData = this.vahanDeviceList
     .filter((row: any) => row.isSelected)
-    .map((device: any) => device.device_id);  
+    .map((device: any) => ({product_id : device.device_id}));      
   }
 
-  submit() {            
-    this.mapdata.emit(this.selectedCount || []);
-    this.modalService.hide()
+  submit() {     
+    let payload = {
+    "request_id": this.editData?.pk_request_id,
+    "customer_id": this.editData?.created_by,
+    "issued_by": Number(this.userDetails?.Id),
+    "itemList" : this.selectedCountData
+    }
+    this.orderService.itemIssue(payload).subscribe((res: any) => {
+      if(res?.body?.statusCode == 200) {
+        this.notificationService.showSuccess(res?.body?.actionResponse)
+        this.mapdata.emit();
+        this.modalService.hide();
+      } else {
+        this.notificationService.showError(res?.body?.actionResponse)
+      }
+    })       
   }
 
   cancel() {

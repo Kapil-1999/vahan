@@ -35,7 +35,7 @@ export class PaymentService {
       currency: currency,
       name: 'Acute Communication',
       description: 'Payment for your place order',
-      image: 'images/acute_logo.png',
+      image: this.userDetails?.ProfileImage,
       order_id: '', 
       handler: (response: any) => {
         this.userPaymentDetails(response.razorpay_payment_id);
@@ -43,7 +43,7 @@ export class PaymentService {
       prefill: {
         name: this.userDetails?.EmployeeName,
         email: this.userDetails?.Email,
-        contact: this.userDetails?.UserName
+        contact: this.userDetails?.Contact
       },
       notes: {
         address: 'Customer Address'

@@ -4,6 +4,7 @@ import { CommonService } from '../../../../shared/services/common.service';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { PlaceOrderRequestComponent } from '../place-order-request/place-order-request.component';
 import { Router } from '@angular/router';
+import { VahanDeviceDropdownComponent } from '../vahan-device-dropdown/vahan-device-dropdown.component';
 
 @Component({
   selector: 'app-order-list',
@@ -53,13 +54,15 @@ export class OrderListComponent {
   setInialTable() {
     this.columns = [
       { key: 'S.No.', title: 'S.No.' },
+      { key: 'Order Status', title: 'Order Status' },
       { key: 'Created On', title: 'Created On' },
       { key: 'Created By', title: 'Created By' },
       { key: 'Product', title: 'Product' },
       { key: 'Plan', title: 'Plan' },
       { key: 'State', title: 'State' },
       { key: 'Quantity', title: 'Quantity' },
-      { key: 'Expected Dispatch', title: 'Expected Dispatch' },
+      { key: 'Payment Mode', title: 'Payment Mode' },
+      { key: 'Payment Status', title: 'Payment Status' },
       { key: 'Remark', title: 'Remark' },
       { key: 'Action', title: 'Action' }
     ]
@@ -148,8 +151,28 @@ export class OrderListComponent {
   }
 
   dispatchOrder(item: any) {
-    console.log('Dispatch Order:', item);
     this.cd.detectChanges();
+
+  }
+
+  onOrderIssue(item: any) {
+    const initialState: ModalOptions = {
+      initialState: {
+        editData: item,
+        type : 'Order'
+      },
+    };
+    this.bsModalRef = this.modalService.show(
+      VahanDeviceDropdownComponent,
+      Object.assign(initialState, {
+        class: 'modal-lg modal-dialog-centered alert-popup',
+      })
+    );
+    this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {
+      this.pagesize.offset = 1;
+      this.pagesize.limit = 25;
+      this.getOrderDashboardData()
+    });
 
   }
 }

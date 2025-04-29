@@ -1,9 +1,9 @@
 
 <div class="modal-header text-center">
     <h5>Device List</h5> 
-    @if(editData?.qty) {
+    @if(editData?.request_qty) {
         <span  class="text-red-500">
-            Request quantity is {{editData.qty}} - you can only select {{editData.qty}} or fewer devices
+            Request quantity is {{editData.request_qty}} - you can only select {{editData.request_qty}} or fewer devices
         </span>
     }
     <div class="close-modal">
@@ -37,7 +37,7 @@
                             <td>
                                 <input type="checkbox" 
                                        [checked]="row.isSelected" 
-                                       (change)="toggleRowSelection(i)" [disabled]="!row.isSelected && selectedCount >= (editData?.qty || 10)">
+                                       (change)="toggleRowSelection(i)" [disabled]="!row.isSelected && selectedCount >= (editData?.request_qty)">
                             </td>
                             <td>{{ i + 1 }}</td>
                             <td>{{row.vahan_sno}}</td>
