@@ -184,15 +184,20 @@
                                     </td>
                                     <td>
                                         @if (item?.status_Name === 'Pending') {
-                                            <span class="badge border rounded-lg b-0 py-2 font-medium bg-yellow-500 text-white">{{item?.status_Name}}</span>
+                                        <span
+                                            class="badge border rounded-lg b-0 py-2 font-medium bg-yellow-500 text-white">{{item?.status_Name}}</span>
                                         } @else if (item?.status_Name === 'Processing') {
-                                            <span class="badge border rounded-lg b-0 py-2 font-medium bg-blue-500 text-white">{{item?.status_Name}}</span>
+                                        <span
+                                            class="badge border rounded-lg b-0 py-2 font-medium bg-blue-500 text-white">{{item?.status_Name}}</span>
                                         } @else if (item?.status_Name === 'Dispatched') {
-                                            <span class="badge border rounded-lg b-0 py-2 font-medium bg-green-500 text-white">{{item?.status_Name}}</span>
+                                        <span
+                                            class="badge border rounded-lg b-0 py-2 font-medium bg-green-500 text-white">{{item?.status_Name}}</span>
                                         } @else if (item?.status_Name === 'Rejected') {
-                                            <span class="badge border rounded-lg b-0 py-2 font-medium bg-red-500 text-white">{{item?.status_Name}}</span>
+                                        <span
+                                            class="badge border rounded-lg b-0 py-2 font-medium bg-red-500 text-white">{{item?.status_Name}}</span>
                                         } @else {
-                                            <span class="badge border rounded-lg b-0 py-2 font-medium bg-gray-500 text-white">{{item?.status_Name}}</span>
+                                        <span
+                                            class="badge border rounded-lg b-0 py-2 font-medium bg-gray-500 text-white">{{item?.status_Name}}</span>
                                         }
                                     </td>
                                     <td>{{item?.created_date ? (item?.created_date | date: 'dd/MM/yyyy') : 'NA'}}</td>
@@ -204,13 +209,17 @@
                                     <td>{{item?.payment_mode}}</td>
                                     <td>
                                         @if (item?.payment_status === 'Pending') {
-                                            <span class="badge border rounded-lg b-0 py-2 font-medium bg-yellow-500 text-white">{{item?.payment_status}}</span>
+                                        <span
+                                            class="badge border rounded-lg b-0 py-2 font-medium bg-yellow-500 text-white">{{item?.payment_status}}</span>
                                         } @else if (item?.payment_status === 'Failed') {
-                                            <span class="badge border rounded-lg b-0 py-2 font-medium bg-red-500 text-white">{{item?.payment_status}}</span>
+                                        <span
+                                            class="badge border rounded-lg b-0 py-2 font-medium bg-red-500 text-white">{{item?.payment_status}}</span>
                                         } @else if (item?.payment_status === 'Success') {
-                                            <span class="badge border rounded-lg b-0 py-2 font-medium bg-green-500 text-white">{{item?.payment_status}}</span>
+                                        <span
+                                            class="badge border rounded-lg b-0 py-2 font-medium bg-green-500 text-white">{{item?.payment_status}}</span>
                                         } @else {
-                                            <span class="badge border rounded-lg b-0 py-2 font-medium bg-gray-500 text-white">{{item?.payment_status}}</span>
+                                        <span
+                                            class="badge border rounded-lg b-0 py-2 font-medium bg-gray-500 text-white">{{item?.payment_status}}</span>
                                         }
                                     </td>
                                     <td>{{item?.remarks}}</td>
@@ -223,23 +232,27 @@
                                             </svg>
                                         </button>
                                         <mat-menu #menu="matMenu">
-                                            @if(this.userDetails?.RoleId == "6") {                                                        
-                                                <button mat-menu-item (click)="onOrderIssue(item)">
-                                                    <i class="fas fa-exclamation-triangle mr-2"></i> 
-                                                    <span>Order Issue</span> 
-                                                </button>
-                                            }
-                                            <button mat-menu-item (click)="processOrder(item)">
-                                                <i class="fas fa-cog mr-2"></i>
-                                                <span>Process Order</span>
+                                            @if(this.userDetails?.RoleId == "6") {
+                                            <button mat-menu-item (click)="onOrderIssue(item)">
+                                                <i class="fas fa-exclamation-triangle mr-2"></i>
+                                                <span>Order Issue</span>
                                             </button>
+                                            }
                                             <!-- <button mat-menu-item (click)="generateInvoice(item)">
                                                 <i class="fas fa-file-invoice mr-2"></i>
                                                 <span>Generate Invoice</span>
                                             </button> -->
-                                            <button mat-menu-item (click)="dispatchOrder(item)">
-                                                <i class="fas fa-truck mr-2"></i>
-                                                <span>Dispatch Order</span>
+                                            <button mat-menu-item (click)="onChangeStatus(item)">
+                                                <i class="fas fa-cog mr-2"></i>
+                                                <span>Change Status</span>
+                                            </button>
+                                            <button mat-menu-item (click)="orderHistory(item)">
+                                                <i class="fas fa-file-invoice mr-2"></i>
+                                                <span>Order History</span>
+                                            </button>
+                                            <button mat-menu-item (click)="paymentHistory(item)">
+                                                <i class="fas fa-money-bill-wave mr-2"></i>
+                                                <span>Payment History</span>
                                             </button>
                                         </mat-menu>
                                     </td>

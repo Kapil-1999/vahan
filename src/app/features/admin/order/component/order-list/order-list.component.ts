@@ -5,6 +5,7 @@ import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { PlaceOrderRequestComponent } from '../place-order-request/place-order-request.component';
 import { Router } from '@angular/router';
 import { VahanDeviceDropdownComponent } from '../vahan-device-dropdown/vahan-device-dropdown.component';
+import { OrderStatusChangeComponent } from '../order-status-change/order-status-change.component';
 
 @Component({
   selector: 'app-order-list',
@@ -68,10 +69,11 @@ export class OrderListComponent {
     ]
   }
 
+
   getOrderDashboardData() {
     this.isLoading = true;
     let payload = {
-      "request_by":  Number(this.userDetails?.Id),
+      "request_by": Number(this.userDetails?.Id),
       "status_id": this.statusType
     }
     this.orderService.orderDashboard(payload).subscribe((res: any) => {
@@ -85,8 +87,6 @@ export class OrderListComponent {
     if (!value) return 0;
     const total = this.orderDashData?.pending + this.orderDashData?.processing +
       this.orderDashData?.dispatched + this.orderDashData?.rejected;
-    console.log(total);
-
     return Math.round((value / total) * 100);
   }
 
@@ -135,31 +135,19 @@ export class OrderListComponent {
   }
 
   generateInvoice(item: any) {
-      if (!item?.pk_request_id) {
-        console.error('Missing request ID', item);
-        return;
-      }
-  
-      this.router.navigate(
+    if (!item?.pk_request_id) {
+      console.error('Missing request ID', item);
+      return;
+    }
+    this.router.navigate(
       ['/admin/orders/order-details', item.pk_request_id, item.created_by]);
-  }
-
-  processOrder(item: any) {
-    console.log('Process Order:', item);
-    this.cd.detectChanges();
-
-  }
-
-  dispatchOrder(item: any) {
-    this.cd.detectChanges();
-
   }
 
   onOrderIssue(item: any) {
     const initialState: ModalOptions = {
       initialState: {
         editData: item,
-        type : 'Order'
+        type: 'Order'
       },
     };
     this.bsModalRef = this.modalService.show(
@@ -174,5 +162,45 @@ export class OrderListComponent {
       this.getOrderDashboardData()
     });
 
+  }
+
+  orderHistory(item: any) {
+    if (!item?.pk_request_id) {
+      console.error('Missing request ID', item);
+      return;
+    }
+
+    this.router.navigate(
+      ['/admin/orders/order-history', item.pk_request_id, item.created_by]);
+  }
+
+  onChangeStatus(item: any) {
+    const initialState: ModalOptions = {
+      initialState: {
+        editData: item,
+      },
+    };
+    this.bsModalRef = this.modalService.show(
+      OrderStatusChangeComponent,
+      Object.assign(initialState, {
+        class: 'modal-md modal-dialog-centered alert-popup',
+      })
+    );
+    this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {
+      this.pagesize.offset = 1;
+      this.pagesize.limit = 25;
+      this.getOrderDashboardData()
+    });
+  }
+
+  paymentHistory(item: any) {
+    console.log(item);
+    if (!item?.pk_request_id) {
+      console.error('Missing request ID', item);
+      return;
+    }
+
+    this.router.navigate(
+      ['/admin/orders/payment-history', item.pk_request_id, item.created_by]);
   }
 }

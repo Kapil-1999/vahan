@@ -1,0 +1,53 @@
+<button class="btn btn-secondary mb-2" (click)="goBack()">
+    <i class="fas fa-arrow-left mr-1"></i> Back
+  </button>
+<div class="card">
+  <div class="card-header">
+    <h4>Order Details</h4>
+  </div>
+  <div class="card-body">
+      <div class="overflow-auto">
+          <div id="datatable_wrapper">
+            @if (isLoading) {
+                <app-loader />
+                } @else {
+              <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline">
+                  <thead>
+                    <tr role="row">
+                        @for (vehicleHeading of columns; track $index) {
+                        <th>
+                            <span>{{ vehicleHeading?.title }}</span>
+                        </th>
+                        }
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for(data of orderHistoryData;track data) {
+                        <tr>
+                          <td>{{data?.issueDate | date : 'dd/MM/yyyy'}}</td>
+                          <td>{{data?.partyName}}</td>
+                          <td>{{data?.deviceSubcategoryName}}</td>
+                          <td>{{data?.netDevice}}</td>
+                          <td>
+                              <button 
+                              class="btn btn-sm btn-primary" [disabled]="!data?.order_Sub_Details?.length" (click)="onShowDetails(data)"
+                              >
+                             Show Details
+                              </button>
+                          </td>
+                        </tr>
+                    }
+                    
+                  </tbody>
+                </table>
+            }
+          </div>
+      </div>
+      @if(!orderHistoryData?.length) {
+        <div class="text-center py-4 text-gray-500">
+            No Order History Available
+        </div>
+        }
+          
+  </div>
+</div>

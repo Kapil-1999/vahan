@@ -83,5 +83,32 @@ export class OrderService {
     .pipe(catchError((error: HttpErrorResponse) => of(error)));
   }
 
+  orderHistory(payload: any): Observable<any> {
+    let url = API_CONSTANT.orderHistory
+    return this.apiService
+   .post(url, payload)
+   .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
+  UpdateRequestOrderStatus(payload: any): Observable<any> {
+    let url = API_CONSTANT.UpdateRequestOrderStatus
+    return this.apiService
+   .post(url, payload)
+   .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
+  paymentDetails(payload: any): Observable<any> {
+    let url = API_CONSTANT.paymentDetails
+    return this.apiService
+   .post(url, payload)
+   .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
+  UpdateRequestPaymentStatus(payload: any): Observable<any> {
+    let url = API_CONSTANT.UpdateRequestPaymentStatus
+    return this.apiService
+   .post(url, payload)
+   .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
  
 }

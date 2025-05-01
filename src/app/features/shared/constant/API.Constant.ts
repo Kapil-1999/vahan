@@ -104,5 +104,10 @@ export const API_CONSTANT = {
     paymentMode:'Common/GetPaymentModeList',
     getTaxCalculation:'Request/GetTaxCalculation',
     updateRazorPaymentAsync :'Request/UpdateRazorPaymentAsync',
-    itemIssue :'Billing/ItemIssue'
+    itemIssue :'Billing/ItemIssue',
+    orderHistory : 'Request/GetOrderRequestDetails',
+    UpdateRequestOrderStatus : 'Request/UpdateRequestOrderStatus',
+    paymentDetails :'Request/GetOrderPaymentDetails',
+    paymentStatusList :'Common/GetPaymentStatusList',
+    UpdateRequestPaymentStatus:'Request/UpdateRequestPaymentStatus'
 }
