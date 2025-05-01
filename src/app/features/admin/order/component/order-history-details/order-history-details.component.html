@@ -1,0 +1,38 @@
+<div class="modal-header text-center">
+    <h5>{{editData.deviceSubcategoryName}} Order Device Details</h5>
+
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="overflow-auto">
+        <div id="datatable_wrapper">
+            <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline">
+                <thead>
+                  <tr role="row">
+                      @for (vehicleHeading of columns; track $index) {
+                      <th>
+                          <span>{{ vehicleHeading?.title }}</span>
+                      </th>
+                      }
+                  </tr>
+                </thead>
+                <tbody>
+                 @for(data of editData?.order_Sub_Details;track data) {
+                    <tr>
+                        <td>{{data?.vahanSno}}</td>
+                        <td>{{data?.firstSim}}</td>
+                        <td>{{data?.secondSim}}</td>
+                        <td>{{data?.imei}}</td>
+                        <td>{{data?.uid}}</td>
+                        <td>{{data?.iccid}}</td>
+
+                    </tr>
+                 }                  
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
+  

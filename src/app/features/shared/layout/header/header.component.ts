@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../core/app.reducer';
 import { clearAuth } from '../../../../core/app.action';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-header',
@@ -12,8 +13,15 @@ import { clearAuth } from '../../../../core/app.action';
 })
 export class HeaderComponent {
   isDropdownOpen = false;
+  userDetails: any;
 
-  constructor(private router: Router, private store: Store<AppState>) {}
+  constructor(private router: Router, private store: Store<AppState> , 
+    private commonService: CommonService,
+  ) {
+    this.commonService.getUserDetails().subscribe((res:any) => {
+      this.userDetails = res;
+    })
+  }
 
   @HostListener('document:click', ['$event'])
   clickout(event: any) {

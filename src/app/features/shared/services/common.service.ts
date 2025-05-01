@@ -168,4 +168,11 @@ export class CommonService {
      .pipe(catchError((error: HttpErrorResponse) => of(error))); 
   }
 
+  paymentStatusList(): Observable<any> {
+    let url = API_CONSTANT.paymentStatusList
+    return this.apiService
+    .get(url)
+    .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
 }

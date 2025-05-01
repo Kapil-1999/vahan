@@ -49,12 +49,12 @@ export const ADMIN_MENU = [
     path: "/admin/device/device-list",
     iconPath: "M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
   },
-  {
-    id: 5,
-    name: "Raw Data",
-    path: "user/geofacne/list-geofence",
-    iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-  },
+  // {
+  //   id: 5,
+  //   name: "Raw Data",
+  //   path: "user/geofacne/list-geofence",
+  //   iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+  // },
   {
     id: 6,
     name: "Sales",
@@ -213,13 +213,13 @@ export const MANUFACUTE_MENU = [
     iconPath: "M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
     ,
   },
-  {
-    id: 6,
-    name: "Raw Data",
-    path: "user/geofacne/list-geofence",
-    iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-    ,
-  },
+  // {
+  //   id: 6,
+  //   name: "Raw Data",
+  //   path: "user/geofacne/list-geofence",
+  //   iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+  //   ,
+  // },
   {
     id: 7,
     name: "Sales",
@@ -351,13 +351,13 @@ export const DISTRIBUTER_MENU = [
     iconPath: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
     ,
   },
-  {
-    id: 3,
-    name: "Raw Data",
-    path: "user/geofacne/list-geofence",
-    iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-    ,
-  },
+  // {
+  //   id: 3,
+  //   name: "Raw Data",
+  //   path: "user/geofacne/list-geofence",
+  //   iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+  //   ,
+  // },
   {
     id: 4,
     name: "Sales",
@@ -408,13 +408,13 @@ export const DEALER_MENU = [
     path: "/admin/orders/order-details",
     iconPath: "M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
   },
-  {
-    id: 3,
-    name: "Raw Data",
-    path: "user/geofacne/list-geofence",
-    iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-    ,
-  },
+  // {
+  //   id: 3,
+  //   name: "Raw Data",
+  //   path: "user/geofacne/list-geofence",
+  //   iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+  //   ,
+  // },
   {
     id: 4,
     name: "Shipping Address",
