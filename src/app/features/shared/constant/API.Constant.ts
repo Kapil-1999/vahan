@@ -109,5 +109,6 @@ export const API_CONSTANT = {
     UpdateRequestOrderStatus : 'Request/UpdateRequestOrderStatus',
     paymentDetails :'Request/GetOrderPaymentDetails',
     paymentStatusList :'Common/GetPaymentStatusList',
-    UpdateRequestPaymentStatus:'Request/UpdateRequestPaymentStatus'
+    UpdateRequestPaymentStatus:'Request/UpdateRequestPaymentStatus',
+    commonDealer : 'Common/GetDealerList'
 }

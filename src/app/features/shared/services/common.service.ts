@@ -175,4 +175,11 @@ export class CommonService {
     .pipe(catchError((error: HttpErrorResponse) => of(error)));
   }
 
+  commonDealer(payload:any): Observable<any> {
+    let url = API_CONSTANT.commonDealer
+    return this.apiService
+    .post(url, payload)
+    .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
 }

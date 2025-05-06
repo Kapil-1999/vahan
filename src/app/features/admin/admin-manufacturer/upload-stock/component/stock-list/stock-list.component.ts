@@ -38,7 +38,8 @@ export class StockListComponent {
     search: true,
     placeholder: `Select Manufacturer`,
   }
-  isDropdownOpen :boolean= false;
+  isDropdownOpen: boolean = false;
+  searchKeyword :any = ''
 
   constructor(
     private commonService: CommonService,
@@ -52,8 +53,8 @@ export class StockListComponent {
 
 
   ngOnInit() {
-    this.getManufacturerList();
     this.setInitialValue();
+    this.getManufacturerList();
   }
 
   setInitialValue() {
@@ -82,16 +83,20 @@ export class StockListComponent {
         text: item.contactPersonName
       }));
       if (this.manuFactDrop?.length > 0) {
-        this.selectManu = this.manuFactDrop[0]
+        this.selectManu = this.manuFactDrop[0];
+        this.pagesize.offset = 1;
+        this.pagesize.limit = 25;
         this.getStockList(this.manuFactDrop[0].value)
       }
     })
   }
 
-  onChangeManufacturer(event: any) {    
-    if(event?.value?.value) {
+  onChangeManufacturer(event: any) {
+    if (event?.value?.value) {
       this.selectManu = event?.value
       this.stockList = [];
+      this.pagesize.offset = 1;
+      this.pagesize.limit = 25;
       this.getStockList(event?.value?.value)
     } else {
       this.selectManu = null;
@@ -99,28 +104,35 @@ export class StockListComponent {
     }
   }
 
-  getStockList(manuId: any) {    
+  getStockList(manuId: any) {
     this.isLoading = true;
     let payload = {
-      "manufacturerId": Number(manuId)
+      "manufacturerId": Number(manuId),
+      "devicetypeId": 0,
+      "pageNumber": this.pagesize.offset,
+      "pageSize": this.pagesize.limit,
+      "searchTerm": this.searchKeyword,
+      "maxDevices": 0
     }
     this.stockService.stockList(payload).subscribe((res: any) => {
       this.isLoading = false;
-      this.stockList = res?.body?.result || [];
-      this.pagesize.count = this.stockList?.length;
+      this.stockList = res?.body?.result?.data || [];
+      this.pagesize.count =  res?.body?.result?.totalCount || 0;
     });
   }
 
   onTablePageChange(event: number) {
     this.pagesize.offset = event;
+    this.getStockList(this.selectManu?.value)
   }
 
   onPageSizeChange(event: Event): void {
     const selectedSize = parseInt((event.target as HTMLSelectElement).value, 10);
     this.pagesize.limit = selectedSize;
+    this.getStockList(this.selectManu?.value)
   }
 
-  
+
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
@@ -147,7 +159,7 @@ export class StockListComponent {
         class: 'modal-lg modal-dialog-centered alert-popup',
       })
     );
-    this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {      
+    this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {
       this.pagesize.offset = 1;
       this.pagesize.limit = 25;
       this.getStockList(this.selectManu?.value)
@@ -172,5 +184,21 @@ export class StockListComponent {
       this.pagesize.limit = 25;
       this.getStockList(this.selectManu?.value)
     });
+  }
+
+  onSearch(event:any) {
+    const searchValue = event.target.value.trim().replace(/\s+/g, ' ');
+    this.searchKeyword = searchValue;
+    this.stockList = [];
+    this.pagesize.offset = 1;
+    this.pagesize.limit = 25;
+    this.getStockList(this.selectManu?.value);  
+  }
+
+  clearSearch() {
+    this.searchKeyword = '';
+    this.pagesize.offset = 1;
+    this.pagesize.limit = 25;
+    this.getStockList(this.selectManu?.value);  
   }
 }

@@ -12,7 +12,7 @@ import { NotificationService } from '../../../../../shared/services/notification
   styleUrl: './device-list.component.scss'
 })
 export class DeviceListComponent {
- isLoading: boolean = false;
+  isLoading: boolean = false;
   pagesize = {
     limit: 25,
     offset: 1,
@@ -28,7 +28,7 @@ export class DeviceListComponent {
     displayKey: "text",
     height: '200px',
     search: true,
-    placeholder:'Select Manufacture'
+    placeholder: 'Select Manufacture'
   }
   get startValue(): number {
     return this.pagesize.offset * this.pagesize.limit - (this.pagesize.limit - 1);
@@ -37,12 +37,13 @@ export class DeviceListComponent {
     const calculatedLastValue = this.startValue + this.pagesize.limit - 1;
     return Math.min(calculatedLastValue, this.pagesize.count);
   }
+  searchKeyword: string = '';
 
   constructor(
     private deviceService: DeviceService,
     private commonService: CommonService,
     private modalService: BsModalService,
-    private NotificationService :NotificationService,
+    private NotificationService: NotificationService,
   ) {
     this.commonService.getUserDetails().subscribe((userDetails) => {
       this.userDetails = userDetails;
@@ -57,9 +58,9 @@ export class DeviceListComponent {
   setInitialValue() {
     this.columns = [
       { key: 'S.No.', title: 'S.No.' },
-      { key: 'Uid', title: 'Uid' },
-      { key: 'Imei', title: 'Imei' },
-      { key: 'Iccid', title: 'Iccid' },
+      { key: 'Uid', title: 'UID' },
+      { key: 'Imei', title: 'IMEI' },
+      { key: 'Iccid', title: 'ICCID' },
       { key: 'Vahan Sno', title: 'Vahan Sno' },
       { key: 'Integrator', title: 'Integrator' },
       { key: 'P. TSP', title: 'P. TSP' },
@@ -87,14 +88,17 @@ export class DeviceListComponent {
         value: item.empId,
         text: item.contactPersonName
       }));;
-      this.selectedManufacture = this.manuFacuturerList[0]
+      this.selectedManufacture = this.manuFacuturerList[0];
+      this.pagesize.offset = 1;
+      this.pagesize.limit = 25;
       this.getDeviceList()
-
     })
   }
 
   onSelectManufacture(event: any) {
-    this.selectedManufacture = event?.value
+    this.selectedManufacture = event?.value;
+    this.pagesize.offset = 1;
+    this.pagesize.limit = 25;
     this.getDeviceList()
   }
 
@@ -103,13 +107,18 @@ export class DeviceListComponent {
     this.pagesize.count = 0
     this.isLoading = true;
     let payload = {
-      "manufacturerId": Number(this.selectedManufacture?.value)
+      "manufacturerId": Number(this.selectedManufacture?.value),
+      "devicetypeId": 0,
+      "pageNumber": this.pagesize.offset,
+      "pageSize": this.pagesize.limit,
+      "searchTerm": this.searchKeyword,
+      "maxDevices": 0
     }
     this.deviceService.deviceList(payload).subscribe((res: any) => {
       this.isLoading = false
       if (res?.body?.isSuccess == true) {
-        this.deviceList = res?.body?.result || []        
-        this.pagesize.count = this.deviceList?.length
+        this.deviceList = res?.body?.result?.data || []
+        this.pagesize.count = res?.body?.result?.totalCount || 0
       }
     })
   }
@@ -130,32 +139,50 @@ export class DeviceListComponent {
     })
   }
 
-    onAdddevice(value:any) {
-      const initialState: ModalOptions = {
-        initialState: {
-          manufacture:this.selectedManufacture
-        },
-      };
-      this.bsModalRef = this.modalService.show(
-        CreateDeviceComponent,
-        Object.assign(initialState, {
-          class: 'modal-lg modal-dialog-centered alert-popup',
-        })
-      );
-      this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {
-        this.pagesize.offset = 1;
-        this.pagesize.limit = 25;
-        this.getDeviceList()
-      });
-    }
-  
+  onAdddevice(value: any) {
+    const initialState: ModalOptions = {
+      initialState: {
+        manufacture: this.selectedManufacture
+      },
+    };
+    this.bsModalRef = this.modalService.show(
+      CreateDeviceComponent,
+      Object.assign(initialState, {
+        class: 'modal-lg modal-dialog-centered alert-popup',
+      })
+    );
+    this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {
+      this.pagesize.offset = 1;
+      this.pagesize.limit = 25;
+      this.getDeviceList()
+    });
+  }
+
 
   onTablePageChange(event: number) {
     this.pagesize.offset = event;
+    this.getDeviceList()
   }
 
   onPageSizeChange(event: Event): void {
     const selectedSize = parseInt((event.target as HTMLSelectElement).value, 10);
     this.pagesize.limit = selectedSize;
+    this.getDeviceList()
+  }
+
+  onSearch(event:any) {
+    const searchValue = event.target.value.trim().replace(/\s+/g, ' ');
+    this.searchKeyword = searchValue;
+    this.deviceList = [];
+    this.pagesize.offset = 1;
+    this.pagesize.limit = 25;
+    this.getDeviceList();  
+  }
+
+  clearSearch() {
+    this.searchKeyword = '';
+    this.pagesize.offset = 1;
+    this.pagesize.limit = 25;
+    this.getDeviceList();  
   }
 }

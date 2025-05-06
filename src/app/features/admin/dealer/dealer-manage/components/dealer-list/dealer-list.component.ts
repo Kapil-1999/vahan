@@ -11,7 +11,7 @@ import { CreateDealerComponent } from '../create-dealer/create-dealer.component'
   styleUrl: './dealer-list.component.scss'
 })
 export class DealerListComponent {
- isLoading: boolean = false;
+  isLoading: boolean = false;
   pagesize = {
     limit: 25,
     offset: 1,
@@ -27,7 +27,7 @@ export class DealerListComponent {
     displayKey: "text",
     height: '200px',
     search: true,
-    placeholder:'Without Distributer'
+    placeholder: 'Without Distributer'
   }
   get startValue(): number {
     return this.pagesize.offset * this.pagesize.limit - (this.pagesize.limit - 1);
@@ -35,7 +35,8 @@ export class DealerListComponent {
   get lastValue(): number {
     const calculatedLastValue = this.startValue + this.pagesize.limit - 1;
     return Math.min(calculatedLastValue, this.pagesize.count);
-  }
+  };
+  searchKeyword: any = '';
 
   constructor(
     private dealerService: DealerService,
@@ -73,7 +74,7 @@ export class DealerListComponent {
     this.commonService.distributerDropdown(payload).subscribe((res: any) => {
       this.isLoading = false
       if (res?.status == 200) {
-        this.distributerDropdown = res?.body        
+        this.distributerDropdown = res?.body
         this.selectedDestributer = this.distributerDropdown[0]
         this.getDealerList()
       }
@@ -86,55 +87,73 @@ export class DealerListComponent {
 
   getDealerList() {
     let parentId = this.selectedDestributer && Number(this.selectedDestributer?.value)
-    ? Number(this.selectedDestributer?.value) : this.userDetails?.Id ? Number(this.userDetails?.Id) : null;
+      ? Number(this.selectedDestributer?.value) : this.userDetails?.Id ? Number(this.userDetails?.Id) : null;
 
     this.isLoading = true;
     let payload = {
       "roleId": Number(this.userDetails?.RoleId),
-      "parentId": parentId
+      "parentId": parentId,
+      "pageNumber": this.pagesize.offset,
+      "pageSize": this.pagesize.limit,
+      "searchTerm": this.searchKeyword,
     }
     this.dealerService.dealerListdetail(payload).subscribe((res: any) => {
       this.isLoading = false
       if (res?.body?.isSuccess == true) {
-        this.dealerlist = res?.body?.result || []
-        console.log("this.dealerlist",this.dealerlist);
-        
-        this.pagesize.count = this.dealerlist?.length
-
+        this.dealerlist = res?.body?.result || [];
+        this.pagesize.count = res?.body?.result?.totalCount || 0;
       }
     })
   }
 
-    onAddDealer(value:any) {
-      let parentId = this.selectedDestributer && Number(this.selectedDestributer?.value)
+  onAddDealer(value: any) {
+    let parentId = this.selectedDestributer && Number(this.selectedDestributer?.value)
       ? Number(this.selectedDestributer?.value) : this.userDetails?.Id ? Number(this.userDetails?.Id) : null;
-  
-      const initialState: ModalOptions = {
-        initialState: {
-          editData: value ? value : '',
-          selectedId:parentId
-        },
-      };
-      this.bsModalRef = this.modalService.show(
-        CreateDealerComponent,
-        Object.assign(initialState, {
-          class: 'modal-lg modal-dialog-centered alert-popup',
-        })
-      );
-      this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {
-        this.pagesize.offset = 1;
-        this.pagesize.limit = 25;
-        this.getDealerList()
-      });
-    }
-  
+
+    const initialState: ModalOptions = {
+      initialState: {
+        editData: value ? value : '',
+        selectedId: parentId
+      },
+    };
+    this.bsModalRef = this.modalService.show(
+      CreateDealerComponent,
+      Object.assign(initialState, {
+        class: 'modal-lg modal-dialog-centered alert-popup',
+      })
+    );
+    this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {
+      this.pagesize.offset = 1;
+      this.pagesize.limit = 25;
+      this.getDealerList()
+    });
+  }
+
 
   onTablePageChange(event: number) {
     this.pagesize.offset = event;
+    this.getDealerList();
   }
 
   onPageSizeChange(event: Event): void {
     const selectedSize = parseInt((event.target as HTMLSelectElement).value, 10);
     this.pagesize.limit = selectedSize;
+    this.getDealerList()
+  }
+
+  onSearch(event: any) {
+    const searchValue = event.target.value.trim().replace(/\s+/g, ' ');
+    this.searchKeyword = searchValue;
+    this.dealerlist = [];
+    this.pagesize.offset = 1;
+    this.pagesize.limit = 25;
+    this.getDealerList();
+  }
+
+  clearSearch() {
+    this.searchKeyword = '';
+    this.pagesize.offset = 1;
+    this.pagesize.limit = 25;
+    this.getDealerList();
   }
 }

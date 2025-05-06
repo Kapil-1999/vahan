@@ -26,7 +26,8 @@ export class InventoryListComponent {
   get lastValue(): number {
     const calculatedLastValue = this.startValue + this.pagesize.limit - 1;
     return Math.min(calculatedLastValue, this.pagesize.count);
-  }
+  };
+  searchKeyword: any = '';
 
   constructor(
     private deviceService: DeviceService,
@@ -68,23 +69,45 @@ export class InventoryListComponent {
     this.isLoading = true;
     let payload = {
       "manufacturerId": Number(this.userDetails.Id),
-      "devicetypeId":0
+      "devicetypeId":0,
+      "pageNumber": this.pagesize.offset,
+      "pageSize": this.pagesize.limit,
+      "searchTerm": this.searchKeyword,
+      "maxDevices": 0
     }
     this.deviceService.inventoryList(payload).subscribe((res: any) => {
       this.isLoading = false
       if (res?.body?.isSuccess == true) {
-        this.inventoryList = res?.body?.result || []        
-        this.pagesize.count = this.inventoryList?.length
+        this.inventoryList = res?.body?.result?.records || []        
+        this.pagesize.count = res?.body?.result?.totalRecords || 0;
       }
     })
   }
 
   onTablePageChange(event: number) {
     this.pagesize.offset = event;
+    this.getInventoryList();
   }
 
   onPageSizeChange(event: Event): void {
     const selectedSize = parseInt((event.target as HTMLSelectElement).value, 10);
     this.pagesize.limit = selectedSize;
+    this.getInventoryList();
+  }
+
+  onSearch(event:any) {
+    const searchValue = event.target.value.trim().replace(/\s+/g, ' ');
+    this.searchKeyword = searchValue;
+    this.inventoryList = [];
+    this.pagesize.offset = 1;
+    this.pagesize.limit = 25;
+    this.getInventoryList();  
+  }
+
+  clearSearch() {
+    this.searchKeyword = '';
+    this.pagesize.offset = 1;
+    this.pagesize.limit = 25;
+    this.getInventoryList();  
   }
 }

@@ -22,7 +22,20 @@
     </div>
     <div class="card-body">
         <div class="header-container flex flex-col sm:flex-row justify-between gap-4 py-2">
-            <div class="left-section">
+            <div class="left-section flex items-center justify-between sm:justify-start space-x-2">
+                <div class="search-form">
+                    <input placeholder="Search for..." type="text" [(ngModel)]="searchKeyword" (input)="onSearch($event)"
+                        class="form-control search-input" />
+                        @if(searchKeyword) {
+                            <button type="button" class="btn-search" (click)="clearSearch()">
+                                <i class="fa fa-close" ></i>
+                            </button>
+                        } @else {
+                            <button type="button" class="btn-search">
+                                <i class="fa fa-search" ></i>
+                            </button>
+                        }
+                </div>
                 <div class="flex items-center justify-between sm:justify-start space-x-2">
                     <label for="itemsPerPage" class="text-sm text-gray-700 whitespace-nowrap">Items per page:</label>
                     <select id="itemsPerPage"
@@ -56,30 +69,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @for (item of inventoryList | paginate: {id: 'inventoryId',
-                                itemsPerPage: pagesize.limit, currentPage: pagesize.offset, totalItems:
-                                pagesize.count}; track $index) {
-                                <tr>
-                                    <td>
-                                        {{ (pagesize.offset - 1) * pagesize.limit + $index + 1 }}
-                                    </td>
-                                    <td>{{item?.uid || 'NA'}}</td>
-                                    <td>{{item?.imei || 'NA'}}</td>
-                                    <td>{{item?.iccid || 'NA'}}</td>
-                                    <td>{{item?.vahan_sno || 'NA'}}</td>
-                                    <td>{{item?.integrator_name || 'NA' }}</td>
-                                    <td>{{item?.first_tsp || 'NA' }}</td>
-                                    <td>{{item?.first_sim || 'NA' }}</td>
-                                    <td>{{item?.second_tsp || 'NA' }}</td>
-                                    <td>{{item?.second_sim || 'NA' }}</td>
-                                    <td>{{item?.card_state || 'NA' }}</td>
-                                    <td>{{item?.card_status || 'NA' }}</td>
-                                    <td>{{item?.duration || 'NA' }}</td>
-                                    <td>{{(item?.activated_date | date:'dd/MM/yyyy') || 'NA'}}</td>
-                                    <td>{{(item?.valid_till_date | date:'dd/MM/yyyy') || 'NA'}}</td>
-                                  
-
-                                </tr>
+                                @if(inventoryList && inventoryList.length > 0) {
+                                    @for (item of inventoryList | paginate: {id: 'inventoryId',
+                                    itemsPerPage: pagesize.limit, currentPage: pagesize.offset, totalItems:
+                                    pagesize.count}; track $index) {
+                                    <tr>
+                                        <td>
+                                            {{ (pagesize.offset - 1) * pagesize.limit + $index + 1 }}
+                                        </td>
+                                        <td>{{item?.uid || 'NA'}}</td>
+                                        <td>{{item?.imei || 'NA'}}</td>
+                                        <td>{{item?.iccid || 'NA'}}</td>
+                                        <td>{{item?.vahan_sno || 'NA'}}</td>
+                                        <td>{{item?.integrator_name || 'NA' }}</td>
+                                        <td>{{item?.first_tsp || 'NA' }}</td>
+                                        <td>{{item?.first_sim || 'NA' }}</td>
+                                        <td>{{item?.second_tsp || 'NA' }}</td>
+                                        <td>{{item?.second_sim || 'NA' }}</td>
+                                        <td>{{item?.card_state || 'NA' }}</td>
+                                        <td>{{item?.card_status || 'NA' }}</td>
+                                        <td>{{item?.duration || 'NA' }}</td>
+                                        <td>{{(item?.activated_date | date:'dd/MM/yyyy') || 'NA'}}</td>
+                                        <td>{{(item?.valid_till_date | date:'dd/MM/yyyy') || 'NA'}}</td>
+                                      
+    
+                                    </tr>
+                                    }
                                 }
                             </tbody>
                         </table>

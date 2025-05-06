@@ -22,7 +22,20 @@
     </div>
     <div class="card-body">
         <div class="header-container flex flex-col sm:flex-row justify-between gap-4 pb-2">
-            <div class="left-section">
+            <div class="left-section flex items-center justify-between sm:justify-start space-x-2">
+                <div class="search-form">
+                    <input placeholder="Search for..." type="text" [(ngModel)]="searchKeyword" (input)="onSearch($event)"
+                        class="form-control search-input" />
+                        @if(searchKeyword) {
+                            <button type="button" class="btn-search" (click)="clearSearch()">
+                                <i class="fa fa-close" ></i>
+                            </button>
+                        } @else {
+                            <button type="button" class="btn-search">
+                                <i class="fa fa-search" ></i>
+                            </button>
+                        }
+                </div>
                 <div class="flex items-center justify-between sm:justify-start space-x-2">
                     <label for="itemsPerPage" class="text-sm text-gray-700 whitespace-nowrap">Items per page:</label>
                     <select id="itemsPerPage"
@@ -85,25 +98,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @for (item of stockList | paginate: {id: 'stockId',
-                                itemsPerPage: pagesize.limit, currentPage: pagesize.offset, totalItems:
-                                pagesize.count}; track $index) {
-                                <tr>
-                                    <td>{{ (pagesize.offset - 1) * pagesize.limit + $index + 1 }}</td>
-                                    <td>{{item?.manufactureName || 'NA'}}</td>
-                                    <td>{{item?.productName || 'NA'}}</td>
-                                    <td>{{item?.uid || 'NA'}}</td>
-                                    <td>{{item?.imei || 'NA' }}</td>
-                                    <td>{{item?.iccid || 'NA'}}</td>
-                                    <td>{{item?.created_date | date:'dd/MM/yyyy'}}</td>
-                                    <td>{{item?.updated_date | date:'dd/MM/yyyy' }}</td>
-
-                                    <td class="flex !space-x-2">
-                                        <button class="btn btn-success" (click)="onSingleDevice(item)">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                @if(stockList && stockList.length > 0) {
+                                    @for (item of stockList | paginate: {id: 'stockId',
+                                    itemsPerPage: pagesize.limit, currentPage: pagesize.offset, totalItems:
+                                    pagesize.count}; track $index) {
+                                    <tr>
+                                        <td>{{ (pagesize.offset - 1) * pagesize.limit + $index + 1 }}</td>
+                                        <td>{{item?.manufactureName || 'NA'}}</td>
+                                        <td>{{item?.productName || 'NA'}}</td>
+                                        <td>{{item?.uid || 'NA'}}</td>
+                                        <td>{{item?.imei || 'NA' }}</td>
+                                        <td>{{item?.iccid || 'NA'}}</td>
+                                        <td>{{item?.created_date | date:'dd/MM/yyyy'}}</td>
+                                        <td>{{item?.updated_date | date:'dd/MM/yyyy' }}</td>
+                                        <td class="flex !space-x-2">
+                                            <button class="btn btn-success" (click)="onSingleDevice(item)">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    }
                                 }
                             </tbody>
                         </table>

@@ -58,7 +58,8 @@ export class FitmentListComponent {
   get lastValue(): number {
     const calculatedLastValue = this.startValue + this.pagesize.limit - 1;
     return Math.min(calculatedLastValue, this.pagesize.count);
-  }
+  };
+  searchKeyword : any = ''
 
   constructor(
     private commonService: CommonService,
@@ -72,7 +73,8 @@ export class FitmentListComponent {
 
   ngOnInit() {
     this.setInitialValue()
-    this.getDealerDropDown()
+    // this.getDealerDropDown();
+    this.getFitmentList();
     this.selectedStatus = {"value": 1,"text": "Active"}
   }
 
@@ -130,13 +132,16 @@ export class FitmentListComponent {
     this.isLoading = true
     let payload = {
       "employeeId": Number(this.userDetails?.Id),
-      "statusId": 0
+      "statusId": 0,
+      "searchTerm": this.searchKeyword,
+      "pageNumber": this.pagesize.offset,
+      "pageSize": this.pagesize.limit,
     }
     this.fitmentService.activationList(payload).subscribe((res: any) => {
       this.isLoading = false
       if (res?.body?.isSuccess === true) {
-        this.fitmentList = res?.body?.result
-        this.pagesize.count = this.fitmentList?.length
+        this.fitmentList = res?.body?.result?.records || []
+        this.pagesize.count = res?.body?.result?.totalRecords || 0;
 
       }
     })
@@ -148,8 +153,6 @@ export class FitmentListComponent {
       this.fitmentUrlPath = [
         { name: 'Edit', path: 'edit', disabled: false },
         { name: 'Status', path: 'status', disabled: false },
-        // { name: 'Move', path: 'move', disabled: false },
-        // { name: 'MIS Details', path: 'mis-details', disabled: false },
         { name: 'MIS Download', path: 'mis-download', disabled: false },
         // { name: 'Delete', path: 'delete', disabled: false },
         // { name: 'Raw Data', path: 'raw-data', disabled: false },
@@ -329,6 +332,8 @@ export class FitmentListComponent {
       })
     );
     this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {
+      this.pagesize.offset = 1;
+      this.pagesize.limit = 25;
       this.getFitmentList()
     });
   }
@@ -426,10 +431,30 @@ export class FitmentListComponent {
 
   onTablePageChange(event: number) {
     this.pagesize.offset = event;
+    this.getFitmentList()
+
   }
 
   onPageSizeChange(event: Event): void {
     const selectedSize = parseInt((event.target as HTMLSelectElement).value, 10);
     this.pagesize.limit = selectedSize;
+    this.getFitmentList()
+
+  }
+
+  onSearch(event:any) {
+    const searchValue = event.target.value.trim().replace(/\s+/g, ' ');
+    this.searchKeyword = searchValue;
+    this.fitmentList = [];
+    this.pagesize.offset = 1;
+    this.pagesize.limit = 25;
+    this.getFitmentList();  
+  }
+
+  clearSearch() {
+    this.searchKeyword = '';
+    this.pagesize.offset = 1;
+    this.pagesize.limit = 25;
+    this.getFitmentList();  
   }
 }

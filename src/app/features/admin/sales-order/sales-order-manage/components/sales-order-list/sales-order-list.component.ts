@@ -77,12 +77,9 @@ export class SalesOrderListComponent {
       "roleId": Number(this.userDetails?.RoleId),
       "parentId": Number(this.userDetails?.Id),
     }
-    this.commonService.dealerListdetail(payload).subscribe((res: any) => {
+    this.commonService.commonDealer(payload).subscribe((res: any) => {
       if (res?.status == 200) {
-        this.dealerList = res?.body?.result?.map((item: any) => ({
-          value: item.empId,
-          text: item.contactPersonName
-        }));
+        this.dealerList = res?.body
         this.selectedDealer = this.dealerList[0]
         this.getSalesOrderList()
       }
