@@ -182,4 +182,11 @@ export class CommonService {
     .pipe(catchError((error: HttpErrorResponse) => of(error)));
   }
 
+  serviceddList(): Observable<any> {
+    let url = API_CONSTANT.serviceddList
+    return this.apiService
+    .get(url)
+    .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
 }

@@ -53,6 +53,14 @@ const routes: Routes = [
    {
     path : "vahan",
     loadChildren: () => import('../admin/vahan/vahan.module').then(m => m.VahanModule) 
+   },
+   {
+    path : "raw-data",
+    loadChildren: () => import('../admin/raw-data/raw-data.module').then(m => m.RawDataModule) 
+   },
+   {
+    path : "request",
+    loadChildren: () => import('../admin/my-request/my-request.module').then(m => m.MyRequestModule) 
    }
 
 ];

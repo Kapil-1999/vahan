@@ -34,7 +34,6 @@ export class OrderListComponent {
     return Math.min(calculatedLastValue, this.pagesize.count);
   }
 
-
   constructor(
     private orderService: OrderService,
     private commonService: CommonService,

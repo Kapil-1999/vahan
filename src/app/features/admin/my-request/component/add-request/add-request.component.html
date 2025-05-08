@@ -1,0 +1,94 @@
+<div class="modal-header text-center">
+    <h5>Place Order</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="left-section flex items-center justify-between sm:justify-start space-x-2 mb-2">
+                <div class="search-form">
+                    <input placeholder="Search for..." type="text" [(ngModel)]="searchKeyword"
+                        (input)="onSearch($event)" class="form-control search-input" />
+                    @if(searchKeyword) {
+                    <button type="button" class="btn-search" (click)="clearSearch()">
+                        <i class="fa fa-close"></i>
+                    </button>
+                    } @else {
+                    <button type="button" class="btn-search">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    }
+                </div>
+            </div>
+            <div class="overflow-auto h-[calc(100vh-200px)]">
+                <div id="datatable_wrapper">
+                    @if (isLoading) {
+                    <app-loader />
+                    } @else {
+                    <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline" role="grid"
+                        aria-describedby="datatable_info" style="width: 100%" width="100%">
+                        <thead>
+                            <tr role="row">
+                                <th>Select</th>
+                                @for (vehicleHeading of columns; track $index) {
+                                <th>
+                                    <span>{{ vehicleHeading?.title }}</span>
+                                </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(vahanDeviceList?.length) {
+                            <tr *ngFor="let row of vahanDeviceList; let i = index">
+                                <td>
+                                    <input type="checkbox" [checked]="row.isSelected" (change)="toggleRowSelection(i)">
+                                </td>
+                                <td>{{row.imei}}</td>
+                                <td>{{row.uid}}</td>
+                                <td>{{row.iccid}}</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    }
+                </div>
+                @if(!vahanDeviceList?.length) {
+                <div class="text-center py-4 text-gray-500">
+                    No Device Available
+                </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-4">
+            <form [formGroup]="requesetForm" (ngSubmit)="submit(requesetForm.value, $event)">
+                <div class="row">
+                    <div class="col-md-12 mb-2">
+                        <label class="form-label">Services</label>
+                        <ngx-select-dropdown [config]="config" formControlName="fk_service_id" [options]="serviceList">
+                        </ngx-select-dropdown>
+                        @if (requesetForm.get('fk_service_id')?.invalid &&
+                        (requesetForm.get('fk_service_id')?.dirty || requesetForm.get('fk_service_id')?.touched)) {
+                        <span class="text-danger">Service is Required</span>
+                        }
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Remarks</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" formControlName="remarks"
+                                placeholder="Enter Remark" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-success w-full" type="submit">Submit</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-danger w-full">Cancel</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

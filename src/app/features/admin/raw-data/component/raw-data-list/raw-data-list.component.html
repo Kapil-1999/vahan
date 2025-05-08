@@ -1,0 +1,67 @@
+<div class="card">
+    <div class="card-header">
+        <div class="header-part">
+            <span>Raw Data List</span>
+            <div class="counting">
+                <span>
+                    {{ pagesize.count > 0 ? startValue : 0 }} -
+                    {{ pagesize.count > 0 ? lastValue : 0 }}
+                    OF {{ pagesize.count > 0 ? pagesize.count : 0 }} Raw
+                </span>
+            </div>
+            @if (pagesize.count && pagesize.count > 0) {
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <pagination-controls id="rawId" [maxSize]="10" [responsive]="true" [nextLabel]="''"
+                        [previousLabel]="''" (pageChange)="onTablePageChange($event)">
+                    </pagination-controls>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    <div class="card-body">
+        <app-raw-data-filter (rawEmit)="onRawDataReceived($event)" (loadingEmit)="isLoading = $event">
+        </app-raw-data-filter>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="overflow-auto">
+                    <div id="datatable_wrapper">
+                        @if (isLoading) {
+                        <app-loader />
+                        } @else {
+                        <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline"
+                            role="grid" aria-describedby="datatable_info" style="width: 100%" width="100%">
+                            <thead>
+                                <tr role="row">
+                                    @for (vehicleHeading of columns; track $index) {
+                                    <th>
+                                        <span>{{ vehicleHeading?.title }}</span>
+                                    </th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(rawDataList?.length) {
+                                <tr *ngFor="let row of rawDataList | paginate: {id: 'rawId',
+                                        itemsPerPage: pagesize.limit, currentPage: pagesize.offset, totalItems:
+                                        pagesize.count}; let i = index">
+                                    <td>{{row.raw_string_datetime | date : 'dd/MM/yyyy'}}</td>
+                                    <td>{{row.imei_no}}</td>
+                                    <td>{{row.device_raw_string}}</td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                        }
+                    </div>
+                    @if(!rawDataList?.length) {
+                    <div class="text-center py-4 text-gray-500">
+                        No Raw Data Available
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

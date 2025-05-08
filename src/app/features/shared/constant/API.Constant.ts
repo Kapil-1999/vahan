@@ -113,4 +113,9 @@ export const API_CONSTANT = {
     commonDealer : 'Common/GetDealerList',
     vahanList :'Vahan/GetVahanDataList',
     vahanSubList :'Vahan/GetVahanSubDataList',
+    rawData : 'Vahan/GetDeviceRawData',
+    getServiceDashboardData :'DeviceRequest/GetServiceDashboard',
+    serviceddList : 'Common/GetServiceDDList',
+    requestDeviceList:'Device/GetUserDeviceInventoryAll',
+    generateRequest:'DeviceRequest/GenerateRequest'
 }
