@@ -15,42 +15,41 @@
         <div class="col-md-12">
             <div class="overflow-auto h-[calc(100vh-200px)]">
                 <div id="datatable_wrapper">
-                    <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline"
-                        role="grid" aria-describedby="datatable_info" style="width: 100%" width="100%">
-                        <thead>
-                            <tr role="row">
-                                <!-- <th>
-                                    <input type="checkbox" 
-                                           [checked]="isAllSelected" 
-                                           (change)="toggleSelectAll($event)">
-                                </th> -->
-                                <th>Select</th>
-                                @for (vehicleHeading of columns; track $index) {
-                                <th>
-                                    <span>{{ vehicleHeading?.title }}</span>
-                                </th>
-                                }
-                            </tr>
-                        </thead>
-                        <tbody>
-                           <tr *ngFor="let row of vahanDeviceList; let i = index">
-                            <td>
-                                <input type="checkbox" 
-                                       [checked]="row.isSelected" 
-                                       (change)="toggleRowSelection(i)" [disabled]="!row.isSelected && selectedCount >= (editData?.request_qty)">
-                            </td>
-                            <td>{{ i + 1 }}</td>
-                            <td>{{row.vahan_sno}}</td>
-                            <td>{{row.uid}}</td>
-                            <td>{{row.imei}}</td>
-                            <td>{{row.first_sim}}</td>
-                            <td>{{row.second_sim}}</td>
-                            <td>{{row.card_status}}</td>
-                            <td>{{row.activated_date ? (row?.activated_date | date : 'yyyy-MM-dd') : 'yyyy-MM-dd'}}</td>
-                            <td>{{row.valid_till_date ? (row?.valid_till_date | date : 'yyyy-MM-dd') : 'yyyy-MM-dd'  }}</td>
-                           </tr>
-                        </tbody>
-                    </table>
+                    @if (isLoading) {
+                        <app-loader />
+                        } @else {
+                            <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline"
+                                role="grid" aria-describedby="datatable_info" style="width: 100%" width="100%">
+                                <thead>
+                                    <tr role="row">
+                                        <th>Select</th>
+                                        @for (vehicleHeading of columns; track $index) {
+                                        <th>
+                                            <span>{{ vehicleHeading?.title }}</span>
+                                        </th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   <tr *ngFor="let row of vahanDeviceList; let i = index">
+                                    <td>
+                                        <input type="checkbox" 
+                                               [checked]="row.isSelected" 
+                                               (change)="toggleRowSelection(i)" [disabled]="!row.isSelected && selectedCount >= (editData?.request_qty)">
+                                    </td>
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{row.vahan_sno}}</td>
+                                    <td>{{row.uid}}</td>
+                                    <td>{{row.imei}}</td>
+                                    <td>{{row.first_sim}}</td>
+                                    <td>{{row.second_sim}}</td>
+                                    <td>{{row.card_status}}</td>
+                                    <td>{{row.activated_date ? (row?.activated_date | date : 'yyyy-MM-dd') : 'yyyy-MM-dd'}}</td>
+                                    <td>{{row.valid_till_date ? (row?.valid_till_date | date : 'yyyy-MM-dd') : 'yyyy-MM-dd'  }}</td>
+                                   </tr>
+                                </tbody>
+                            </table>
+                        }
                 </div>
                 @if(!vahanDeviceList?.length) {
                     <div class="text-center py-4 text-gray-500">

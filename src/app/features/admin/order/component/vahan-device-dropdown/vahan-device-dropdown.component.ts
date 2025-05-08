@@ -22,6 +22,7 @@ export class VahanDeviceDropdownComponent {
   vahanDeviceList: any;
   selectedCount: number = 0;
   selectedCountData: any;
+  isLoading: boolean = false;
 
   constructor(
     private DeviceService: DeviceService,
@@ -52,12 +53,18 @@ export class VahanDeviceDropdownComponent {
   }
 
   getDeviceVahanList() {
+    this.isLoading = true;
     let payload = {
       "manufacturerId": Number(this.userDetails?.Id),
-      "devicetypeId": (this.editData?.fk_category_id)
+      "devicetypeId": (this.editData?.fk_category_id),
+      "pageNumber": 1,
+      "pageSize": this.editData.request_qty,
+      "searchTerm": "",
+      "maxDevices": 0
     }
     this.DeviceService.deviceList(payload).subscribe((res: any) => {
-     this.vahanDeviceList =  res?.body?.result || [];
+      this.isLoading = false;
+     this.vahanDeviceList =  res?.body?.result?.data || [];
     })
   }
 

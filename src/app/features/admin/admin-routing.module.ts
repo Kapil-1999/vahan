@@ -49,6 +49,10 @@ const routes: Routes = [
    {
     path : "support",
     loadChildren: () => import('../admin/support/support.module').then(m => m.SupportModule) 
+   },
+   {
+    path : "vahan",
+    loadChildren: () => import('../admin/vahan/vahan.module').then(m => m.VahanModule) 
    }
 
 ];

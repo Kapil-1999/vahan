@@ -93,7 +93,7 @@ export class SalesOrderListComponent {
       this.getSalesOrderList()
     }else{
       this.selectedDealer = null
-      this.salesOrderList = []
+      this.salesOrderList = [];
     }
    
 

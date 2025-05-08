@@ -1,0 +1,111 @@
+<div class="card">
+    <div class="card-header">
+        <div class="header-part">
+            <span>Vahan List</span>
+            <div class="counting">
+                <span>
+                    {{ pagesize.count > 0 ? startValue : 0 }} -
+                    {{ pagesize.count > 0 ? lastValue : 0 }}
+                    OF {{ pagesize.count > 0 ? pagesize.count : 0 }} Vahan
+                </span>
+            </div>
+            @if (pagesize.count && pagesize.count > 0) {
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <pagination-controls id="vahanId" [maxSize]="10" [responsive]="true" [nextLabel]="''"
+                        [previousLabel]="''" (pageChange)="onTablePageChange($event)">
+                    </pagination-controls>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="vahanForm" (ngSubmit)="submit(vahanForm.value, $event)">
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <ngx-select-dropdown [config]="config" formControlName="dealerId" [options]="dealerList" (change)="onSelectDealer($event)" class="lg:w-[250px] sm:w-full md:w-full">
+                    </ngx-select-dropdown>
+                    <!-- @if (vahanForm.get('dealerId')?.invalid &&
+                    (vahanForm.get('dealerId')?.dirty || vahanForm.get('dealerId')?.touched)) {
+                    <span class="text-danger">Dealer is Required</span>
+                    } -->
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input type="date" class="form-control" formControlName="fromDate" placeholder="Enter From Date" />
+                    </div>
+                        @if (vahanForm.get('fromDate')?.invalid &&
+                        (vahanForm.get('fromDate')?.dirty || vahanForm.get('fromDate')?.touched)) {
+                        <span class="text-danger">From Date is Required</span>
+                        }
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input type="date" class="form-control" formControlName="toDate" placeholder="Enter To Date" />
+                    </div>
+                        @if (vahanForm.get('toDate')?.invalid &&
+                        (vahanForm.get('toDate')?.dirty || vahanForm.get('toDate')?.touched)) {
+                        <span class="text-danger">To Date is Required</span>
+                        }
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="overflow-auto">
+                    <div id="datatable_wrapper">
+                        @if (isLoading) {
+                            <app-loader />
+                            } @else {
+                                <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline"
+                                    role="grid" aria-describedby="datatable_info" style="width: 100%" width="100%">
+                                    <thead>
+                                        <tr role="row">
+                                            @for (vehicleHeading of columns; track $index) {
+                                            <th>
+                                                <span>{{ vehicleHeading?.title }}</span>
+                                            </th>
+                                            }
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if(vahanList?.length > 0) {
+                                            @for (item of vahanList | paginate: {id: 'vahanId',
+                                            itemsPerPage: pagesize.limit, currentPage: pagesize.offset, totalItems:
+                                            pagesize.count}; track $index) {
+                                           <tr>
+                                            <td>{{ item?.firstName  }}</td>
+                                            <td>{{ item?.deviceSubcategoryName  }}</td>
+                                            <td>{{ item?.requestDate ? (item?.requestDate | date : 'dd/MM/yyyy HH:mm:ss') : 'dd/MM/yyyy HH:mm:ss' }}</td>
+                                            <td>{{ item?.invoiceNo  }}</td>
+                                            <td>{{ item?.issueQty  }}</td>
+                                            <td>{{ item?.request_qty  }}</td>
+                                            <td>{{ item?.requestStatusName  }}</td>
+                                            <td>{{ item?.paymentStatus  }}</td>
+                                            <td>{{ item?.varifyStatus  }}</td>
+                                            <td>{{ item?.verifyDate ? (item?.verifyDate | date : 'dd/MM/yyyy HH:mm:ss') : 'dd/MM/yyyy HH:mm:ss' }}</td>
+                                            <td>
+                                                <button class="btn btn-primary" (click)="viewVahan(item)">View</button>
+                                            </td>
+                                          </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                    </div>
+                </div>
+        
+                @if( !vahanList || !vahanList?.length) {
+                <div class="text-center py-4 text-gray-500">
+                    No Vahan Data Available
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

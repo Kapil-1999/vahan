@@ -28,7 +28,7 @@ export class OrderListComponent {
   statusType: any = 1;
   get startValue(): number {
     return this.pagesize.offset * this.pagesize.limit - (this.pagesize.limit - 1);
-  }
+  } 
   get lastValue(): number {
     const calculatedLastValue = this.startValue + this.pagesize.limit - 1;
     return Math.min(calculatedLastValue, this.pagesize.count);
@@ -79,7 +79,7 @@ export class OrderListComponent {
     this.orderService.orderDashboard(payload).subscribe((res: any) => {
       this.isLoading = false;
       this.orderDashData = res?.body?.result || {};
-      this.pagesize.count = this.orderDashData?.requestList?.length;
+      this.pagesize.count = this.orderDashData?.requestList?.length || 0;
     })
   }
 
@@ -153,7 +153,7 @@ export class OrderListComponent {
     this.bsModalRef = this.modalService.show(
       VahanDeviceDropdownComponent,
       Object.assign(initialState, {
-        class: 'modal-lg modal-dialog-centered alert-popup',
+        class: 'modal-xl modal-dialog-centered alert-popup',
       })
     );
     this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {

@@ -110,5 +110,7 @@ export const API_CONSTANT = {
     paymentDetails :'Request/GetOrderPaymentDetails',
     paymentStatusList :'Common/GetPaymentStatusList',
     UpdateRequestPaymentStatus:'Request/UpdateRequestPaymentStatus',
-    commonDealer : 'Common/GetDealerList'
+    commonDealer : 'Common/GetDealerList',
+    vahanList :'Vahan/GetVahanDataList',
+    vahanSubList :'Vahan/GetVahanSubDataList',
 }
