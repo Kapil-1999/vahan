@@ -32,4 +32,18 @@ export class MyRequestService {
    .post(url, payload)
    .pipe(catchError((error: HttpErrorResponse) => of(error)));
   }
+
+  generateServiceInvoice(payload: any): Observable<any> {
+    let url = API_CONSTANT.generateServiceInvoice
+    return this.apiService
+   .post(url, payload)
+   .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
+  generateServicePayment(payload: any): Observable<any> {
+    let url = API_CONSTANT.generateServicePayment
+    return this.apiService
+   .post(url, payload)
+   .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
 }

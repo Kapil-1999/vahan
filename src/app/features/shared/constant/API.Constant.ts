@@ -117,5 +117,7 @@ export const API_CONSTANT = {
     getServiceDashboardData :'DeviceRequest/GetServiceDashboard',
     serviceddList : 'Common/GetServiceDDList',
     requestDeviceList:'Device/GetUserDeviceInventoryAll',
-    generateRequest:'DeviceRequest/GenerateRequest'
+    generateRequest:'DeviceRequest/GenerateRequest',
+    generateServiceInvoice:'DeviceRequest/GenerateServiceInvoice',
+    generateServicePayment :'DeviceRequest/GeneratePayment'
 }

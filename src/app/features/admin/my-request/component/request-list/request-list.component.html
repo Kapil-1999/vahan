@@ -150,7 +150,7 @@
                 </div>
             </div>
             <div class="right-section flex flex-col sm:flex-row gap-4 sm:gap-x-2 w-full sm:w-auto">
-                <button (click)="onRequestGenerate()"
+                <button (click)="onRequestGenerate('REQUEST_GENERATE')"
                     class="!btn !btn-primary bg-[#696cff] hover:bg-[#787bff] text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 w-full sm:w-auto">
                     <i class="fa fa-upload" aria-hidden="true"></i> Request Generate
                 </button>
@@ -221,6 +221,33 @@
                                                 </td>
                                                 <td>{{item?.last_updated_date | date: "dd/MM/yyyy"}}</td>
                                                 <td>{{item?.remarks}}</td>
+                                                <td>
+                                                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                                            <circle cx="12" cy="6" r="2" fill="currentColor" />
+                                                            <circle cx="12" cy="12" r="2" fill="currentColor" />
+                                                            <circle cx="12" cy="18" r="2" fill="currentColor" />
+                                                        </svg>
+                                                    </button>
+                                                    <mat-menu #menu="matMenu">                                                       
+                                                        <button mat-menu-item (click)="invoiceGenerate(item)">
+                                                            <i class="fas fa-cog mr-2"></i>
+                                                            <span>Invoice generate</span>
+                                                        </button>
+                                                        <button mat-menu-item (click)="onPayment(item)">
+                                                            <i class="fas fa-money-bill-wave mr-2 mr-2"></i>
+                                                            <span>Payment</span>
+                                                        </button>
+                                                        <button mat-menu-item >
+                                                            <i class="fas fa-cog mr-2"></i>
+                                                            <span>Change Status</span>
+                                                        </button>
+                                                        <button mat-menu-item>
+                                                            <i class="fas fa-file-invoice mr-2"></i>
+                                                            <span>Order History</span>
+                                                        </button>                                                   
+                                                    </mat-menu>
+                                                </td>
                                             </tr>
                                             }
                                         }

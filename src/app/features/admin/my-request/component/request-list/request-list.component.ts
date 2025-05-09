@@ -3,6 +3,8 @@ import { CommonService } from '../../../../shared/services/common.service';
 import { MyRequestService } from '../../services/my-request.service';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { AddRequestComponent } from '../add-request/add-request.component';
+import { RequestInvoiceGenerateComponent } from '../request-invoice-generate/request-invoice-generate.component';
+import { RequestPaymentComponent } from '../request-payment/request-payment.component';
 
 @Component({
   selector: 'app-request-list',
@@ -51,10 +53,11 @@ export class RequestListComponent {
       { key: 'Request Status', title: 'Request Status' },
       { key: 'Created On', title: 'Created On' },
       { key: 'Created By', title: 'Created By' },
-      {key : "Service", title: "Service"},
+      { key : "Service", title: "Service" },
       { key: 'Payment Status', title: 'Payment Status' },
       {key : 'Last Update Date', title : 'Updated Date'},
       { key: 'Remark', title: 'Remark' },
+      {key : 'Action', title : 'Action'},
     ]
   }
 
@@ -106,12 +109,52 @@ export class RequestListComponent {
   }
 
   bsModalRef! : BsModalRef
-  onRequestGenerate() {
+  onRequestGenerate(value: any) {
     const initialState: ModalOptions = {
-      initialState: {},
+      initialState: {
+        editData: value ? value : '',
+      },
     };
     this.bsModalRef = this.modalService.show(
       AddRequestComponent,
+      Object.assign(initialState, {
+        class: 'modal-xl modal-dialog-centered alert-popup',
+      })
+    );
+    this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {
+      this.pagesize.offset = 1;
+      this.pagesize.limit = 25;
+      this.getMyRequestData()
+    });
+  }
+
+  invoiceGenerate(value:any) {
+    const initialState: ModalOptions = {
+      initialState: {
+        editData: value ? value : '',
+      },
+    };
+    this.bsModalRef = this.modalService.show(
+      RequestInvoiceGenerateComponent,
+      Object.assign(initialState, {
+        class: 'modal-xl modal-dialog-centered alert-popup',
+      })
+    );
+    this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {
+      this.pagesize.offset = 1;
+      this.pagesize.limit = 25;
+      this.getMyRequestData()
+    });
+  }
+
+  onPayment(value:any) {
+    const initialState: ModalOptions = {
+      initialState: {
+        editData: value ? value : '',
+      },
+    };
+    this.bsModalRef = this.modalService.show(
+      RequestPaymentComponent,
       Object.assign(initialState, {
         class: 'modal-xl modal-dialog-centered alert-popup',
       })

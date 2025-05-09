@@ -6,13 +6,21 @@ import { MyRequestComponent } from './pages/my-request/my-request.component';
 import { RequestListComponent } from './component/request-list/request-list.component';
 import { SharedModule } from '../../shared/shared.module';
 import { AddRequestComponent } from './component/add-request/add-request.component';
+import { ChangeRequestStatusComponent } from './component/change-request-status/change-request-status.component';
+import { OrderRequestHistoryComponent } from './component/order-request-history/order-request-history.component';
+import { RequestPaymentComponent } from './component/request-payment/request-payment.component';
+import { RequestInvoiceGenerateComponent } from './component/request-invoice-generate/request-invoice-generate.component';
 
 
 @NgModule({
   declarations: [
     MyRequestComponent,
     RequestListComponent,
-    AddRequestComponent
+    AddRequestComponent,
+    ChangeRequestStatusComponent,
+    OrderRequestHistoryComponent,
+    RequestPaymentComponent,
+    RequestInvoiceGenerateComponent
   ],
   imports: [
     CommonModule,
