@@ -154,6 +154,12 @@ export const ADMIN_MENU = [
     path: "/admin/fitment/fitment-list",
     iconPath: "M22 13v-2h-2.07a5.978 5.978 0 00-1.14-2.72l1.48-1.48-1.41-1.41-1.48 1.48A5.978 5.978 0 0013 4.07V2h-2v2.07a5.978 5.978 0 00-2.72 1.14L6.8 3.73 5.39 5.14l1.48 1.48A5.978 5.978 0 004.07 11H2v2h2.07a5.978 5.978 0 001.14 2.72l-1.48 1.48 1.41 1.41 1.48-1.48A5.978 5.978 0 0011 19.93V22h2v-2.07a5.978 5.978 0 002.72-1.14l1.48 1.48 1.41-1.41-1.48-1.48A5.978 5.978 0 0019.93 13H22zM12 17a5 5 0 115-5 5 5 0 01-5 5z"
   },
+  {
+    id: 6,
+    name: "My Request",
+    path: "/admin/request/request-list",
+    iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 5a2 2 0 002 2h2a2 2 0 002-2M15 11h2m-6 0h2m-6 0h2" 
+  }
  
 ];
 
@@ -333,6 +339,12 @@ export const MANUFACUTE_MENU = [
     path: "/admin/support/support-list",
     iconPath: "M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
   },
+  {
+    id: 6,
+    name: "My Request",
+    path: "/admin/request/request-list",
+    iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 5a2 2 0 002 2h2a2 2 0 002-2M15 11h2m-6 0h2m-6 0h2" 
+  }
 ];
 
 export const DISTRIBUTER_MENU = [
