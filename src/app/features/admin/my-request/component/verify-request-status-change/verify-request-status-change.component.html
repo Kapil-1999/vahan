@@ -9,10 +9,11 @@
         <div class="row mb-3">
             <div class="col-md-6">
                 <label class="form-label">Status</label>
-                <select id="itemsPerPage" formControlName="status"
-                    class="form-control">
-                    @for (size of statusList; track $index) {
-                    <option [value]="size.name">{{ size.name }}</option>
+                <select id="itemsPerPage" formControlName="status" 
+                    class="form-control"> 
+                    <option value="">Select Status</option>
+                    @for (size of statusList; track $index) {                   
+                    <option [value]="size.value">{{ size.text }}</option> 
                     }
                 </select>
             </div>

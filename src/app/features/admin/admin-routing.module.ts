@@ -61,6 +61,10 @@ const routes: Routes = [
    {
     path : "request",
     loadChildren: () => import('../admin/my-request/my-request.module').then(m => m.MyRequestModule) 
+   },
+   {
+    path : "complain",
+    loadChildren: () => import('../admin/my-complain/my-complain.module').then(m => m.MyComplainModule) 
    }
 
 ];

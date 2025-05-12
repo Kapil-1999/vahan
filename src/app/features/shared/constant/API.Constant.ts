@@ -119,5 +119,16 @@ export const API_CONSTANT = {
     requestDeviceList:'Device/GetUserDeviceInventoryAll',
     generateRequest:'DeviceRequest/GenerateRequest',
     generateServiceInvoice:'DeviceRequest/GenerateServiceInvoice',
-    generateServicePayment :'DeviceRequest/GeneratePayment'
+    generateServicePayment :'DeviceRequest/GeneratePayment',
+    updateRequestStatus:'DeviceRequest/UpdateServiceStatus',
+    orderRequestHistory:'',
+    paymentRequestDetails:'DeviceRequest/GetOrderPaymentDetails',
+    verifyRequestPayment:'DeviceRequest/VerifyPaymentbyAccount',
+    getComplainDashboard:'UserComplaint/ComplaintDashboard',
+    newComplainRequest:'UserComplaint/NewComplaintRequest',
+    refrenceTypeDD:'Common/GetRefTypeDDList',
+    priorityListDD:'Common/GetPriorityDDList',
+    complainCategoryListDD:'Common/GetComplaintDDList',
+    getSupportTeamList:'UserComplaint/GetSupportTeamList',
+    assignComplain:'UserComplaint/assignComplaint'
 }

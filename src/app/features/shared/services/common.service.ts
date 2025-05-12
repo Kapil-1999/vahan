@@ -189,4 +189,24 @@ export class CommonService {
     .pipe(catchError((error: HttpErrorResponse) => of(error)));
   }
 
+  refrenceListDD(): Observable<any> {
+    let url = API_CONSTANT.refrenceTypeDD
+    return this.apiService
+    .get(url)
+    .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
+  priorityListDD(): Observable<any> {
+    let url = API_CONSTANT.priorityListDD
+    return this.apiService
+    .get(url)
+    .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
+  complainCategoryListDD(): Observable<any> {
+    let url = API_CONSTANT.complainCategoryListDD
+    return this.apiService
+    .get(url)
+    .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
 }
