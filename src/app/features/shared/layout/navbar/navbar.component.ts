@@ -1,5 +1,5 @@
 import { Component, signal, OnInit } from '@angular/core';
-import { ADMIN_MENU, DEALER_MENU, DISTRIBUTER_MENU, MANUFACUTE_MENU } from '../../constant/menu';
+import { ADMIN_MENU, DEALER_MENU, DISTRIBUTER_MENU, MANUFACUTE_MENU, USER_MENU } from '../../constant/menu';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { CommonService } from '../../services/common.service';
@@ -36,6 +36,8 @@ export class NavbarComponent implements OnInit {
       this.menu = DEALER_MENU;
     }else if(this.userDetails?.RoleId == 6){
       this.menu = MANUFACUTE_MENU;
+    }else if(this.userDetails?.RoleId == 7){
+      this.menu = USER_MENU;
     }
     this.checkRouteAndSelectMenu(this.menu);
     

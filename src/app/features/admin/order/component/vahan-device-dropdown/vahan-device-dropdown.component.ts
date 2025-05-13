@@ -58,7 +58,7 @@ export class VahanDeviceDropdownComponent {
       "manufacturerId": Number(this.userDetails?.Id),
       "devicetypeId": (this.editData?.fk_category_id),
       "pageNumber": 1,
-      "pageSize": this.editData.request_qty,
+      "pageSize": this.editData.balance_qty,
       "searchTerm": "",
       "maxDevices": 0
     }

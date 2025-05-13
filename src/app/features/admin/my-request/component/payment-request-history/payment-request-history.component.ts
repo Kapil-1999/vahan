@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { Location } from '@angular/common';
 import { MyRequestService } from '../../services/my-request.service';
+import { CommonService } from '../../../../shared/services/common.service';
 
 @Component({
   selector: 'app-payment-request-history',
@@ -17,17 +18,23 @@ export class PaymentRequestHistoryComponent {
   paymentRequestHistoryData: any = {};
   requestId: any;
   createdBy: any;
+  userDetails: any;
   constructor(
     private location: Location,
     private route: ActivatedRoute,
     private myRequestService: MyRequestService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+        private commonService: CommonService,
+    
   ) {
     this.route.params.subscribe(params => {
       this.requestId = params['id'];
       this.createdBy = params['createdBy'];
       this.getPaymentHistoryData();
     });
+    this.commonService.getUserDetails().subscribe((res: any) => {
+      this.userDetails = res;
+    })
   };
 
   ngOnInit() {
@@ -47,9 +54,10 @@ export class PaymentRequestHistoryComponent {
       { key: 'Verify By', title: 'Verify By' },
       { key: 'Verify Date', title: 'Verify Date' },
       { key: 'Verify Status', title: 'Verify Status' },
-      { key: 'Action', title: 'Action' },
-
     ]
+    if (this.userDetails?.RoleId == "6") {
+      this.columns.push({ key: 'Action', title: 'Action' });
+    }
   }
 
   getPaymentHistoryData() {

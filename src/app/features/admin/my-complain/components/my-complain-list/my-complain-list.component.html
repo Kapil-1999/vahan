@@ -121,7 +121,7 @@
                 <span>
                     {{ pagesize.count > 0 ? startValue : 0 }} -
                     {{ pagesize.count > 0 ? lastValue : 0 }}
-                    OF {{ pagesize.count > 0 ? pagesize.count : 0 }} Request
+                    OF {{ pagesize.count > 0 ? pagesize.count : 0 }} Complain
                 </span>
             </div>
             @if(this.myComplainData?.complaintList && this.myComplainData?.complaintList?.length) {
@@ -149,7 +149,7 @@
                     </select>
                 </div>
             </div>
-            @if (this.userDetails?.RoleId == "2" || this.userDetails?.RoleId == "3") {
+            @if (userDetails?.RoleId == "2" || userDetails?.RoleId == "3") {
                 <div class="right-section flex flex-col sm:flex-row gap-4 sm:gap-x-2 w-full sm:w-auto">
                     <button (click)="onComplainGenerate('')"
                         class="!btn !btn-primary bg-[#696cff] hover:bg-[#787bff] text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 w-full sm:w-auto">
@@ -207,21 +207,6 @@
                                                 <td>{{item?.complaint_datetime ? (item?.complaint_datetime | date: 'dd/MM/yyyy') : 'NA'}}</td>
                                                 <td>{{item?.client_name}}</td>
                                                 <td>{{item?.complaint_category_name}}</td>
-                                                <!-- <td>
-                                                    @if (item?.payment_status === 'Pending') {
-                                                    <span
-                                                        class="badge border rounded-lg b-0 py-2 font-medium bg-yellow-500 text-white">{{item?.payment_status}}</span>
-                                                    } @else if (item?.payment_status === 'Failed') {
-                                                    <span
-                                                        class="badge border rounded-lg b-0 py-2 font-medium bg-red-500 text-white">{{item?.payment_status}}</span>
-                                                    } @else if (item?.payment_status === 'Success') {
-                                                    <span
-                                                        class="badge border rounded-lg b-0 py-2 font-medium bg-green-500 text-white">{{item?.payment_status}}</span>
-                                                    } @else {
-                                                    <span
-                                                        class="badge border rounded-lg b-0 py-2 font-medium bg-gray-500 text-white">{{item?.payment_status}}</span>
-                                                    }
-                                                </td> -->
                                                 <td>{{item?.ref_name}}</td>
                                                 <td>{{item?.ref_value}}</td>
                                                 <td>{{item?.complaint_priority_name}}</td>
@@ -235,11 +220,23 @@
                                                             <circle cx="12" cy="18" r="2" fill="currentColor" />
                                                         </svg>
                                                     </button>
-                                                    <mat-menu #menu="matMenu">                                                       
-                                                        <button mat-menu-item (click)="assignComplain(item)">
-                                                            <i class="fas fa-cog mr-2"></i>
-                                                            <span>Assign Complain</span>
-                                                        </button>
+                                                    <mat-menu #menu="matMenu">  
+                                                        @if(userDetails?.RoleId == "7"){
+                                                            <button mat-menu-item (click)="responseComplain(item)">
+                                                                <i class="fas fa-reply mr-2"></i>
+                                                                <span>Response</span>
+                                                            </button>
+                                                        }@else {
+                                                            <button mat-menu-item (click)="assignComplain(item)">
+                                                                <i class="fas fa-user-check mr-2"></i>
+                                                                <span>Assign Complain</span>
+                                                            </button>
+                                                            
+                                                            <button mat-menu-item (click)="responseComplain(item)">
+                                                                <i class="fas fa-reply mr-2"></i>
+                                                                <span>Response</span>
+                                                            </button>
+                                                        }                                           
                                                                                
                                                     </mat-menu>
                                                 </td>

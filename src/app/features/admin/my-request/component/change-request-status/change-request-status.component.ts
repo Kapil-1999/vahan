@@ -43,11 +43,11 @@ export class ChangeRequestStatusComponent {
   }
 
   setIntialForm() {
-    const defaultStatus = this.editData?.status_Name || this.statusList[0].name;
+    const defaultStatus = this.editData?.request_status || this.statusList[0].name;
     
     this.chnageStatusForm = this.fb.group({
       status: [defaultStatus, [Validators.required]],
-      remarks: [""]
+      remarks: [this.editData?.remarks]
     });
     
     this.chnageStatusForm.get('status')?.valueChanges.subscribe((value) => {

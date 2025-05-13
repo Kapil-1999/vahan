@@ -55,14 +55,16 @@ export class OrderListComponent {
     this.columns = [
       { key: 'S.No.', title: 'S.No.' },
       { key: 'Order Status', title: 'Order Status' },
-      { key: 'Created On', title: 'Created On' },
-      { key: 'Created By', title: 'Created By' },
+      { key: 'Order Date', title: 'Order Date' },
+      { key: 'Order By', title: 'Order By' },
       { key: 'Product', title: 'Product' },
-      { key: 'Plan', title: 'Plan' },
-      { key: 'State', title: 'State' },
+      // { key: 'Plan', title: 'Plan' },
+      // { key: 'State', title: 'State' },
       { key: 'Quantity', title: 'Quantity' },
       { key: 'Payment Mode', title: 'Payment Mode' },
       { key: 'Payment Status', title: 'Payment Status' },
+      { key: 'Verify Status', title: 'Verify Status' },
+      { key: 'Verify Date', title: 'Verify Date' },
       { key: 'Remark', title: 'Remark' },
       { key: 'Action', title: 'Action' }
     ]

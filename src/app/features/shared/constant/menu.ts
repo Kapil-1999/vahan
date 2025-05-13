@@ -469,3 +469,14 @@ export const DEALER_MENU = [
   }
 
 ];
+
+export const USER_MENU = [
+
+  {
+    id: 1,
+    name: "My Complain",
+    path: "/admin/complain/complain-list",
+    iconPath: "M12 2C6.48 2 2 6.03 2 11c0 2.08.79 3.99 2.11 5.5L2 22l5.63-2.36C9 20.25 10.47 20.5 12 20.5c5.52 0 10-4.03 10-9.5S17.52 2 12 2zm-1 5h2v5h-2V7zm0 6h2v2h-2v-2z"
+  }
+
+]

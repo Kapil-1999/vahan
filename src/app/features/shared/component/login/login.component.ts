@@ -41,19 +41,19 @@ export class LoginComponent {
   }
 
   ngOnInit(): void {
-    let token:any =  this.storageService.getToken();   
-    
-    if(token){     
-     if(this.userDetails.RoleId == '2' || this.userDetails.RoleId == '3') {
-       this.router.navigate(['/admin/orders/order-details']);
-       return; 
-     } else {
-       this.router.navigate(['/admin/manufacturer/manufacturer-list']);
-       return;
-     }
+    let token: any = this.storageService.getToken();
+
+    if (token) {
+      if (this.userDetails.RoleId == '2' || this.userDetails.RoleId == '3') {
+        this.router.navigate(['/admin/orders/order-details']);
+        return;
+      } else {
+        this.router.navigate(['/admin/manufacturer/manufacturer-list']);
+        return;
+      }
     } else {
-     this.router.navigate(['/login']);
-    } 
+      this.router.navigate(['/login']);
+    }
   }
 
   togglePassword() {
@@ -79,12 +79,14 @@ export class LoginComponent {
         const decodedToken = this.commonService.decodeToken(token);
         this.store.dispatch(setUser({ user: decodedToken }));
         this.NotificationService.successAlert('Login Successfully');
-        setTimeout(() => {   
-          if(decodedToken.RoleId == '2' || decodedToken.RoleId == '3') {
+        setTimeout(() => {
+          if (decodedToken.RoleId == '2' || decodedToken.RoleId == '3') {
             this.router.navigate(['/admin/orders/order-details']);
-          } else {
+          } else if(decodedToken.RoleId == '7'){
+            this.router.navigate(['/admin/complain/complain-list']);
+          }else {
             this.router.navigate(['/admin/manufacturer/manufacturer-list']);
-          } 
+          }
 
         }, 2000);
       } else {

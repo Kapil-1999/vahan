@@ -38,4 +38,25 @@ export class MycomplainService {
    .post(url, payload)
    .pipe(catchError((error: HttpErrorResponse) => of(error)));
   }
+
+  userComplainList(payload: any): Observable<any> {
+    let url = API_CONSTANT.userComplainList
+    return this.apiService
+   .post(url, payload)
+   .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
+  responseComplain(payload: any): Observable<any> {
+    let url = API_CONSTANT.responseComplain
+    return this.apiService
+   .post(url, payload)
+   .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
+  oldComplainList(payload: any): Observable<any> {
+    let url = API_CONSTANT.oldComplainList
+    return this.apiService
+   .post(url, payload)
+   .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
 }

@@ -40,10 +40,13 @@
                     <td>{{ paymentRequestHistoryData?.varify_by_name  }}</td>
                     <td>{{ paymentRequestHistoryData?.verify_date ? (paymentRequestHistoryData?.verify_date | date : 'dd/MM/yyyy HH:mm:ss') : 'dd/MM/yyyy HH:mm:ss' }}</td>
                     <td>{{ paymentRequestHistoryData?.varify_status_name  }}</td>
-                    <td>
-                        <button (click)="onVerify(paymentRequestHistoryData)" [disabled]="paymentRequestHistoryData?.varify_status_id == 3"
+                    @if(userDetails?.RoleId == "6"){
+                      <td>
+                        <button (click)="onVerify(paymentRequestHistoryData)" [disabled]="paymentRequestHistoryData?.varify_status_id == 3 || paymentRequestHistoryData?.varify_status_id == 4"
                           class="btn btn-primary">Verify</button>
                     </td>
+                    }
+                   
                   </tr>
                 </tbody>
               </table>

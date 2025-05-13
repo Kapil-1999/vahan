@@ -55,11 +55,15 @@ export class RequestListComponent {
     this.columns = [
       { key: 'S.No.', title: 'S.No.' },
       { key: 'Request Status', title: 'Request Status' },
-      { key: 'Created On', title: 'Created On' },
-      { key: 'Created By', title: 'Created By' },
+      { key: 'Request On', title: 'Request On' },
+      { key: 'Request By', title: 'Request By' },
       { key : "Service", title: "Service" },
+      { key: 'Invoice Status', title: 'Invoice Status' },
+      { key: 'Invoice Date', title: 'Invoice Date' },
       { key: 'Payment Status', title: 'Payment Status' },
-      {key : 'Last Update Date', title : 'Updated Date'},
+      { key: 'Payment Date', title: 'Payment Date' },
+      { key: 'Verify Status', title: 'Verify Status' },
+      { key: 'Verify Date', title: 'Verify Date' },
       { key: 'Remark', title: 'Remark' },
       {key : 'Action', title : 'Action'},
     ]

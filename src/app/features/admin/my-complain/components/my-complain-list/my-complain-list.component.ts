@@ -4,6 +4,7 @@ import { CommonService } from '../../../../shared/services/common.service';
 import { GenerateComplainComponent } from '../generate-complain/generate-complain.component';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { AssignComplainComponent } from '../assign-complain/assign-complain.component';
+import { ResponseComplainComponent } from '../response-complain/response-complain.component';
 
 @Component({
   selector: 'app-my-complain-list',
@@ -59,17 +60,23 @@ export class MyComplainListComponent {
       { key: "Priority", title: "Priority" },
       { key: 'Last Update Date', title: 'Updated Date' },
       { key: 'Remark', title: 'Remark' },
-      {key : 'Action', title : 'Action'},
+      { key: 'Action', title: 'Action' },
     ]
   }
 
   getMyComplainData() {
     this.isLoading = true;
+    let service: any
     let payload = {
       "request_by": Number(this.userDetails.Id),
       "status_id": this.statusType
     }
-    this.myComplainService.myComplainData(payload).subscribe((res: any) => {
+    if (this.userDetails?.RoleId == 7) {
+      service = this.myComplainService.userComplainList(payload)
+    } else {
+      service = this.myComplainService.myComplainData(payload)
+    }
+    service.subscribe((res: any) => {
       this.isLoading = false;
       this.myComplainData = res?.body?.result || {};
       this.pagesize.count = res?.body?.result?.complaintList?.length || 0;
@@ -129,7 +136,7 @@ export class MyComplainListComponent {
     });
   }
 
-  assignComplain(value: any){
+  assignComplain(value: any) {
     const initialState: ModalOptions = {
       initialState: {
         editData: value ? value : '',
@@ -139,6 +146,25 @@ export class MyComplainListComponent {
       AssignComplainComponent,
       Object.assign(initialState, {
         class: 'modal-md modal-dialog-centered alert-popup',
+      })
+    );
+    this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {
+      this.pagesize.offset = 1;
+      this.pagesize.limit = 25;
+      this.getMyComplainData()
+    });
+  }
+
+  responseComplain(value: any) {
+    const initialState: ModalOptions = {
+      initialState: {
+        editData: value ? value : '',
+      },
+    };
+    this.bsModalRef = this.modalService.show(
+      ResponseComplainComponent,
+      Object.assign(initialState, {
+        class: 'modal-lg modal-dialog-centered alert-popup',
       })
     );
     this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {

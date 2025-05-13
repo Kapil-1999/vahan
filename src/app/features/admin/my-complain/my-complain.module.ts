@@ -7,6 +7,7 @@ import { MyComplainListComponent } from './components/my-complain-list/my-compla
 import { SharedModule } from '../../shared/shared.module';
 import { GenerateComplainComponent } from './components/generate-complain/generate-complain.component';
 import { AssignComplainComponent } from './components/assign-complain/assign-complain.component';
+import { ResponseComplainComponent } from './components/response-complain/response-complain.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { AssignComplainComponent } from './components/assign-complain/assign-com
     MyComplainComponent,
     MyComplainListComponent,
     GenerateComplainComponent,
-    AssignComplainComponent
+    AssignComplainComponent,
+    ResponseComplainComponent
   ],
   imports: [
     CommonModule,

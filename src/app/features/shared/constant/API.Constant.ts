@@ -130,5 +130,8 @@ export const API_CONSTANT = {
     priorityListDD:'Common/GetPriorityDDList',
     complainCategoryListDD:'Common/GetComplaintDDList',
     getSupportTeamList:'UserComplaint/GetSupportTeamList',
-    assignComplain:'UserComplaint/assignComplaint'
+    assignComplain:'UserComplaint/assignComplaint',
+    responseComplain:'UserComplaint/complaintResponse',
+    userComplainList:'UserComplaint/ComplaintDashboardUser',
+    oldComplainList:'UserComplaint/OldComplaintRequest'
 }
