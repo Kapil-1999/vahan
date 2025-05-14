@@ -17,7 +17,7 @@ export class VahanDeviceDropdownComponent {
   isAllSelected: boolean = false;
   columns: any;
   editData: any;
-  type :any
+  type: any
   userDetails: any;
   vahanDeviceList: any;
   selectedCount: number = 0;
@@ -30,15 +30,15 @@ export class VahanDeviceDropdownComponent {
     private modalService: BsModalService,
     private orderService: OrderService,
     private notificationService: NotificationService,
-  ) {}
+  ) { }
 
-  ngOnInit() {         
+  ngOnInit() {
     this.commonService.getUserDetails().subscribe((res: any) => {
-      this.userDetails = res;     
-    })   
+      this.userDetails = res;
+    })
     this.columns = [
       { key: 'S.No.', title: 'S.No.' },
-      {key : 'Vahan Sno', title : 'Vahan Sno'},
+      { key: 'Vahan Sno', title: 'Vahan Sno' },
       { key: 'UID', title: 'UID' },
       { key: 'IMEI', title: 'IMEI' },
       { key: 'P Sim No.', title: 'P Sim No.' },
@@ -49,7 +49,7 @@ export class VahanDeviceDropdownComponent {
 
     ];
     this.getDeviceVahanList()
-   
+
   }
 
   getDeviceVahanList() {
@@ -64,51 +64,54 @@ export class VahanDeviceDropdownComponent {
     }
     this.DeviceService.deviceList(payload).subscribe((res: any) => {
       this.isLoading = false;
-     this.vahanDeviceList =  res?.body?.result?.data || [];
+      this.vahanDeviceList = res?.body?.result?.data || [];
     })
   }
 
   toggleSelectAll(event: any) {
     const checked = event.target.checked;
     this.isAllSelected = checked;
-    this.vahanDeviceList.forEach((row:any) => row.isSelected = checked);
-    this.selectedCount = checked ? this.vahanDeviceList.length : 0;    
+    this.vahanDeviceList.forEach((row: any) => row.isSelected = checked);
+    this.selectedCount = checked ? this.vahanDeviceList.length : 0;
+    this.selectedCountData = this.vahanDeviceList
+      .filter((row: any) => row.isSelected)
+      .map((device: any) => ({ product_id: device.device_id }));
   }
 
   toggleRowSelection(index: number) {
-    const currentSelectedCount = this.vahanDeviceList.filter((row:any) => row.isSelected).length;
-    const qty = this.editData?.request_qty; 
-  
+    const currentSelectedCount = this.vahanDeviceList.filter((row: any) => row.isSelected).length;
+    const qty = this.editData?.request_qty;
+
     if (!this.vahanDeviceList[index].isSelected) {
       if (currentSelectedCount >= qty) {
-        return; 
+        return;
       }
     }
-  
-    this.vahanDeviceList[index].isSelected = !this.vahanDeviceList[index].isSelected;
-    this.isAllSelected = this.vahanDeviceList.every((row:any) => row.isSelected);
-    this.selectedCount = this.vahanDeviceList.filter((row:any) => row.isSelected).length;    
+
+    // this.vahanDeviceList[index].isSelected = !this.vahanDeviceList[index].isSelected;
+    this.isAllSelected = this.vahanDeviceList.every((row: any) => row.isSelected);
+    this.selectedCount = this.vahanDeviceList.filter((row: any) => row.isSelected).length;
     this.selectedCountData = this.vahanDeviceList
-    .filter((row: any) => row.isSelected)
-    .map((device: any) => ({product_id : device.device_id}));      
+      .filter((row: any) => row.isSelected)
+      .map((device: any) => ({ product_id: device.device_id }));
   }
 
-  submit() {     
+  submit() {
     let payload = {
-    "request_id": this.editData?.pk_request_id,
-    "customer_id": this.editData?.created_by,
-    "issued_by": Number(this.userDetails?.Id),
-    "itemList" : this.selectedCountData
+      "request_id": this.editData?.pk_request_id,
+      "customer_id": this.editData?.created_by,
+      "issued_by": Number(this.userDetails?.Id),
+      "itemList": this.selectedCountData
     }
     this.orderService.itemIssue(payload).subscribe((res: any) => {
-      if(res?.body?.statusCode == 200) {
+      if (res?.body?.statusCode == 200) {
         this.notificationService.showSuccess(res?.body?.actionResponse)
         this.mapdata.emit();
         this.modalService.hide();
       } else {
         this.notificationService.showError(res?.body?.actionResponse)
       }
-    })       
+    })
   }
 
   cancel() {
