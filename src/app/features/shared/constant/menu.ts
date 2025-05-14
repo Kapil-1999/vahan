@@ -231,13 +231,13 @@ export const MANUFACUTE_MENU = [
     path: "/admin/raw-data/list",
     iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
   },
-//   {
-//     id: 7,
-//     name: "Sales",
-//     path: "/admin/sales-order/sales-order-list",
-//     iconPath: "M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"
-//     ,
-//   },
+  {
+    id: 7,
+    name: "Sales",
+    path: "/admin/sales-order/sales-order-list",
+    iconPath: "M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"
+    ,
+  },
 //   {
 //     id: 8,
 //     name: "Sales Manager",

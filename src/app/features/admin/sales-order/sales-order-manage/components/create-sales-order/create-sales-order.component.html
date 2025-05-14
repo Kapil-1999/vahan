@@ -42,7 +42,7 @@
 
             <!-- Row 2: 3 Columns -->
             <div class="row">
-                <div class="col-md-4 mb-3">
+                <div class="col-md-6 mb-3">
                     <label class="form-label">Rate</label>
                     <input type="number" class="form-control" placeholder="Enter Rate" formControlName="rate" />
 
@@ -53,7 +53,7 @@
                 </div>
 
 
-                <div class="col-md-4 mb-3">
+                <div class="col-md-6 mb-3">
                     <label class="form-label">Quantity ( Bal :- {{balanceData || 0}} )</label>
                     <input type="text" class="form-control" placeholder="Enter Quantity" formControlName="quantity"
                         (input)="checkBalance($event)" />
@@ -66,7 +66,12 @@
                     }
                 </div>
 
-                <div class="col-md-4 mb-3">
+               
+            </div>
+
+            <!-- Row 3: 3 Columns -->
+            <div class="row">
+                 <div class="col-md-6 mb-3">
                     <label class="form-label">Tax</label>
                     <input type="text" class="form-control" placeholder="Enter Tax" formControlName="tax" />
                     @if (salesOrderForm.get('tax')?.invalid &&
@@ -74,10 +79,7 @@
                     <span class="text-danger">Tax is Required</span>
                     }
                 </div>
-            </div>
 
-            <!-- Row 3: 3 Columns -->
-            <div class="row">
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Invoice No</label>
                     <input type="text" class="form-control" placeholder="Enter Invoice No"
@@ -88,7 +90,7 @@
                     }
                 </div>
 
-                <div class="col-md-6 mb-3">
+                <!-- <div class="col-md-6 mb-3">
                     <label class="form-label">Sales Manager</label>
                     <ngx-select-dropdown [config]="config" formControlName="salesManager" [options]="salesManagerList">
                     </ngx-select-dropdown> 
@@ -96,7 +98,7 @@
                     (salesOrderForm.get('salesManager')?.dirty || salesOrderForm.get('salesManager')?.touched)) {
                     <span class="text-danger">Sales Manager is Required</span>
                     }
-                </div>
+                </div> -->
 
             </div>
 

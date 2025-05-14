@@ -28,7 +28,7 @@ export class CreateSalesOrderComponent {
   salesManagerList: any;
   balanceData: any;
   isBalanceExceeded: boolean = false;
-  selectedDealerId:any
+  selectedDealerId: any
   constructor(
     private fb: FormBuilder,
     private bsModalService: BsModalService,
@@ -43,7 +43,6 @@ export class CreateSalesOrderComponent {
 
   ngOnInit() {
     this.setInitialForm();
-    this.getManagerList()
     this.getProductList()
     this.getBalanceData()
   }
@@ -57,9 +56,22 @@ export class CreateSalesOrderComponent {
       quantity: ['', [Validators.required]],
       tax: [{ value: 18, disabled: true }, Validators.required],
       invoiceNo: ['', [Validators.required]],
-      salesManager: ['', [Validators.required]],
+      // salesManager: ['', [Validators.required]],
       remarks: [''],
     })
+
+     if(this.editData) {
+      this.tittle = 'Update'
+      this.salesOrderForm.patchValue({
+        date : this.editData?.orgName,
+        poNumber : this.editData?.po_no,
+        rate : this.editData?.rate,
+        quantity : this.editData?.quantity,
+        tax : this.editData?.tax,
+        invoiceNo : this.editData?.invoice_no,
+        remarks : this.editData?.remarks,
+      })
+    }
   }
 
   // product dropdown
@@ -70,25 +82,18 @@ export class CreateSalesOrderComponent {
           value: item.productId,
           text: item.product_Name
         }));
+        if (this.editData?.fk_product_id) {
+          const matchedProduct = this.productList.find(
+            (product: any) => product.value === this.editData.fk_product_id
+          );
+          if (matchedProduct) {
+            this.salesOrderForm.patchValue({ model: matchedProduct });
+          }
+        }
       }
     })
   }
 
-  // sales manager dropdown
-  getManagerList() {
-    let payload = {
-      "roleId": Number(this.userDetails?.RoleId),
-      "parentId": Number(this.userDetails?.Id)
-    }
-    this.commonService.managerList(payload).subscribe((res: any) => {
-      if (res?.body?.isSuccess == true) {
-        this.salesManagerList = res?.body?.result?.map((item: any) => ({
-          value: item.empId,
-          text: item.contactPersonName
-        }));
-      }
-    })
-  }
 
   getBalanceData() {
     let payload = {
@@ -123,26 +128,24 @@ export class CreateSalesOrderComponent {
     let successMessage: any = 'Sales Order Created Succesfully';
     let taxFormValue = this.salesOrderForm.getRawValue();
     let payload = {
-
-      "po_no": formValue?.poNumber,
+       "po_no":  formValue?.poNumber,
       "order_date": formatDate(formValue.date, 'yyyy-MM-dd', 'en-US'),
       "fk_product_id": Number(formValue?.model?.value),
-      "fk_from_parent_id": Number(this.userDetails?.Id),
-      "fk_to_dealer_id": Number(this.selectedDealerId.value),
       "rate": Number(formValue?.rate),
       "quantity": inputQuantity,
       "tax": taxFormValue?.tax,
       "invoice_no": formValue?.invoiceNo,
       "remarks": formValue?.remarks,
-      "fk_sales_manager_id": Number(formValue?.salesManager?.value)
+      "fk_parent_id": Number(this.userDetails?.Id),
+      "fk_client_id": Number(this.selectedDealerId.value)
     }
-console.log('payload',payload);
+    console.log('payload', payload);
 
     this.salesOrderService.createSales(payload).subscribe((res: any) => {
       if (res?.body?.isSuccess === true) {
         this.bsModalService.hide();
         this.mapdata.emit();
-        this.NotificationService.successAlert(successMessage);
+        this.NotificationService.successAlert(res?.body?.actionResponse);
       } else {
         this.NotificationService.errorAlert(res?.body?.actionResponse);
       }

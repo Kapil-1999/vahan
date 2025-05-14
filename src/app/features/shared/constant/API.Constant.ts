@@ -42,8 +42,8 @@ export const API_CONSTANT = {
     managerList:'SalesManager/GetSalesManagerList',
     addManager:'SalesManager/AddSalesManager',
     updateManager:'SalesManager/UpdateSalesManager',
-    salesList:'SalesManager/GetGenerateSales',
-    createSales:'SalesManager/GenerateSales',
+    salesList:'SalesManager/vahanSalesList',
+    createSales:'SalesManager/vahanSales',
     deviceBalance:'SalesManager/CheckDeviceBalance',
     backendList:'Backend/BackendList',
     createBackend:'Backend/AddBackend',
@@ -133,5 +133,9 @@ export const API_CONSTANT = {
     assignComplain:'UserComplaint/assignComplaint',
     responseComplain:'UserComplaint/complaintResponse',
     userComplainList:'UserComplaint/ComplaintDashboardUser',
-    oldComplainList:'UserComplaint/OldComplaintRequest'
+    oldComplainList:'UserComplaint/OldComplaintRequest',
+    uploadInventory:'SalesManager/vahanDeviceUpload?uploadId=${uploadId}',
+    docketNo:'SalesManager/updateDocketNumber',
+    deleteSalesList:'SalesManager/deleteVahanSalesById',
+    inventoryOrderDetail:'SalesManager/vahanDeviceUploadList'
 }

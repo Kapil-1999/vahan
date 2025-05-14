@@ -35,13 +35,14 @@
                 </div>
             </div>
             <div class="right-section flex flex-col sm:flex-row gap-4 sm:gap-x-2 w-full sm:w-auto">
-                <ngx-select-dropdown [config]="config" [ngModel]="selectedDealer" [options]="dealerList" (change)="onSelectDealer($event)" class="lg:w-[250px] sm:w-full md:w-full">
+                <ngx-select-dropdown [config]="config" [ngModel]="selectedDealer" [options]="dealerList"
+                    (change)="onSelectDealer($event)" class="lg:w-[250px] sm:w-full md:w-full">
                 </ngx-select-dropdown>
                 @if(this.userDetails?.RoleId !== "1") {
-                    <button (click)="onAddSalesOrder('')" [disabled]="!selectedDealer"                      
-                        class="!btn !btn-primary bg-[#696cff] hover:bg-[#787bff] text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 w-full sm:w-auto">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Create Sales Order
-                    </button>
+                <button (click)="onAddSalesOrder('')" [disabled]="selectedDealer?.length == 0"
+                    class="!btn !btn-primary bg-[#696cff] hover:bg-[#787bff] text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 w-full sm:w-auto">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Create Sales Order
+                </button>
                 }
             </div>
         </div>
@@ -72,17 +73,44 @@
                                         {{ (pagesize.offset - 1) * pagesize.limit + $index + 1 }}
                                     </td>
                                     <td>{{item?.order_date | date:'dd/MM/yyyy'}}</td>
-                                            <td>{{item?.po_no || 'NA'}}</td>
-                                            <td>{{item?.sales_namager_name || 'NA'}}</td>
-                                            <td>{{item?.dealer_name || 'NA'}}</td>
-                                            <td>{{item?.product_name || 'NA' }}</td>
-                                            <td>{{item?.rate || 'NA' }}</td>
-                                            <td>{{item?.quantity || 'NA' }}</td>
-                                            <td>{{item?.tax || 'NA' }}</td>
-                                            <td>{{item?.amount || 'NA' }}</td>
-                                            <td>{{item?.docket_no || 'NA' }}</td>
-                                            <td>{{item?.delivery_status || 'NA' }}</td>
+                                    <td>{{item?.po_no || 'NA'}}</td>
+                                    <td>{{item?.client_name || 'NA'}}</td>
+                                    <td>{{item?.product_name || 'NA' }}</td>
+                                    <td>{{item?.rate || 'NA' }}</td>
+                                    <td><a class="inventory-detail" (click)="redirectTo(item)">{{item?.quantity || 'NA' }}</a> </td>
+                                    <td>{{item?.tax || 'NA' }}</td>
+                                    <td>{{item?.amount || 'NA' }}</td>
+                                    <td>{{item?.docket_no || 'NA' }}</td>
+                                    <td>
+                                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="6" r="2" fill="currentColor" />
+                                                <circle cx="12" cy="12" r="2" fill="currentColor" />
+                                                <circle cx="12" cy="18" r="2" fill="currentColor" />
+                                            </svg>
+                                        </button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item (click)="onAddSalesOrder(item)">
+                                                <i class="fas fa-pen mr-2"></i>
+                                                <span>Edit</span>
+                                            </button>
 
+                                            <button mat-menu-item (click)="uploadInventory(item)">
+                                                <i class="fas fa-box mr-2"></i>
+                                                <span>Asign Inventory</span>
+                                            </button>
+
+                                            <button mat-menu-item (click)="updateDocket(item)">
+                                                <i class="fas fa-edit mr-2"></i>
+                                                <span>Update Docket</span>
+                                            </button>
+
+                                            <button mat-menu-item (click)="onDeleteSalesList(item)">
+                                                <i class="fas fa-trash mr-2"></i>
+                                                <span>Delete</span>
+                                            </button>
+                                        </mat-menu>
+                                    </td>
                                 </tr>
                                 }
                             </tbody>
