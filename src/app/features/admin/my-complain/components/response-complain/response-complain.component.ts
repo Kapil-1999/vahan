@@ -68,7 +68,7 @@ export class ResponseComplainComponent {
       "log_by": Number(this.userDetails.Id),
       "is_closed":  Number(formValue?.status)
     }
-    if (this.userDetails?.RoleId == 7) {
+    if (this.userDetails?.RoleId == 7 || this.userDetails?.RoleId == 6) {
       service = this.myComplainService.responseComplain(payload)
     } else {
       service = this.myComplainService.oldComplainList(payload)
