@@ -90,12 +90,12 @@
                                             </svg>
                                         </button>
                                         <mat-menu #menu="matMenu">
-                                            <button mat-menu-item (click)="onAddSalesOrder(item)">
+                                            <button mat-menu-item (click)="onAddSalesOrder(item)" [disabled]="item?.is_Accessable == '0'">
                                                 <i class="fas fa-pen mr-2"></i>
                                                 <span>Edit</span>
                                             </button>
 
-                                            <button mat-menu-item (click)="uploadInventory(item)">
+                                            <button mat-menu-item (click)="uploadInventory(item)" [disabled]="item?.is_Accessable == '0'">
                                                 <i class="fas fa-box mr-2"></i>
                                                 <span>Asign Inventory</span>
                                             </button>
@@ -105,7 +105,7 @@
                                                 <span>Update Docket</span>
                                             </button>
 
-                                            <button mat-menu-item (click)="onDeleteSalesList(item)">
+                                            <button mat-menu-item (click)="onDeleteSalesList(item)" [disabled]="item?.is_Accessable == '0'">
                                                 <i class="fas fa-trash mr-2"></i>
                                                 <span>Delete</span>
                                             </button>
