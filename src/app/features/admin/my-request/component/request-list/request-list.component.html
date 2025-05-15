@@ -234,7 +234,7 @@
                                             class="badge border rounded-lg b-0 py-2 font-medium bg-gray-500 text-white">{{item?.payment_status}}</span>
                                         }
                                     </td>
-                                    <td>{{(item?.Payment_date | date:'dd/MM/yyyy') || 'NA'}}</td>
+                                    <td>{{item?.payment_date | date:'dd/MM/yyyy'}}</td>
 
                                     <td>
                                         @if (item?.varify_status_Name === 'Pending') {
@@ -254,7 +254,7 @@
                                             class="badge border rounded-lg b-0 py-2 font-medium bg-gray-500 text-white">{{item?.varify_status_Name}}</span>
                                         }
                                     </td>
-                                    <td>{{(item?.verify_date | date:'dd/MM/yyyy') || 'NA'}}</td>
+                                    <td>{{item?.verify_date | date:'dd/MM/yyyy'}}</td>
                                     <td>{{item?.remarks}}</td>
                                     <td>
                                         <button mat-icon-button [matMenuTriggerFor]="menu">
