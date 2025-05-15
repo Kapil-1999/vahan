@@ -135,7 +135,9 @@ export const API_CONSTANT = {
     userComplainList:'UserComplaint/ComplaintDashboardUser',
     oldComplainList:'UserComplaint/OldComplaintRequest',
     uploadInventory:'SalesManager/vahanDeviceUpload?uploadId=${uploadId}',
+    validateFile:'SalesManager/vahanDeviceUploadValidate?uploadId=${uploadId}',
     docketNo:'SalesManager/updateDocketNumber',
     deleteSalesList:'SalesManager/deleteVahanSalesById',
-    inventoryOrderDetail:'SalesManager/vahanDeviceUploadList'
+    inventoryOrderDetail:'SalesManager/vahanDeviceUploadList',
+    updateSales:'SalesManager/updateVahanSales'
 }

@@ -5,6 +5,7 @@ import { CommonService } from '../../../../../shared/services/common.service';
 import { NotificationService } from '../../../../../shared/services/notification.service';
 import { SalesOrderService } from '../../services/sales-order.service';
 import { formatDate } from '@angular/common';
+import { OrderService } from '../../../../order/services/order.service';
 
 @Component({
   selector: 'app-create-sales-order',
@@ -35,6 +36,7 @@ export class CreateSalesOrderComponent {
     private commonService: CommonService,
     private NotificationService: NotificationService,
     private salesOrderService: SalesOrderService,
+    private OrderService : OrderService,
   ) {
     this.commonService.getUserDetails().subscribe((res: any) => {
       this.userDetails = res
@@ -59,32 +61,64 @@ export class CreateSalesOrderComponent {
       // salesManager: ['', [Validators.required]],
       remarks: [''],
     })
-
-     if(this.editData) {
+    const formatDate = (date: any) => {
+      if (!date) return '';
+      if (date instanceof Date) {
+        return date.toISOString().split('T')[0];
+      }
+      if (typeof date === 'string') {
+        return date.split('T')[0];
+      }
+      return '';
+    };
+    if (this.editData) {
       this.tittle = 'Update'
       this.salesOrderForm.patchValue({
-        date : this.editData?.orgName,
-        poNumber : this.editData?.po_no,
-        rate : this.editData?.rate,
-        quantity : this.editData?.quantity,
-        tax : this.editData?.tax,
-        invoiceNo : this.editData?.invoice_no,
-        remarks : this.editData?.remarks,
+        date: formatDate(this.editData?.order_date),
+        poNumber: this.editData?.po_no,
+        rate: this.editData?.rate,
+        quantity: this.editData?.quantity,
+        tax: this.editData?.tax,
+        invoiceNo: this.editData?.invoice_no,
+        remarks: this.editData?.remarks,
       })
     }
   }
 
   // product dropdown
+  // getProductList() {
+  //   this.commonService.productList().subscribe((res: any) => {
+  //     if (res?.status == 200) {
+  //       this.productList = res.body.result.map((item: any) => ({
+  //         value: item.productId,
+  //         text: item.product_Name
+  //       }));
+  //       if (this.editData?.fk_product_id) {
+  //         const matchedProduct = this.productList.find(
+  //           (product: any) => product.value === this.editData.fk_product_id
+  //         );
+  //         if (matchedProduct) {
+  //           this.salesOrderForm.patchValue({ model: matchedProduct });
+  //         }
+  //       }
+  //     }
+  //   })
+  // }
+
   getProductList() {
-    this.commonService.productList().subscribe((res: any) => {
+    let payload = {
+      fk_device_category_id: 0
+    }
+    this.OrderService.orderProductList(payload).subscribe((res: any) => {
       if (res?.status == 200) {
         this.productList = res.body.result.map((item: any) => ({
-          value: item.productId,
-          text: item.product_Name
+          value: item.fk_device_category_id,
+          text: item.device_subcategory_name
         }));
-        if (this.editData?.fk_product_id) {
+
+        if (this.editData) {
           const matchedProduct = this.productList.find(
-            (product: any) => product.value === this.editData.fk_product_id
+            (data: any) => data.value == this.editData.pk_product_id
           );
           if (matchedProduct) {
             this.salesOrderForm.patchValue({ model: matchedProduct });
@@ -106,42 +140,44 @@ export class CreateSalesOrderComponent {
     })
   }
 
-  checkBalance(event: any): void {
-    const inputQuantity = Number(event.target.value);
-    if (this.balanceData && inputQuantity > this.balanceData) {
-      this.isBalanceExceeded = true;
-    } else {
-      this.isBalanceExceeded = false;
-    }
-  }
+  // checkBalance(event: any): void {
+  //   const inputQuantity = Number(event.target.value);
+  //   if (this.balanceData && inputQuantity > this.balanceData) {
+  //     this.isBalanceExceeded = true;
+  //   } else {
+  //     this.isBalanceExceeded = false;
+  //   }
+  // }
 
   submit(formValue: any) {
-    const inputQuantity = Number(formValue?.quantity);
-    if (this.balanceData && inputQuantity > this.balanceData) {
-      this.NotificationService.errorAlert("Balance not available. Cannot submit.");
-      return;
-    }
+
     if (this.salesOrderForm.invalid) {
       this.salesOrderForm.markAllAsTouched();
       return;
     }
-    let successMessage: any = 'Sales Order Created Succesfully';
     let taxFormValue = this.salesOrderForm.getRawValue();
-    let payload = {
-       "po_no":  formValue?.poNumber,
+    let service: any
+    let payload: any = {
+      "po_no": formValue?.poNumber,
       "order_date": formatDate(formValue.date, 'yyyy-MM-dd', 'en-US'),
       "fk_product_id": Number(formValue?.model?.value),
       "rate": Number(formValue?.rate),
-      "quantity": inputQuantity,
+      "quantity": Number(formValue?.quantity),
       "tax": taxFormValue?.tax,
       "invoice_no": formValue?.invoiceNo,
       "remarks": formValue?.remarks,
       "fk_parent_id": Number(this.userDetails?.Id),
       "fk_client_id": Number(this.selectedDealerId.value)
     }
+    if (this.editData?.pk_order_header_id) {
+      payload.pk_order_header_id = this.editData.pk_order_header_id;
+      service = this.salesOrderService.updateSales(payload)
+    } else {
+      service = this.salesOrderService.createSales(payload)
+    }
     console.log('payload', payload);
 
-    this.salesOrderService.createSales(payload).subscribe((res: any) => {
+    service.subscribe((res: any) => {
       if (res?.body?.isSuccess === true) {
         this.bsModalService.hide();
         this.mapdata.emit();

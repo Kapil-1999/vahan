@@ -19,6 +19,7 @@ export class AsignInventoryComponent {
   userDetails: any;
   editData: any
   selectedFile: any;
+  validateData: any;
 
   constructor(
     private fb: FormBuilder,
@@ -51,7 +52,24 @@ export class AsignInventoryComponent {
     }
   }
 
-  submit(formValue: any) {
+  validateFile(){
+     if (this.inventoryForm.invalid) {
+      this.inventoryForm.markAllAsTouched();
+      return;
+    }
+    let payload = {
+      uploadId: this.editData?.pk_order_header_id
+    }
+    const formData = new FormData();
+    formData.append("file", this.selectedFile);
+    this.salesOrderService.validateInventoryFile(payload, formData).subscribe((res: any) => {
+      if (res?.body?.isSuccess === true) {
+        this.validateData = res?.body
+      } 
+    })
+  }
+
+  submit() {
     if (this.inventoryForm.invalid) {
       this.inventoryForm.markAllAsTouched();
       return;

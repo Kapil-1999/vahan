@@ -4,6 +4,17 @@
         <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
     </div>
 </div>
+@if (validateData?.result?.isRequestSend == 0) {
+<div class="alert alert-warning mb-0">
+    <i class="fas fa-info-circle me-2"></i>
+    {{validateData?.actionResponse}}
+</div>
+}@else if(validateData?.result?.isRequestSend == 1) {
+    <div class="alert alert-success mb-0">
+    <i class="fas fa-info-circle me-2"></i>
+    {{validateData?.actionResponse}}
+</div>
+}
 <div class="modal-body">
     <form [formGroup]="inventoryForm">
         <div class="_card white-bg">
@@ -26,7 +37,8 @@
         <!-- Footer Buttons -->
         <div class="footer">
             <div class="button-container">
-                <button class="btn btn-success" type="submit" (click)="submit(inventoryForm.value)">Submit</button>
+                <button class="btn btn-info" type="submit" (click)="validateFile()">Validate</button>
+                <button class="btn btn-success" type="submit" (click)="submit()" [disabled]="validateData?.result?.isRequestSend == 0 || validateData == null">Upload</button>
                 <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
             </div>
         </div>

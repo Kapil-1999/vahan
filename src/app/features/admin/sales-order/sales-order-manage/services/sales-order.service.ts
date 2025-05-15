@@ -25,6 +25,13 @@ export class SalesOrderService {
       .pipe(catchError((error: HttpErrorResponse) => of(error)));
   }
 
+  updateSales(payload: any): Observable<any> {
+    let url = API_CONSTANT.updateSales
+    return this.apiService
+      .post(url, payload)
+      .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
   deviceBalance(payload: any): Observable<any> {
     let url = API_CONSTANT.deviceBalance
     return this.apiService
@@ -60,4 +67,10 @@ export class SalesOrderService {
       .pipe(catchError((error: HttpErrorResponse) => of(error)));
   }
 
+ validateInventoryFile(payload: any, formData: any): Observable<any> {
+    let url = API_CONSTANT.validateFile.replace('${uploadId}', payload.uploadId)
+    return this.apiService
+      .post(url, formData)
+      .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
 }
