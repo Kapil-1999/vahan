@@ -226,17 +226,22 @@
                                                                 <i class="fas fa-reply mr-2"></i>
                                                                 <span>Response</span>
                                                             </button>
-                                                        }@else {
+                                                        }@else if(userDetails?.RoleId == "6") {
                                                             <button mat-menu-item (click)="assignComplain(item)">
                                                                 <i class="fas fa-user-check mr-2"></i>
                                                                 <span>Assign Complain</span>
                                                             </button>
                                                             
                                                             <button mat-menu-item (click)="responseComplain(item)">
+                                                                 <i class="fas fa-reply mr-2"></i>
+                                                                <span>Response</span>
+                                                            </button>
+                                                        }@else {
+                                                             <button mat-menu-item (click)="responseComplain(item)">
                                                                 <i class="fas fa-reply mr-2"></i>
                                                                 <span>Response</span>
                                                             </button>
-                                                        }                                           
+                                                        }                                          
                                                                                
                                                     </mat-menu>
                                                 </td>

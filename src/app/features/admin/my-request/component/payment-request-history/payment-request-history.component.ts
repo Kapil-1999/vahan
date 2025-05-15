@@ -64,7 +64,8 @@ export class PaymentRequestHistoryComponent {
     this.isLoading = false;
     let payload = {
       "pk_request_id": Number(this.requestId),
-      "created_by": Number(this.createdBy)
+      "created_by": Number(this.createdBy),
+      "isService": 1
     }
     this.myRequestService.paymentDetails(payload).subscribe((res: any) => {
       this.isLoading = false;
