@@ -47,6 +47,7 @@ export class RequestInvoiceGenerateComponent {
     this.invoiceForm = this.fb.group({
       service_id: [null,[Validators.required]],
       rate: ['0.00'],
+      refrenceNo: [''],
       quantity: ['0'],
       amount: [{ value: "0.00", disabled: true }],
       igstPer: [{ value: 18, disabled: true }],
@@ -78,6 +79,7 @@ export class RequestInvoiceGenerateComponent {
     if (this.editData?.bill_amount > 0) {
       this.invoiceForm.patchValue({
         rate: this.editData?.item_rate,
+        refrenceNo: this.editData?.tally_refrence_no,
         quantity: this.editData?.net_request,
         amount: this.editData?.amount,
         igstPer: this.editData?.igst_per,
@@ -240,7 +242,8 @@ export class RequestInvoiceGenerateComponent {
         "cgst_per": Number(updatedFormValue?.cgstPer),
         "sgst_per": Number(updatedFormValue?.sgstPer),
         "igst_per": Number(updatedFormValue?.igstPer),
-        "isIntraGST": formvalue?.gstType == "1" ? 1 : 0 
+        "isIntraGST": formvalue?.gstType == "1" ? 1 : 0,
+        "tally_refrence_no": formvalue?.refrenceNo
     }
     this.requestService.generateServiceInvoice(payload).subscribe((res: any) => {
       if (res?.body?.statusCode == 200) {

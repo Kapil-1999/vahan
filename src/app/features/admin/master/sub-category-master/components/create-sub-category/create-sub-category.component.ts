@@ -61,6 +61,7 @@ export class CreateSubCategoryComponent {
     this.subCategoryForm = this.fb.group({
       subCategoryName: ['', [Validators.required]],
       hsnCode: ['', [Validators.required]],
+      rate: ['', [Validators.required]],
       isState: [false],
       isplan: [{ value: false, disabled: true }],
     });
@@ -70,6 +71,7 @@ export class CreateSubCategoryComponent {
         this.subCategoryForm.patchValue({
         subCategoryName: this.editData?.device_subcategory_name,
         isState: this.editData?.isState,
+        rate: this.editData?.device_price,
       });
   
       const isplanControl = this.subCategoryForm.get('isplan');
@@ -132,7 +134,8 @@ export class CreateSubCategoryComponent {
         "device_subcategory_name": formValue?.subCategoryName,
         "isState": formValue?.isState,
         "isPlan": rawValue?.isplan,
-        "fk_gst_id": Number(formValue?.hsnCode?.value)
+        "fk_gst_id": Number(formValue?.hsnCode?.value),
+        "device_price" : formValue?.rate
       }
       successMessage = 'Sub Category Updated Succesfully'
       service = this.subCategoryService.updatSubCategory(payload);
@@ -142,7 +145,8 @@ export class CreateSubCategoryComponent {
         "device_subcategory_name": formValue?.subCategoryName,
         "isState": formValue?.isState,
         "isPlan": rawValue?.isplan,
-        "fk_gst_id": Number(formValue?.hsnCode?.value)
+        "fk_gst_id": Number(formValue?.hsnCode?.value),
+        "device_price":formValue?.rate
 
       }
       successMessage = 'Sub Category Created Succesfully'

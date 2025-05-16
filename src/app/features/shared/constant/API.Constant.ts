@@ -139,5 +139,6 @@ export const API_CONSTANT = {
     docketNo:'SalesManager/updateDocketNumber',
     deleteSalesList:'SalesManager/deleteVahanSalesById',
     inventoryOrderDetail:'SalesManager/vahanDeviceUploadList',
-    updateSales:'SalesManager/updateVahanSales'
+    updateSales:'SalesManager/updateVahanSales',
+    deviceListV2 : 'Device/GetVahanDeviceSimStatusListV2',
 }

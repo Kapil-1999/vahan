@@ -64,7 +64,7 @@ export class RequestListComponent {
       { key: 'Payment Date', title: 'Payment Date' },
       { key: 'Verify Status', title: 'Verify Status' },
       { key: 'Verify Date', title: 'Verify Date' },
-      { key: 'Remark', title: 'Remark' },
+      { key: 'Refrence No.', title: 'Refrence No.' },
       {key : 'Action', title : 'Action'},
     ]
   }

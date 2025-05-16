@@ -60,26 +60,21 @@
                         <span class="text-danger">Service is Required</span>
                         }
                     </div>
-                    <div class="col-md-12">
+                    <!-- <div class="col-md-12"> -->
+                    <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">GST Type</label>
                             <div class="d-flex gap-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" 
-                                        formControlName="gstType" 
-                                        value="0" 
-                                        id="intraState"
-                                       >
+                                    <input class="form-check-input" type="radio" formControlName="gstType" value="0"
+                                        id="intraState">
                                     <label class="form-check-label" for="intraState">
                                         Intra State
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" 
-                                        formControlName="gstType" 
-                                        value="1" 
-                                        id="interState"
-                                        >
+                                    <input class="form-check-input" type="radio" formControlName="gstType" value="1"
+                                        id="interState">
                                     <label class="form-check-label" for="interState">
                                         Inter State
                                     </label>
@@ -87,6 +82,14 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-md-6 mb-2">
+                        <label class="form-label">Refrence No.</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Enter Refrence No." formControlName="refrenceNo" />
+                        </div>
+                    </div>
+                    <!-- </div> -->
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Rate</label>
                         <div class="input-group">
@@ -96,98 +99,83 @@
                         <span class="text-danger">Rate is required</span>
                         } -->
                     </div>
-        
+
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Quanity</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" placeholder="Enter Quanity" formControlName="quantity" />
+                            <input type="number" class="form-control" placeholder="Enter Quanity"
+                                formControlName="quantity" />
                         </div>
                         <!-- @if (requesetForm.get('quantity')?.invalid && requesetForm.get('quantity')?.touched) {
                         <span class="text-danger">Quanity is required</span>
                         } -->
                     </div>
-        
+
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Amount</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" placeholder="Enter Amount" formControlName="amount" />
+                            <input type="number" class="form-control" placeholder="Enter Amount"
+                                formControlName="amount" />
                         </div>
                         <!-- @if (requesetForm.get('amount')?.invalid && requesetForm.get('amount')?.touched) {
                         <span class="text-danger">Amount is required</span>
                         } -->
                     </div>
-    
+
                     <div class="col-md-4 mb-3">
                         <label class="form-label">CGST %</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" 
-                                placeholder="Enter CGST %" 
-                                formControlName="cgstPer"
-                                (input)="calculateTax($event)"
-                                />
+                            <input type="number" class="form-control" placeholder="Enter CGST %"
+                                formControlName="cgstPer" (input)="calculateTax($event)" />
                         </div>
                     </div>
-        
+
                     <div class="col-md-4 mb-3">
                         <label class="form-label">SGST %</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" 
-                                placeholder="Enter SGST %" 
-                                formControlName="sgstPer"
-                                (input)="calculateTax($event)"
-                               />
+                            <input type="number" class="form-control" placeholder="Enter SGST %"
+                                formControlName="sgstPer" (input)="calculateTax($event)" />
                         </div>
                     </div>
-        
+
                     <div class="col-md-4 mb-3">
                         <label class="form-label">IGST %</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" 
-                                placeholder="Enter IGST %" 
-                                formControlName="igstPer"
-                                (input)="calculateTax($event)"
-                                />
+                            <input type="number" class="form-control" placeholder="Enter IGST %"
+                                formControlName="igstPer" (input)="calculateTax($event)" />
                         </div>
                     </div>
-        
+
                     <div class="col-md-4 mb-3">
                         <label class="form-label">CGST</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" 
-                                placeholder="Enter CGST" 
-                                formControlName="cgst"
-                                 />
+                            <input type="number" class="form-control" placeholder="Enter CGST" formControlName="cgst" />
                         </div>
                     </div>
-        
+
                     <div class="col-md-4 mb-3">
                         <label class="form-label">SGST </label>
                         <div class="input-group">
-                            <input type="number" class="form-control" 
-                                placeholder="Enter SGST" 
-                                formControlName="sgst"
-                                 />
+                            <input type="number" class="form-control" placeholder="Enter SGST" formControlName="sgst" />
                         </div>
                     </div>
-        
+
                     <div class="col-md-4 mb-3">
                         <label class="form-label">IGST </label>
                         <div class="input-group">
-                            <input type="number" class="form-control" 
-                                placeholder="Enter IGST" 
-                                formControlName="igst"
-                                />
+                            <input type="number" class="form-control" placeholder="Enter IGST" formControlName="igst" />
                         </div>
                     </div>
-                        <!-- @if (requesetForm.get('cgst')?.invalid && requesetForm.get('cgst')?.touched) {
+                    <!-- @if (requesetForm.get('cgst')?.invalid && requesetForm.get('cgst')?.touched) {
                         <span class="text-danger">CGST is required</span>
                         } -->
-        
-        
+
+
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Total Tax</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" placeholder="Enter Total Tax" formControlName="tax"/>
+                            <input type="number" class="form-control" placeholder="Enter Total Tax"
+                                formControlName="tax" />
                         </div>
                         <!-- @if (requesetForm.get('tax')?.invalid && requesetForm.get('tax')?.touched) {
                         <span class="text-danger">Total Tax is required</span>
@@ -196,16 +184,18 @@
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Net Amount</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" placeholder="Enter Billing Amount" formControlName="netamount"/>
+                            <input type="number" class="form-control" placeholder="Enter Billing Amount"
+                                formControlName="netamount" />
                         </div>
                         <!-- @if (requesetForm.get('billingAmount')?.invalid && requesetForm.get('billingAmount')?.touched) {
                         <span class="text-danger">Billing Amount is required</span>
                         } -->
-                    </div> 
+                    </div>
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Billing Amount</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" placeholder="Enter Billing Amount" formControlName="billingAmount"/>
+                            <input type="number" class="form-control" placeholder="Enter Billing Amount"
+                                formControlName="billingAmount" />
                         </div>
                         <!-- @if (requesetForm.get('billingAmount')?.invalid && requesetForm.get('billingAmount')?.touched) {
                         <span class="text-danger">Billing Amount is required</span>
@@ -214,9 +204,10 @@
                     <div class="col-md-12 mb-2">
                         <label class="form-label">Remark</label>
                         <textarea name="" id="" row="2" class="form-control" formControlName="remarks"></textarea>
-                    </div> 
+                    </div>
                     <div class="col-md-6">
-                        <button class="btn btn-success w-full" type="submit" [disabled]="this.editData?.bill_amount > 0">Generate Invoice</button>
+                        <button class="btn btn-success w-full" type="submit"
+                            > {{editData?.bill_amount > 0 ? 'Modify Invoice' : 'Generate Invoice' }}</button>
                     </div>
                     <div class="col-md-6">
                         <button class="btn btn-danger w-full" (click)="cancel($event)">Cancel</button>

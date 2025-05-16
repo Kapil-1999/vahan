@@ -20,21 +20,35 @@
                     }
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label class="form-label">HSN Code</label>
+                    <label class="form-label d-flex align-items-center">
+                        HSN Code
+                        <ng-container *ngIf="selectedHsn?.cgst || selectedHsn?.igst || selectedHsn?.sgst">
+                            <span class="ml-2">
+                                ( CGST: {{ selectedHsn?.cgst || '0%' }},
+                               &nbsp; IGST: {{ selectedHsn?.igst || '0%' }},
+                               &nbsp; SGST: {{ selectedHsn?.sgst || '0%' }} )
+                            </span>
+                        </ng-container>
+                    </label>
+
                     <ngx-select-dropdown place [config]="config" [options]="gstListData" formControlName="hsnCode"
                         (change)="onSelectHsnCode($event)">
                     </ngx-select-dropdown>
-                    @if(selectedHsn?.cgst || selectedHsn?.igst || selectedHsn?.sgst) {
-                        <div class="mt-2 ml-2 mr-2 d-flex justify-content-between align-items-center">
-                          <span>CGST: {{ selectedHsn?.cgst || '0%' }}</span>
-                          <span>IGST: {{ selectedHsn?.igst || '0%' }}</span>
-                          <span>SGST: {{ selectedHsn?.sgst || '0%' }}</span>
-                        </div>
-                      }
-                      
+
+
                     @if (subCategoryForm.get('hsnCode')?.invalid &&
                     (subCategoryForm.get('hsnCode')?.dirty || subCategoryForm.get('hsnCode')?.touched)) {
                     <span class="text-danger">HSN Code is Required</span>
+                    }
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Rate</label>
+                    <input type="number" class="form-control" placeholder="Enter Rate"
+                        formControlName="rate" />
+                    @if (subCategoryForm.get('rate')?.invalid &&
+                    (subCategoryForm.get('rate')?.dirty || subCategoryForm.get('rate')?.touched))
+                    {
+                    <span class="text-danger">Rate is Required</span>
                     }
                 </div>
                 <div class="col-md-6 mb-3">

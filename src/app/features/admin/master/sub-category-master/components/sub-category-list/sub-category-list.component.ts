@@ -59,9 +59,10 @@ isLoading: boolean = false;
       { key: 'Device Sub Category', title: 'Device Sub Category' },
       { key: 'HSN Name', title: 'HSN Name' },
       { key: 'HSN Code', title: 'HSN Code' },
-      { key: 'SGST', title: 'SGST' },
       { key: 'CGST', title: 'CGST' },
+      { key: 'SGST', title: 'SGST' },
       { key: 'IGST', title: 'IGST' },
+      { key: 'Rate', title: 'Rate' },
       { key: 'Action', title: 'Action' },
     ]
   }
