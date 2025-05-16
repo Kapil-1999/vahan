@@ -6,11 +6,11 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <h3 class="text-sm font-medium text-yellow-500">Pending</h3>
+                <h3 class="text-sm font-medium text-yellow-500">Open</h3>
             </div>
             <div class="flex justify-between items-center mt-2">
                 <div class="flex items-center">
-                    <p class="text-2xl font-bold">{{this.myComplainData?.pending}}</p>
+                    <p class="text-2xl font-bold">{{this.myComplainData?.open}}</p>
                 </div>
                 <span class="flex items-center text-yellow-500 text-sm font-medium">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20"
@@ -24,7 +24,7 @@
             </div>
         </div>
         <button class="bg-[#787bff] p-2 rounded-lg text-white flex items-center justify-center cursor-pointer"
-            (click)="onShowOrder('Pending', 1)">
+            (click)="onShowOrder('Open', 0)">
             View <i class="fa fa-arrow-right pl-2" aria-hidden="true"></i>
         </button>
     </div>
@@ -35,11 +35,11 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
-                <h3 class="text-blue-500 text-sm font-medium">Processing</h3>
+                <h3 class="text-blue-500 text-sm font-medium">Close</h3>
             </div>
             <div class="flex justify-between items-center mt-2">
                 <div class="flex items-center">
-                    <p class="text-2xl font-bold">{{this.myComplainData?.processing}}</p>
+                    <p class="text-2xl font-bold">{{this.myComplainData?.close}}</p>
                 </div>
                 <span class="flex items-center text-blue-500 text-sm font-medium">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20"
@@ -52,12 +52,12 @@
                 </span>
             </div>
         </div>
-        <button class="bg-[#787bff] p-2 rounded-lg text-white cursor-pointer" (click)="onShowOrder('Processing', 2)">
+        <button class="bg-[#787bff] p-2 rounded-lg text-white cursor-pointer" (click)="onShowOrder('Close', 1)">
             View <i class="fa fa-arrow-right pl-2" aria-hidden="true"></i>
         </button>
     </div>
 
-    <div class="bg-white rounded-lg shadow w-full flex flex-col">
+    <!-- <div class="bg-white rounded-lg shadow w-full flex flex-col">
         <div class="p-6">
             <div class="flex items-center gap-2">
                 <svg class="w-5 h-5 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -110,7 +110,7 @@
         <button class="bg-[#787bff] p-2 rounded-lg text-white cursor-pointer" (click)="onShowOrder('Rejected', 4)">
             View <i class="fa fa-arrow-right pl-2" aria-hidden="true"></i>
         </button>
-    </div>
+    </div> -->
 </div>
 
 <div class="card">
@@ -187,13 +187,14 @@
                                                     {{ (pagesize.offset - 1) * pagesize.limit + $index + 1 }}
                                                 </td>
                                                 <td>
-                                                    @if (item?.complaint_status_name === 'Pending') {
+                                                    @if (item?.is_closed == 0) {
                                                     <span
-                                                        class="badge border rounded-lg b-0 py-2 font-medium bg-yellow-500 text-white">{{item?.complaint_status_name}}</span>
-                                                    } @else if (item?.complaint_status_name === 'Processing') {
+                                                        class="badge border rounded-lg b-0 py-2 font-medium bg-yellow-500 text-white">Open</span>
+                                                    } @else if (item?.is_closed == 1) {
                                                     <span
-                                                        class="badge border rounded-lg b-0 py-2 font-medium bg-blue-500 text-white">{{item?.complaint_status_name}}</span>
-                                                    } @else if (item?.complaint_status_name === 'Dispatched') {
+                                                        class="badge border rounded-lg b-0 py-2 font-medium bg-blue-500 text-white">Close</span>
+                                                    } 
+                                                    <!-- @else if (item?.complaint_status_name === 'Dispatched') {
                                                     <span
                                                         class="badge border rounded-lg b-0 py-2 font-medium bg-green-500 text-white">{{item?.complaint_status_name}}</span>
                                                     } @else if (item?.complaint_status_name === 'Rejected') {
@@ -202,7 +203,7 @@
                                                     } @else {
                                                     <span
                                                         class="badge border rounded-lg b-0 py-2 font-medium bg-gray-500 text-white">{{item?.complaint_status_name}}</span>
-                                                    }
+                                                    } -->
                                                 </td>
                                                 <td>{{item?.complaint_datetime ? (item?.complaint_datetime | date: 'dd/MM/yyyy') : 'NA'}}</td>
                                                 <td>{{item?.client_name}}</td>

@@ -21,7 +21,7 @@ export class MyComplainListComponent {
   };
   myComplainData: any;
   userDetails: any;
-  label: string = 'Pending';
+  label: string = 'Open';
   statusType: any = 1;
   bsModalRef!: BsModalRef
   get startValue(): number {
