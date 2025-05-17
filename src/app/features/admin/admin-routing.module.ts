@@ -69,6 +69,10 @@ const routes: Routes = [
    {
     path : "renewal",
     loadChildren: () => import('../admin/renewal/renewal.module').then(m => m.RenewalModule) 
+   },
+   {
+    path : "search",
+    loadChildren: () => import('../admin/search-detail/search-detail.module').then(m => m.SearchDetailModule) 
    }
 
 ];

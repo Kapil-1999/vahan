@@ -357,6 +357,12 @@ export const MANUFACUTE_MENU = [
     name: "Renewal",
     path: "/admin/renewal/renewal-list",
     iconPath: "M17.65 6.35A7.95 7.95 0 0012 4V1L7 6l5 5V7c2.76 0 5.26 1.12 7.07 2.93a9.958 9.958 0 010 14.14 9.958 9.958 0 01-14.14 0A9.958 9.958 0 014 12H1c0 5.52 4.48 10 10 10s10-4.48 10-10c0-2.65-1.03-5.2-2.93-7.07z"
+  },
+  {
+    id: 6,
+    name: "Search",
+    path: "/admin/search/search-detail",
+    iconPath: "M11 2a9 9 0 106.32 15.32l4.38 4.38a1 1 0 001.41-1.41l-4.38-4.38A9 9 0 0011 2zm0 2a7 7 0 110 14 7 7 0 010-14z"
   }
 ];
 
