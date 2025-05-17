@@ -133,13 +133,13 @@ export const ADMIN_MENU = [
         path: "/admin/masters/complain-list",
         iconPath: "M12 2C6.48 2 2 6.03 2 11c0 2.08.79 3.99 2.11 5.5L2 22l5.63-2.36C9 20.25 10.47 20.5 12 20.5c5.52 0 10-4.03 10-9.5S17.52 2 12 2zm-1 5h2v5h-2V7zm0 6h2v2h-2v-2z"
       },
-       {
+      {
         id: 711,
         name: "Service",
         path: "/admin/masters/service-list",
         iconPath: "M19.43 12.98c.04-.32.07-.66.07-1s-.03-.68-.07-1l2.11-1.65a.5.5 0 00.11-.64l-2-3.46a.5.5 0 00-.6-.22l-2.49 1a7.007 7.007 0 00-1.5-.87L14.5 2h-5l-.35 2.14c-.52.2-1.01.46-1.5.87l-2.49-1a.5.5 0 00-.6.22l-2 3.46a.5.5 0 00.11.64L4.57 10c-.04.32-.07.66-.07 1s.03.68.07 1l-2.11 1.65a.5.5 0 00-.11.64l2 3.46a.5.5 0 00.6.22l2.49-1c.49.41.98.67 1.5.87L9.5 22h5l.35-2.14c.52-.2 1.01-.46 1.5-.87l2.49 1a.5.5 0 00.6-.22l2-3.46a.5.5 0 00-.11-.64l-2.11-1.65zM12 15.5A3.5 3.5 0 1115.5 12 3.5 3.5 0 0112 15.5z"
       }
-     
+
     ]
   },
   {
@@ -158,9 +158,9 @@ export const ADMIN_MENU = [
     id: 6,
     name: "My Request",
     path: "/admin/request/request-list",
-    iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 5a2 2 0 002 2h2a2 2 0 002-2M15 11h2m-6 0h2m-6 0h2" 
+    iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 5a2 2 0 002 2h2a2 2 0 002-2M15 11h2m-6 0h2m-6 0h2"
   }
- 
+
 ];
 
 export const MANUFACUTE_MENU = [
@@ -238,13 +238,13 @@ export const MANUFACUTE_MENU = [
     iconPath: "M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"
     ,
   },
-//   {
-//     id: 8,
-//     name: "Sales Manager",
-//     path: "/admin/sales-manager/manager-list",
-//     iconPath: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-// ,
-//   },
+  //   {
+  //     id: 8,
+  //     name: "Sales Manager",
+  //     path: "/admin/sales-manager/manager-list",
+  //     iconPath: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+  // ,
+  //   },
   {
     id: 7,
     name: "Masters",
@@ -317,14 +317,14 @@ export const MANUFACUTE_MENU = [
         path: "/admin/masters/complain-list",
         iconPath: "M12 2C6.48 2 2 6.03 2 11c0 2.08.79 3.99 2.11 5.5L2 22l5.63-2.36C9 20.25 10.47 20.5 12 20.5c5.52 0 10-4.03 10-9.5S17.52 2 12 2zm-1 5h2v5h-2V7zm0 6h2v2h-2v-2z"
       },
-       {
+      {
         id: 711,
         name: "Service",
         path: "/admin/masters/service-list",
         iconPath: "M19.43 12.98c.04-.32.07-.66.07-1s-.03-.68-.07-1l2.11-1.65a.5.5 0 00.11-.64l-2-3.46a.5.5 0 00-.6-.22l-2.49 1a7.007 7.007 0 00-1.5-.87L14.5 2h-5l-.35 2.14c-.52.2-1.01.46-1.5.87l-2.49-1a.5.5 0 00-.6.22l-2 3.46a.5.5 0 00.11.64L4.57 10c-.04.32-.07.66-.07 1s.03.68.07 1l-2.11 1.65a.5.5 0 00-.11.64l2 3.46a.5.5 0 00.6.22l2.49-1c.49.41.98.67 1.5.87L9.5 22h5l.35-2.14c.52-.2 1.01-.46 1.5-.87l2.49 1a.5.5 0 00.6-.22l2-3.46a.5.5 0 00-.11-.64l-2.11-1.65zM12 15.5A3.5 3.5 0 1115.5 12 3.5 3.5 0 0112 15.5z"
       }
-      
-     
+
+
     ]
   },
   {
@@ -343,13 +343,20 @@ export const MANUFACUTE_MENU = [
     id: 6,
     name: "My Request",
     path: "/admin/request/request-list",
-    iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 5a2 2 0 002 2h2a2 2 0 002-2M15 11h2m-6 0h2m-6 0h2" 
+    iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 5a2 2 0 002 2h2a2 2 0 002-2M15 11h2m-6 0h2m-6 0h2"
   },
   {
     id: 6,
     name: "My Complain",
     path: "/admin/complain/complain-list",
     iconPath: "M12 2C6.48 2 2 6.03 2 11c0 2.08.79 3.99 2.11 5.5L2 22l5.63-2.36C9 20.25 10.47 20.5 12 20.5c5.52 0 10-4.03 10-9.5S17.52 2 12 2zm-1 5h2v5h-2V7zm0 6h2v2h-2v-2z"
+  },
+
+  {
+    id: 6,
+    name: "Renewal",
+    path: "/admin/renewal/renewal-list",
+    iconPath: "M17.65 6.35A7.95 7.95 0 0012 4V1L7 6l5 5V7c2.76 0 5.26 1.12 7.07 2.93a9.958 9.958 0 010 14.14 9.958 9.958 0 01-14.14 0A9.958 9.958 0 014 12H1c0 5.52 4.48 10 10 10s10-4.48 10-10c0-2.65-1.03-5.2-2.93-7.07z"
   }
 ];
 
@@ -374,27 +381,27 @@ export const DISTRIBUTER_MENU = [
     iconPath: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
     ,
   },
-//   {
-//     id: 4,
-//     name: "Sales",
-//     path: "/admin/sales-order/sales-order-list",
-//     iconPath: "M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"
-//     ,
-//   },
-//   {
-//     id: 5,
-//     name: "Sales Manager",
-//     path: "/admin/sales-manager/manager-list",
-//           iconPath: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-// ,
-//   },
+  //   {
+  //     id: 4,
+  //     name: "Sales",
+  //     path: "/admin/sales-order/sales-order-list",
+  //     iconPath: "M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"
+  //     ,
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Sales Manager",
+  //     path: "/admin/sales-manager/manager-list",
+  //           iconPath: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+  // ,
+  //   },
   {
     id: 6,
     name: "Shipping Address",
     path: "/admin/shipping-address/shipping-details",
-    iconPath: "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"  
+    iconPath: "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
   },
- 
+
   {
     id: 7,
     name: "Inventory",
@@ -411,9 +418,9 @@ export const DISTRIBUTER_MENU = [
     id: 6,
     name: "My Request",
     path: "/admin/request/request-list",
-    iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 5a2 2 0 002 2h2a2 2 0 002-2M15 11h2m-6 0h2m-6 0h2" 
-   },
-   {
+    iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 5a2 2 0 002 2h2a2 2 0 002-2M15 11h2m-6 0h2m-6 0h2"
+  },
+  {
     id: 6,
     name: "My Complain",
     path: "/admin/complain/complain-list",
@@ -440,7 +447,7 @@ export const DEALER_MENU = [
     id: 4,
     name: "Shipping Address",
     path: "/admin/shipping-address/shipping-details",
-    iconPath: "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"  
+    iconPath: "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
   },
 
   {
@@ -459,7 +466,7 @@ export const DEALER_MENU = [
     id: 6,
     name: "My Request",
     path: "/admin/request/request-list",
-    iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 5a2 2 0 002 2h2a2 2 0 002-2M15 11h2m-6 0h2m-6 0h2" 
+    iconPath: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 5a2 2 0 002 2h2a2 2 0 002-2M15 11h2m-6 0h2m-6 0h2"
   },
   {
     id: 6,

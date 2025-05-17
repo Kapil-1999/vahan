@@ -22,6 +22,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { DeleteConfirmationComponent } from './component/delete-confirmation/delete-confirmation.component';
 import { ClipboardModule } from 'ngx-clipboard';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 
@@ -51,7 +52,8 @@ import { ClipboardModule } from 'ngx-clipboard';
     MatNativeDateModule,
     MatButtonModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    MatTabsModule
 
   ],
   exports: [
@@ -69,7 +71,8 @@ import { ClipboardModule } from 'ngx-clipboard';
     MatMenuModule,
     MatNativeDateModule,
     MatIconModule,
-    DeleteConfirmationComponent
+    DeleteConfirmationComponent,
+    MatTabsModule
   ]
 })
 export class SharedModule { }
