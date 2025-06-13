@@ -141,4 +141,5 @@ export const API_CONSTANT = {
     inventoryOrderDetail:'SalesManager/vahanDeviceUploadList',
     updateSales:'SalesManager/updateVahanSales',
     deviceListV2 : 'Device/GetVahanDeviceSimStatusListV2',
+    vahanSearch:'Vahan/VahanSearch'
 }

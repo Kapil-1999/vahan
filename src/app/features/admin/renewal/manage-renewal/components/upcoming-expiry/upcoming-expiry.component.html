@@ -21,7 +21,15 @@
         </div>
     </div>
     <div class="card-body">
-
+  <div class="flex border-b border-gray-200 mb-5 mt-3">
+                <button *ngFor="let tab of tabs; let i = index" (click)="selectedTabIndex = i"
+                    [class.text-blue-600]="selectedTabIndex === i" [class.font-medium]="selectedTabIndex === i"
+                    [class.border-blue-500]="selectedTabIndex === i" [class.text-gray-600]="selectedTabIndex !== i"
+                    class="flex-1 px-4 py-2 border-b-2 transition-colors duration-200 focus:outline-none text-center"
+                    [class.border-transparent]="selectedTabIndex !== i">
+                    {{ tab.label }}
+                </button>
+            </div>
 
         <div class="header-container flex flex-col sm:flex-row justify-between gap-4 py-2">
             <div class="left-section flex items-center justify-between sm:justify-start space-x-2">
@@ -49,15 +57,7 @@
         </div>
 
         <div class="mb-6">
-            <div class="flex border-b border-gray-200 mb-5 mt-3">
-                <button *ngFor="let tab of tabs; let i = index" (click)="selectedTabIndex = i"
-                    [class.text-blue-600]="selectedTabIndex === i" [class.font-medium]="selectedTabIndex === i"
-                    [class.border-blue-500]="selectedTabIndex === i" [class.text-gray-600]="selectedTabIndex !== i"
-                    class="flex-1 px-4 py-2 border-b-2 transition-colors duration-200 focus:outline-none text-center"
-                    [class.border-transparent]="selectedTabIndex !== i">
-                    {{ tab.label }}
-                </button>
-            </div>
+          
             <div class="row">
                 <div class="col-md-12">
                     <div class="overflow-auto">

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonService } from '../../../../../shared/services/common.service';
 
 @Component({
@@ -8,7 +8,8 @@ import { CommonService } from '../../../../../shared/services/common.service';
   styleUrl: './fitment-detail.component.scss'
 })
 export class FitmentDetailComponent {
-isLoading: boolean = false;
+  @Input() searchListDta: any
+  @Input() isLoading: boolean = false;
   selectedTabIndex = 0;
   public columns!: any;
   userDetails: any

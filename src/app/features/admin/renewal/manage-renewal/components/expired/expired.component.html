@@ -23,10 +23,7 @@
     <div class="card-body">
         <div class="header-container flex flex-col sm:flex-row justify-between gap-4 py-2">
             <div class="left-section flex items-center justify-between sm:justify-start space-x-2">
-                <div class="search-form">
-                    <input placeholder="Search for..." type="text" [(ngModel)]="searchKeyword" 
-                        class="form-control search-input" />
-                </div>
+
                 <div class="flex items-center justify-between sm:justify-start space-x-2">
                     <label for="itemsPerPage" class="text-sm text-gray-700 whitespace-nowrap">Items per page:</label>
                     <select id="itemsPerPage"
@@ -38,7 +35,14 @@
                     </select>
                 </div>
             </div>
-        
+
+            <div class="right-section flex flex-col sm:flex-row gap-4 sm:gap-x-2 w-full sm:w-auto">
+                <div class="search-form">
+                    <input placeholder="Search for..." type="text" [(ngModel)]="searchKeyword"
+                        class="form-control search-input" />
+                </div>
+            </div>
+
 
         </div>
         <div class="row">
@@ -61,32 +65,32 @@
                             </thead>
                             <tbody>
                                 @if(deviceList && deviceList.length > 0) {
-                                    @for (item of deviceList | paginate: {id: 'expiredId',
-                                    itemsPerPage: pagesize.limit, currentPage: pagesize.offset, totalItems:
-                                    pagesize.count}; track $index) {
-                                    <tr>
-                                        <td>
-                                            {{ (pagesize.offset - 1) * pagesize.limit + $index + 1 }}
-                                        </td>
-                                        <td>{{item?.uid || 'NA'}}</td>
-                                        <td>{{item?.imei || 'NA'}}</td>
-                                        <td>{{item?.iccid || 'NA'}}</td>
-                                        <td>{{item?.vahan_sno || 'NA'}}</td>
-                                        <td>{{item?.integrator_name || 'NA' }}</td>
-                                        <td>{{item?.first_tsp || 'NA' }}</td>
-                                        <td>{{item?.first_sim || 'NA' }}</td>
-                                        <td>{{item?.second_tsp || 'NA' }}</td>
-                                        <td>{{item?.second_sim || 'NA' }}</td>
-                                        <td>{{item?.card_state || 'NA' }}</td>
-                                        <td>{{item?.card_status || 'NA' }}</td>
-                                        <td>{{item?.sim_duration || 'NA' }}</td>
-                                        <td>{{(item?.activated_date | date:'dd/MM/yyyy') || 'NA'}}</td>
-                                        <td>{{(item?.valid_till_date | date:'dd/MM/yyyy') || 'NA'}}</td>
-                                        
-    
-    
-                                    </tr>
-                                    }
+                                @for (item of deviceList | paginate: {id: 'expiredId',
+                                itemsPerPage: pagesize.limit, currentPage: pagesize.offset, totalItems:
+                                pagesize.count}; track $index) {
+                                <tr>
+                                    <td>
+                                        {{ (pagesize.offset - 1) * pagesize.limit + $index + 1 }}
+                                    </td>
+                                    <td>{{item?.uid || 'NA'}}</td>
+                                    <td>{{item?.imei || 'NA'}}</td>
+                                    <td>{{item?.iccid || 'NA'}}</td>
+                                    <td>{{item?.vahan_sno || 'NA'}}</td>
+                                    <td>{{item?.integrator_name || 'NA' }}</td>
+                                    <td>{{item?.first_tsp || 'NA' }}</td>
+                                    <td>{{item?.first_sim || 'NA' }}</td>
+                                    <td>{{item?.second_tsp || 'NA' }}</td>
+                                    <td>{{item?.second_sim || 'NA' }}</td>
+                                    <td>{{item?.card_state || 'NA' }}</td>
+                                    <td>{{item?.card_status || 'NA' }}</td>
+                                    <td>{{item?.sim_duration || 'NA' }}</td>
+                                    <td>{{(item?.activated_date | date:'dd/MM/yyyy') || 'NA'}}</td>
+                                    <td>{{(item?.valid_till_date | date:'dd/MM/yyyy') || 'NA'}}</td>
+
+
+
+                                </tr>
+                                }
                                 }
                             </tbody>
                         </table>

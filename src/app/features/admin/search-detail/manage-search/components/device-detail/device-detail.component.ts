@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, input, SimpleChanges } from '@angular/core';
 import { CommonService } from '../../../../../shared/services/common.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { CommonService } from '../../../../../shared/services/common.service';
   styleUrl: './device-detail.component.scss'
 })
 export class DeviceDetailComponent {
+  @Input() searchListDta:any
   isLoading: boolean = false;
   selectedTabIndex = 0;
   public columns!: any;
@@ -24,6 +25,8 @@ export class DeviceDetailComponent {
   }
 
   ngOnInit() {
+    console.log("searchListDta",this.searchListDta);
+    
     this.setInitialValue()
   }
 
