@@ -1,0 +1,24 @@
+.status-0 {
+    color: #06B4F0; /* Pending */
+  }
+  
+  .status-1 {
+    color: #28A745; /* Approved */
+  }
+  
+  .status-2 {
+    color: #FFC107; /* In Progress */
+  }
+  
+  .status-3 {
+    color: #DC3545; /* Rejected */
+  }
+
+  td a.detail {
+    color: blue;
+    cursor: pointer;
+}
+td a.detail:hover {
+    color: red;
+    text-decoration: underline;
+}

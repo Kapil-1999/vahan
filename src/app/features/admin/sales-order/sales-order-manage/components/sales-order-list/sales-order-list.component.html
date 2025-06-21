@@ -1,0 +1,129 @@
+<div class="card">
+    <div class="card-header">
+        <div class="header-part">
+            <span>Sales Order List</span>
+            <div class="counting">
+                <span>
+                    {{ pagesize.count > 0 ? startValue : 0 }} -
+                    {{ pagesize.count > 0 ? lastValue : 0 }}
+                    OF {{ pagesize.count > 0 ? pagesize.count : 0 }} Sales Order
+                </span>
+            </div>
+            @if (pagesize.count && pagesize.count > 0) {
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <pagination-controls id="salesOrderId" [maxSize]="10" [responsive]="true" [nextLabel]="''"
+                        [previousLabel]="''" (pageChange)="onTablePageChange($event)">
+                    </pagination-controls>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="header-container flex flex-col sm:flex-row justify-between gap-4 py-2">
+            <div class="left-section">
+                <div class="flex items-center justify-between sm:justify-start space-x-2">
+                    <label for="itemsPerPage" class="text-sm text-gray-700 whitespace-nowrap">Items per page:</label>
+                    <select id="itemsPerPage"
+                        class="block w-20 p-2 bg-white border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
+                        [(ngModel)]="pagesize.limit" (change)="onPageSizeChange($event)">
+                        @for (size of [25, 50, 100]; track $index) {
+                        <option [value]="size">{{ size }}</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="right-section flex flex-col sm:flex-row gap-4 sm:gap-x-2 w-full sm:w-auto">
+                <ngx-select-dropdown [config]="config" [ngModel]="selectedDealer" [options]="dealerList"
+                    (change)="onSelectDealer($event)" class="lg:w-[250px] sm:w-full md:w-full">
+                </ngx-select-dropdown>
+                @if(this.userDetails?.RoleId !== "1") {
+                <button (click)="onAddSalesOrder('')" [disabled]="selectedDealer?.length == 0"
+                    class="!btn !btn-primary bg-[#696cff] hover:bg-[#787bff] text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 w-full sm:w-auto">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Create Sales Order
+                </button>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="overflow-auto">
+                    <div id="datatable_wrapper">
+                        @if (isLoading) {
+                        <app-loader />
+                        } @else {
+                        <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline"
+                            role="grid" #TABLE aria-describedby="datatable_info" style="width: 100%" width="100%">
+                            <thead>
+                                <tr role="row">
+                                    @for (vehicleHeading of columns; track $index) {
+                                    <th>
+                                        <span>{{ vehicleHeading?.title }}</span>
+                                    </th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (item of salesOrderList | paginate: {id: 'salesOrderId',
+                                itemsPerPage: pagesize.limit, currentPage: pagesize.offset, totalItems:
+                                pagesize.count}; track $index) {
+                                <tr>
+                                    <td>
+                                        {{ (pagesize.offset - 1) * pagesize.limit + $index + 1 }}
+                                    </td>
+                                    <td>{{item?.order_date | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{item?.po_no || 'NA'}}</td>
+                                    <td>{{item?.client_name || 'NA'}}</td>
+                                    <td>{{item?.product_name || 'NA' }}</td>
+                                    <td>{{item?.rate || 'NA' }}</td>
+                                    <td><a class="inventory-detail" (click)="redirectTo(item)">{{item?.quantity || 'NA' }}</a> </td>
+                                    <td>{{item?.tax || 'NA' }}</td>
+                                    <td>{{item?.amount || 'NA' }}</td>
+                                    <td>{{item?.docket_no || 'NA' }}</td>
+                                    <td>
+                                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="6" r="2" fill="currentColor" />
+                                                <circle cx="12" cy="12" r="2" fill="currentColor" />
+                                                <circle cx="12" cy="18" r="2" fill="currentColor" />
+                                            </svg>
+                                        </button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item (click)="onAddSalesOrder(item)" [disabled]="item?.is_Accessable == '0'">
+                                                <i class="fas fa-pen mr-2"></i>
+                                                <span>Edit</span>
+                                            </button>
+
+                                            <button mat-menu-item (click)="uploadInventory(item)" [disabled]="item?.is_Accessable == '0'">
+                                                <i class="fas fa-box mr-2"></i>
+                                                <span>Asign Inventory</span>
+                                            </button>
+
+                                            <button mat-menu-item (click)="updateDocket(item)">
+                                                <i class="fas fa-edit mr-2"></i>
+                                                <span>Update Docket</span>
+                                            </button>
+
+                                            <button mat-menu-item (click)="onDeleteSalesList(item)" [disabled]="item?.is_Accessable == '0'">
+                                                <i class="fas fa-trash mr-2"></i>
+                                                <span>Delete</span>
+                                            </button>
+                                        </mat-menu>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                        }
+                    </div>
+                </div>
+                @if(!salesOrderList?.length) {
+                <div class="text-center py-4 text-gray-500">
+                    No Sales Order Available
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

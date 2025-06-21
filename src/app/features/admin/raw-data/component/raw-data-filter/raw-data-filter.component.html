@@ -1,0 +1,15 @@
+<form [formGroup]="rawDataForm" (ngSubmit)="submit(rawDataForm.value , $event)">
+    <div class="grid grid-cols-5 gap-2 mb-3">
+        <div class="flex flex-col">
+            <input type="text" class="form-control" formControlName="imei" placeholder="Enter IMEI">
+            @if (rawDataForm.get('imei')?.invalid &&
+            (rawDataForm.get('imei')?.dirty || rawDataForm.get('imei')?.touched)) {
+            <span class="text-danger text-sm mt-1">IMEI is Required</span>
+            }
+        </div>
+
+        <button class="btn btn-primary text-white h-[38px]" type="submit">
+            <i class="fas fa-file-alt mr-2"></i>Search
+        </button>
+    </div>
+</form>

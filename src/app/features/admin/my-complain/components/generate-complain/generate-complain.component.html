@@ -1,0 +1,72 @@
+<div class="modal-header text-center">
+    <h5>New Complain Request</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="complainForm">
+        <div class="_card white-bg">
+            <!-- Row 1: 3 Columns -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Complain Category</label>
+                    <ngx-select-dropdown place [config]="config" [options]="categoryList" formControlName="category">
+                    </ngx-select-dropdown>
+                    @if (complainForm.get('category')?.invalid && complainForm.get('category')?.touched) {
+                    <span class="text-danger">Complain Category is required</span>
+                    }
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Priority</label>
+                    <ngx-select-dropdown place [config]="config" [options]="priorityList" formControlName="priority">
+                    </ngx-select-dropdown>
+                    @if (complainForm.get('priority')?.invalid && complainForm.get('priority')?.touched) {
+                    <span class="text-danger">Priority is required</span>
+                    }
+                </div>
+            </div>
+
+            <!-- Row 2: 3 Columns -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Refrence Type</label>
+                    <ngx-select-dropdown place [config]="config" [options]="refrenceList" formControlName="refrence">
+                    </ngx-select-dropdown>
+                    @if (complainForm.get('refrence')?.invalid && complainForm.get('refrence')?.touched) {
+                    <span class="text-danger">Refrence Type is required</span>
+                    }
+                </div>
+
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Refrence Value</label>
+                    <input type="text" class="form-control" placeholder="Enter Refrence Value"
+                        formControlName="refrenceValue" />
+
+                    @if (complainForm.get('refrenceValue')?.invalid &&
+                    (complainForm.get('refrenceValue')?.dirty || complainForm.get('refrenceValue')?.touched)) {
+                    <span class="text-danger">Refrence Value is Required</span>
+                    }
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label class="form-label">Complain Description</label>
+                    <textarea class="form-control" placeholder="Enter Complain Description"
+                        formControlName="comp_description" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Buttons -->
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(complainForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

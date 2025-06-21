@@ -1,0 +1,68 @@
+<div class="card">
+    <div class="card-header">
+        <div class="header-part">
+            <span>Vehicle Detail</span>
+
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div class="mb-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="overflow-auto">
+                        <div id="datatable_wrapper">
+                             @if (searchListDta) {
+                            <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline"
+                                role="grid" #TABLE aria-describedby="datatable_info" style="width: 100%" width="100%">
+                                <thead>
+                                    <tr role="row">
+                                        @for (vehicleHeading of columns; track $index) {
+                                        <th>
+                                            <span>{{ vehicleHeading?.title }}</span>
+                                        </th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{searchListDta?.vahanActivationRequestInfo?.vehicleNo || 'NA'}}</td>
+                                        <td>{{searchListDta?.vahanActivationRequestInfo?.vehicleModel || 'NA'}}</td>
+                                        <td>{{searchListDta?.vahanActivationRequestInfo?.vehicleMake || 'NA'}}</td>
+                                        <td>{{searchListDta?.vahanActivationRequestInfo?.vehicleChassisNo || 'NA'}}</td>
+                                        <td>{{searchListDta?.vahanActivationRequestInfo?.vehicleEngineNo || 'NA' }}</td>
+                                        <td>{{searchListDta?.vahanActivationRequestInfo?.registration || 'NA' }}</td>
+                                        <td>{{searchListDta?.vahanActivationRequestInfo?.vehicleMfgYear || 'NA' }}</td>
+                                        <td>{{searchListDta?.vahanActivationRequestInfo?.sosButton || 'NA' }}</td>
+                                        <td>{{searchListDta?.vahanActivationRequestInfo?.detailsFetched || 'NA' }}</td>
+                                        <td>
+                                             @if(searchListDta?.vahanActivationRequestInfo?.image_1) {
+                                        <img class="w-10 h-10" [src]="searchListDta?.vahanActivationRequestInfo?.image_1" alt="" />
+                                        } @else { 
+                                            <img class="w-10 h-10" src="images/no-image.png" alt="" />
+                                        }
+                                        </td>
+                                        <td>
+                                             @if(searchListDta?.vahanActivationRequestInfo?.image_2) {
+                                        <img class="w-10 h-10" [src]="searchListDta?.vahanActivationRequestInfo?.image_2" alt="" />
+                                        } @else { 
+                                            <img class="w-10 h-10" src="images/no-image.png" alt="" />
+                                        }
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            }@else {
+  <div class="text-center py-4 text-gray-500">
+                        No Vehicle Detail Available
+                    </div>
+                            }
+                        </div>
+                    </div>
+                    @if(!vehicleDetails?.length) {
+                  
+                    }
+                </div>
+            </div>
+        </div>
+    </div>

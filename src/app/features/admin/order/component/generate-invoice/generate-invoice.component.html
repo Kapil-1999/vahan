@@ -1,0 +1,124 @@
+<div class="card">
+    <div class="card-body">
+        <form [formGroup]="orderForm">
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Billing Party</label>
+                    <input type="text" class="form-control" placeholder="Enter Billing"
+                        formControlName="billingAddress" />
+                    @if (orderForm.get('billingAddress')?.invalid && orderForm.get('billingAddress')?.touched) {
+                    <span class="text-danger">Billing is required</span>
+                    }
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Shipping Address</label>
+                    <ngx-select-dropdown [config]="config" [options]="shippingList" formControlName="shippingAddress"
+                        (change)="onChangeShippingAddress($event)">
+                    </ngx-select-dropdown>
+                    @if (orderForm.get('shippingAddress')?.invalid && orderForm.get('shippingAddress')?.touched) {
+                    <span class="text-danger">Shipping Address is required</span>
+                    }
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Billing Date</label>
+                    <input type="date" class="form-control" formControlName="billingDate" />
+                    @if (orderForm.get('billingDate')?.invalid && orderForm.get('billingDate')?.touched) {
+                    <span class="text-danger">Billing Date is required</span>
+                    }
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Invoice Date</label>
+                    <input type="date" class="form-control" formControlName="createdDate" />
+                    @if (orderForm.get('createdDate')?.invalid && orderForm.get('createdDate')?.touched) {
+                    <span class="text-danger">Invoice Date is required</span>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="overflow-auto">
+                        <div id="datatable_wrapper">
+                            <table class="table table-striped nowrap" style="width: 100%">
+                                <thead>
+                                    <tr role="row">
+                                        @for (vehicleHeading of columns; track $index) {
+                                        <th>
+                                            <span>{{ vehicleHeading?.title }}</span>
+                                        </th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>{{requestOrderDetails?.length ? this.requestOrderDetails[0]?.subCategoryName
+                                            : 'NA'}}</td>
+                                        <td><input class="form-control" type="text" formControlName="hsn" /></td>
+                                        <td><input class="form-control" type="text" formControlName="reqQty" /></td>
+                                        <td class="flex gap-2">
+                                            <input class="form-control" type="text" formControlName="saleQty" />
+                                            <button class="btn btn-sm btn-primary" (click)="onQtyButtonClick($event)">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </td>
+                                        <td><input class="form-control" type="number" formControlName="rate"
+                                                (input)="onAmountGet($event)" /></td>
+                                        <td><input class="form-control" type="number" formControlName="amt" /></td>
+                                        <td><input class="form-control" type="number" formControlName="discount"
+                                                (input)="ondisCountGet($event)" /></td>
+                                        <td><input class="form-control" type="number" formControlName="disAmount"
+                                                (input)="ondisCountamtGet($event)" /></td>
+                                        <td><input class="form-control" type="number" formControlName="totalAmount" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <h2>{{this.taxSlabData?.gsT_NAME}} Tax Slab</h2>
+                </div>
+                <div class="col-md-12">
+                    <div class="overflow-auto">
+                        <div id="datatable_wrapper">
+                            <table class="table table-striped nowrap" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th>CGST</th>
+                                        <th>CGST Amount</th>
+                                        <th>SGST</th>
+                                        <th>SGST Amount</th>
+                                        <th>IGST</th>
+                                        <th>IGST Amount</th>
+                                        <th>Total Tax</th>
+                                        <th>Net Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ taxSlabData?.cgst ? (taxSlabData.cgst | number:'1.2-2') : '0.00' }}</td>
+                                        <td>{{ cgstAmt | number:'1.2-2' }}</td>
+                                        <td>{{ taxSlabData?.sgst ? (taxSlabData.sgst | number:'1.2-2') : '0.00' }}</td>
+                                        <td>{{ sgstAmt | number:'1.2-2' }}</td>
+                                        <td>{{ taxSlabData?.igst ? (taxSlabData.igst | number:'1.2-2') : '0.00' }}</td>
+                                        <td>{{ igstAmt | number:'1.2-2' }}</td>
+                                        <td>{{ totalTax | number:'1.2-2' }}</td>
+                                        <td>{{ netAmt | number:'1.2-2' }}</td>
+                                      </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-12 text-end">
+                    <button class="btn btn-primary" (click)="generateInvoice(orderForm.value)"><i class="fa fa-plus pr-2" aria-hidden="true"></i>
+                        Generate Invoice</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

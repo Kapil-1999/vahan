@@ -1,0 +1,69 @@
+<div class="card">
+    <div class="card-header">
+        <div class="header-part">
+            <span>Complain Detail List</span>
+            <div class="counting">
+                <span>
+                    {{ pagesize.count > 0 ? startValue : 0 }} -
+                    {{ pagesize.count > 0 ? lastValue : 0 }}
+                    OF {{ pagesize.count > 0 ? pagesize.count : 0 }} Complain Detail
+                </span>
+            </div>
+            @if (pagesize.count && pagesize.count > 0) {
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <pagination-controls id="complainId" [maxSize]="10" [responsive]="true" [nextLabel]="''"
+                        [previousLabel]="''" (pageChange)="onTablePageChange($event)">
+                    </pagination-controls>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="overflow-auto">
+                    <div id="datatable_wrapper">
+                        @if (isLoading) {
+                        <app-loader />
+                        } @else {
+                        <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline"
+                            role="grid" #TABLE aria-describedby="datatable_info" style="width: 100%" width="100%">
+                            <thead>
+                                <tr role="row">
+                                    @for (vehicleHeading of columns; track $index) {
+                                    <th>
+                                        <span>{{ vehicleHeading?.title }}</span>
+                                    </th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (item of complainList | paginate: {id: 'complainId',
+                                itemsPerPage: pagesize.limit, currentPage: pagesize.offset, totalItems:
+                                pagesize.count}; track $index) {
+                                <tr>
+                                    <td>
+                                        {{ (pagesize.offset - 1) * pagesize.limit + $index + 1 }}
+                                    </td>
+                                    <td>{{item?.complaint_name || 'NA'}}</td>
+                                    <td>{{item?.complaint_description || 'NA'}}</td>
+                                    
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                        }
+                    </div>
+                </div>
+                @if(!complainList?.length) {
+                <div class="text-center py-4 text-gray-500">
+                    No Complain Detail Available
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

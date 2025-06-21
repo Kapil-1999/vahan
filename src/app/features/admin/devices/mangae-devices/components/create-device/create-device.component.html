@@ -1,0 +1,63 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}} {{manufacture.text}}'s Device</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="deviceForm">
+        <div class="_card white-bg">
+            <!-- Row 1: 3 Columns -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">UID</label>
+                    <input type="text" class="form-control" placeholder="Enter UID" formControlName="uid" />
+                    @if (deviceForm.get('uid')?.invalid &&
+                    (deviceForm.get('uid')?.dirty || deviceForm.get('uid')?.touched)) {
+                    <span class="text-danger">UID is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">IMEI</label>
+                    <input type="text" class="form-control" placeholder="Enter IMEI" formControlName="imei" />
+                    @if (deviceForm.get('imei')?.invalid &&
+                    (deviceForm.get('imei')?.dirty || deviceForm.get('imei')?.touched)) {
+                    <span class="text-danger">IMEI is Required</span>
+                    }
+                </div>
+            </div>
+
+            <!-- Row 2: 3 Columns -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">ICCID</label>
+                    <input type="text" class="form-control" placeholder="Enter ICCID" formControlName="iccid" />
+
+                    @if (deviceForm.get('iccid')?.invalid &&
+                    (deviceForm.get('iccid')?.dirty || deviceForm.get('iccid')?.touched)) {
+                    <span class="text-danger">ICCID is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Product</label>
+                    <ngx-select-dropdown place [config]="config" [options]="productList" formControlName="product">
+                    </ngx-select-dropdown>
+                    @if (deviceForm.get('product')?.invalid && deviceForm.get('product')?.touched) {
+                    <span class="text-danger">Product is required</span>
+                    }
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Footer Buttons -->
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(deviceForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

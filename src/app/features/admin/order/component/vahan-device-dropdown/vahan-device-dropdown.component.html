@@ -1,0 +1,81 @@
+<div class="modal-header text-center">
+    <h5>Device List</h5>
+    @if(editData?.request_qty) {
+    <span class="text-red-500">
+        Request quantity is {{editData.request_qty}} - you can only select {{editData.request_qty}} or fewer devices
+    </span>
+    }
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="overflow-auto h-[calc(100vh-200px)]">
+                <div id="datatable_wrapper">
+                    @if (isLoading) {
+                    <app-loader />
+                    } @else {
+                    <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline" role="grid"
+                        aria-describedby="datatable_info" style="width: 100%" width="100%">
+                        <!-- <thead>
+                                    <tr role="row">
+                                        <th>Select</th>
+                                        @for (vehicleHeading of columns; track $index) {
+                                        <th>
+                                            <span>{{ vehicleHeading?.title }}</span>
+                                        </th>
+                                        }
+                                    </tr>
+                                </thead> -->
+
+                        <thead>
+                            <tr role="row">
+                                <th>
+                                    <input type="checkbox" class="cursor-pointer" [checked]="isAllSelected" (change)="toggleSelectAll($event)"> <span class="ml-2">Select All</span>
+                                </th>
+                                @for (vehicleHeading of columns; track $index) {
+                                <th>
+                                    <span>{{ vehicleHeading?.title }}</span>
+                                </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of vahanDeviceList; let i = index">
+                                <td>
+                                    <input type="checkbox" class="cursor-pointer" [checked]="row.isSelected" (change)="toggleRowSelection(i)"
+                                        [disabled]="!row.isSelected && selectedCount >= (editData?.request_qty)">
+                                </td>
+                                <td>{{ i + 1 }}</td>
+                                <td>{{row.vahan_sno}}</td>
+                                <td>{{row.uid}}</td>
+                                <td>{{row.imei}}</td>
+                                <td>{{row.first_sim}}</td>
+                                <td>{{row.second_sim}}</td>
+                                <td>{{row.card_status}}</td>
+                                <td>{{row.activated_date ? (row?.activated_date | date : 'yyyy-MM-dd') : 'yyyy-MM-dd'}}
+                                </td>
+                                <td>{{row.valid_till_date ? (row?.valid_till_date | date : 'yyyy-MM-dd') : 'yyyy-MM-dd'
+                                    }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    }
+                </div>
+                @if(!vahanDeviceList?.length) {
+                <div class="text-center py-4 text-gray-500">
+                    No Device Available
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="button-container">
+            <button class="btn btn-success" type="submit" (click)="submit()">Submit</button>
+            <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+        </div>
+    </div>
+</div>

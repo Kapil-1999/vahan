@@ -1,0 +1,32 @@
+<div class="modal-header text-center">
+    <h5> Change Status</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="chnageStatusForm" (ngSubmit)="submit(chnageStatusForm.value, $event)">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Status</label>
+                <select id="itemsPerPage" formControlName="status" 
+                    class="form-control"> 
+                    <option value="">Select Status</option>
+                    @for (size of statusList; track $index) {                   
+                    <option [value]="size.value">{{ size.text }}</option> 
+                    }
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Remarks</label>
+                <textarea class="form-control" formControlName="remarks" placeholder="Enter Remarks" rows="2" name="" id=""></textarea>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" >Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

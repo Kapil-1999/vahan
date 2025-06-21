@@ -1,0 +1,62 @@
+
+<div class="modal-header text-center">
+    <h5>Vahan Details List</h5> 
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="flex gap-2">
+                <button class="btn btn-success" (click)="downloadExcel()">
+                    <i class="fas fa-file-excel mr-2"></i>Excel
+                </button>
+                <button class="btn btn-info text-white" (click)="downloadText()">
+                    <i class="fas fa-file-alt mr-2"></i>Text
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="overflow-auto h-[calc(100vh-200px)]">
+                <div id="datatable_wrapper">
+                    @if (isLoading) {
+                        <app-loader />
+                        } @else {
+                            <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline"
+                                role="grid" aria-describedby="datatable_info" style="width: 100%" width="100%">
+                                <thead>
+                                    <tr role="row">
+                                        @for (vehicleHeading of columns; track $index) {
+                                        <th>
+                                            <span>{{ vehicleHeading?.title }}</span>
+                                        </th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if(vahanDeviceList?.length) {                                                            
+                                        <tr *ngFor="let row of vahanDeviceList; let i = index">
+                                         <td>{{ i + 1 }}</td>
+                                         <td>{{row.vahanSno}}</td>
+                                         <td>{{row.imei}}</td>
+                                         <td>{{row.uid}}</td>
+                                         <td>{{row.iccid}}</td>
+                                         <td>{{row.vahanString}}</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                </div>
+                @if(!vahanDeviceList?.length) {
+                    <div class="text-center py-4 text-gray-500">
+                        No Vahan Details Available
+                    </div>
+                    }
+            </div>
+        </div>
+    </div>
+</div>

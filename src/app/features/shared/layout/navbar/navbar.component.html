@@ -1,0 +1,81 @@
+<aside class="!bg-white !shadow-md !min-h-screen  !transition-all !duration-300" [class.!w-64]="!isSidebarCollapsed()"
+[class.!w-20]="isSidebarCollapsed()">
+<div class="!p-4 !relative">
+  <div class="!flex !items-center !justify-center">
+   <a href="/"><img src="images/acute_logo.png"  alt="Logo" class="!h-16 !w-32 !object-contain"></a> 
+  </div>
+  <button 
+    class="!absolute !right-[-10px] !top-[36px] !w-6 !h-6 !cursor-pointer !rounded-full !bg-[#696cff] !text-white !flex !items-center !justify-center !shadow-md !transition-transform hover:!bg-[#787bff]" 
+    [class.!rotate-180]="isSidebarCollapsed()"
+    (click)="toggleSidebar()">
+    <svg class="!w-4 !h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+</div>
+<nav class="!mt-4 h-[calc(100vh-100px)] overflow-auto">
+    <ul class="!space-y-1 ">
+      @for(data of menu ; track data) {
+        <li>
+          <div [class.!cursor-pointer]="data.subNav?.length > 0"
+            [class.!bg-[#e7e7ff]]="isMenuSelected(data.name) || hasActiveChild(data.name)"
+            [class.!text-[#696cff]]="isMenuSelected(data.name)  || hasActiveChild(data.name)"
+            [routerLink]="!data.subNav?.length ? data.path : null"
+            [routerLinkActive]="!data.subNav?.length ? '!bg-[#e7e7ff] !text-[#696cff]' : ''"
+            (click)="toggleSubmenu(data.name)"
+            class="!flex !items-center !justify-between !px-4 !py-2.5 !mx-3 !rounded-lg !text-[#697a8d] hover:!bg-[#e7e7ff] hover:!text-[#696cff]">
+            <div class="!flex !items-center">
+              <svg class="!w-5 !h-5" [class.!mr-3]="!isSidebarCollapsed()" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <path [attr.d]="data.iconPath"></path>
+              </svg>
+              <span class="!whitespace-nowrap !overflow-hidden !transition-all !duration-300 !ease-in-out"
+                [style.width]="isSidebarCollapsed() ? '0' : 'auto'"
+                [style.opacity]="isSidebarCollapsed() ? '0' : '1'">
+                {{data?.name}}
+              </span>
+            </div>
+            
+            @if(data.subNav?.length > 0 && !isSidebarCollapsed()) {
+              <svg class="!w-4 !h-4 !transition-transform" 
+                [class.!rotate-180]="isSubmenuOpen(data.name)"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            }
+          </div>
+
+          @if(data.subNav?.length > 0 && isSubmenuOpen(data.name) && !isSidebarCollapsed()) {
+            <ul class="!mt-1 !ml-7 !space-y-1">
+              @for(subItem of data.subNav; track subItem) {
+                <li>
+                  <a [routerLink]="subItem.path" 
+                    routerLinkActive="!text-[#696cff]"
+                    [class.!text-[#5959f1]]="isSubmenuSelected(subItem.name)"
+                    [routerLinkActiveOptions]="{exact: true}"
+                    class="!flex !items-center !px-4 !py-2  !text-[#697a8d] hover:!text-[#696cff] !rounded-lg">
+                    <svg class="!w-4 !h-4 !mr-2" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round">
+                      <path [attr.d]="subItem.iconPath"></path>
+                    </svg>
+                    {{subItem.name}}
+                  </a>
+                </li>
+              }
+            </ul>
+          }
+        </li>
+      }
+    </ul>
+  </nav>
+</aside>

@@ -1,0 +1,22 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}}</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-6 d-flex flex-column align-items-center">
+            <button class="btn btn-info" style="width: 110px;" (click)="downloadFile(certificateValue?.ar_certificate_model?.vahan_certificate)">
+                <i class="fa fa-download" aria-hidden="true"></i> Download
+            </button>
+            <label class="form-label text-center custom-label mt-2">Download Vahan Certificate</label>
+        </div>
+        <div class="col-md-6 d-flex flex-column align-items-center">
+            <button class="btn btn-info" style="width: 110px;" (click)="downloadFile(certificateValue?.ar_certificate_model?.backend_certificate)">
+                <i class="fa fa-download" aria-hidden="true"></i> Download
+            </button>
+            <label class="form-label text-center custom-label mt-2">Download Backend Certificate</label>
+        </div>
+    </div>
+</div>

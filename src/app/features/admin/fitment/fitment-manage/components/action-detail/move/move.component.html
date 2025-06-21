@@ -1,0 +1,34 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}}</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="moveForm">
+        <div class="_card white-bg">
+            <div class="row">
+                <div class="col-md-12  mb-3">
+                    <label class="form-label">Select Dealer</label>
+                    <ngx-select-dropdown place [config]="config" [options]="dealerList"
+                    formControlName="dealer" >
+                    </ngx-select-dropdown>
+                    @if (moveForm.get('dealer')?.invalid &&
+                    (moveForm.get('dealer')?.dirty || moveForm.get('dealer')?.touched))
+                    {
+                    <span class="text-danger">Dealer is Required</span>
+                    }
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" >Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

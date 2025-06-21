@@ -1,0 +1,135 @@
+<div class="card">
+    <div class="card-header">
+        <div class="header-part">
+            <span>Device List</span>
+            <div class="counting">
+                <span>
+                    {{ pagesize.count > 0 ? startValue : 0 }} -
+                    {{ pagesize.count > 0 ? lastValue : 0 }}
+                    OF {{ pagesize.count > 0 ? pagesize.count : 0 }} Device
+                </span>
+            </div>
+            @if (pagesize.count && pagesize.count > 0) {
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <pagination-controls id="stockId" [maxSize]="10" [responsive]="true" [nextLabel]="''"
+                        [previousLabel]="''" (pageChange)="onTablePageChange($event)">
+                    </pagination-controls>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="header-container flex flex-col sm:flex-row justify-between gap-4 pb-2">
+            <div class="left-section flex items-center justify-between sm:justify-start space-x-2">
+                <div class="search-form">
+                    <input placeholder="Search for..." type="text" [(ngModel)]="searchKeyword" (input)="onSearch($event)"
+                        class="form-control search-input" />
+                        @if(searchKeyword) {
+                            <button type="button" class="btn-search" (click)="clearSearch()">
+                                <i class="fa fa-close" ></i>
+                            </button>
+                        } @else {
+                            <button type="button" class="btn-search">
+                                <i class="fa fa-search" ></i>
+                            </button>
+                        }
+                </div>
+                <div class="flex items-center justify-between sm:justify-start space-x-2">
+                    <label for="itemsPerPage" class="text-sm text-gray-700 whitespace-nowrap">Items per page:</label>
+                    <select id="itemsPerPage"
+                        class="block w-20 p-2 bg-white border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
+                        [(ngModel)]="pagesize.limit" (change)="onPageSizeChange($event)">
+                        @for (size of [25, 50, 100]; track $index) {
+                        <option [value]="size">{{ size }}</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="right-section flex flex-col sm:flex-row gap-4 sm:gap-x-2 w-full sm:w-auto">
+                <ngx-select-dropdown class="whitespace-nowrap text-sm p-2 md:w-full lg:w-[250px] sm:w-full"
+                    [config]="config" [options]="manuFactDrop" [ngModel]="selectManu"
+                    [disabled]="this.userDetails?.RoleId == '6'" (change)="onChangeManufacturer($event)">
+                </ngx-select-dropdown>
+
+                <div class="relative inline-block" #dropdownWrapper>
+                    <button (click)="toggleDropdown()" [disabled]="!selectManu"
+                        class="!btn !btn-primary bg-[#696cff] hover:bg-[#787bff] text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 w-full sm:w-auto">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add Device
+                    </button>
+
+                    @if(isDropdownOpen) {
+                    <div class="absolute right-0 top-10 w-40 bg-white rounded-lg shadow-lg py-1 z-[1000]">
+                        <button (click)="onSingleDevice('')" class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                            </svg>
+                            Single
+                        </button>
+                        <button (click)="onBulkDevice()" class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            Bulk
+                        </button>
+                    </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="overflow-auto">
+                    <div id="datatable_wrapper">
+                        @if(isLoading) {
+                        <app-loader />
+                        } @else {
+                        <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline"
+                            role="grid" aria-describedby="datatable_info" style="width: 100%" width="100%">
+                            <thead>
+                                <tr role="row">
+                                    @for (vehicleHeading of columns; track $index) {
+                                    <th>
+                                        <span>{{ vehicleHeading?.title }}</span>
+                                    </th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if(stockList && stockList.length > 0) {
+                                    @for (item of stockList | paginate: {id: 'stockId',
+                                    itemsPerPage: pagesize.limit, currentPage: pagesize.offset, totalItems:
+                                    pagesize.count}; track $index) {
+                                    <tr>
+                                        <td>{{ (pagesize.offset - 1) * pagesize.limit + $index + 1 }}</td>
+                                        <td>{{item?.manufactureName || 'NA'}}</td>
+                                        <td>{{item?.productName || 'NA'}}</td>
+                                        <td>{{item?.uid || 'NA'}}</td>
+                                        <td>{{item?.imei || 'NA' }}</td>
+                                        <td>{{item?.iccid || 'NA'}}</td>
+                                        <td>{{item?.created_date | date:'dd/MM/yyyy'}}</td>
+                                        <td>{{item?.updated_date | date:'dd/MM/yyyy' }}</td>
+                                        <td class="flex !space-x-2">
+                                            <button class="btn btn-success" (click)="onSingleDevice(item)">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        }
+                    </div>
+                </div>
+                @if(!stockList?.length) {
+                    <div class="text-center py-4 text-gray-500">
+                        No Device Available
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

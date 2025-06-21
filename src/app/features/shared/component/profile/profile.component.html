@@ -1,0 +1,187 @@
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <div class="md:col-span-2">
+        <div class="bg-white p-6 rounded-lg border shadow">
+            <form [formGroup]="profileForm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Personal Details -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-medium text-gray-900">Personal Details</h3>
+                        <div class="space-y-4">
+                            <!-- Full Name -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                                <input type="text" formControlName="personName" class="form-control">
+                                @if (profileForm.get('personName')?.invalid && (profileForm.get('personName')?.dirty ||
+                                profileForm.get('personName')?.touched)) {
+                                <span class="text-red-500 text-sm">Full Name is required</span>
+                                }
+                            </div>
+
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Contact Number</label>
+                                <div class="flex gap-2" *ngIf="!showMobileVerify">
+                                    <input type="text" formControlName="mobileNo" class="form-control flex-1">
+                                    <button type="button" class="bg-blue-500 text-white px-2 rounded"
+                                        (click)="sendMobileOtp()">Send OTP</button>
+                                </div>
+                                <div class="flex gap-2 mt-2" *ngIf="showMobileVerify">
+                                    <input type="text" formControlName="veryfyMobile" placeholder="Enter OTP"
+                                        class="form-control flex-1">
+                                    <button type="button" class="bg-green-500 text-white white px-2 rounded"
+                                        (click)="verifyMobileOtp(profileForm.value.veryfyMobile)">Verify OTP</button>
+                                </div>
+                                <span
+                                    *ngIf="profileForm.get('mobileNo')?.invalid && (profileForm.get('mobileNo')?.dirty || profileForm.get('mobileNo')?.touched)"
+                                    class="text-red-500 text-sm">
+                                    Contact Number is required
+                                </span>
+                            </div>
+
+                            <!-- Email Address -->
+                            <div class="mt-4">
+                                <label class="block text-sm font-medium text-gray-700">Email Address</label>
+                                <div class="flex gap-2" *ngIf="!showEmailVerify">
+                                    <input type="email" formControlName="email" class="form-control flex-1">
+                                    <button type="button" class="bg-blue-500 text-white px-2 rounded"
+                                        (click)="sendEmailOtp()">Send OTP</button>
+                                </div>
+                                <div class="flex gap-2 mt-2" *ngIf="showEmailVerify">
+                                    <input type="text" formControlName="veryfyEmail" placeholder="Enter OTP"
+                                        class="form-control flex-1">
+                                    <button type="button" class="bg-green-500 text-white white px-2 rounded"
+                                        (click)="verifyEmailOtp(profileForm.value.veryfyEmail)">Verify OTP</button>
+                                </div>
+                                <span
+                                    *ngIf="profileForm.get('email')?.invalid && (profileForm.get('email')?.dirty || profileForm.get('email')?.touched)"
+                                    class="text-red-500 text-sm">
+                                    Email Address is required
+                                </span>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <!-- Organization Details -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-medium text-gray-900">Organization Details</h3>
+                        <div class="space-y-4">
+                            <!-- Organization Name -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Organization Name</label>
+                                <input type="text" formControlName="orgnizationName" class="form-control">
+                                @if (profileForm.get('orgnizationName')?.invalid &&
+                                (profileForm.get('orgnizationName')?.dirty ||
+                                profileForm.get('orgnizationName')?.touched)) {
+                                <span class="text-red-500 text-sm">Organization Name is required</span>
+                                }
+                            </div>
+
+                            <!-- GST Number -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">GST Number</label>
+                                <input type="text" formControlName="gstn" class="form-control">
+                                @if (profileForm.get('gstn')?.invalid && (profileForm.get('gstn')?.dirty ||
+                                profileForm.get('gstn')?.touched)) {
+                                <span class="text-red-500 text-sm">GST Number is required</span>
+                                }
+                            </div>
+
+                            <!-- PAN Number -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">PAN Number</label>
+                                <input type="text" formControlName="panNo" class="form-control">
+                                @if (profileForm.get('panNo')?.invalid && (profileForm.get('panNo')?.dirty ||
+                                profileForm.get('panNo')?.touched)) {
+                                <span class="text-red-500 text-sm">PAN Number is required</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- State, City -->
+                    <div class="col-span-1 md:col-span-2 space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- State -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">State</label>
+                                <ngx-select-dropdown [config]="config" formControlName="state" [options]="stateData"
+                                    (change)="onSelectState($event)">
+                                </ngx-select-dropdown>
+                                @if (profileForm.get('state')?.invalid && (profileForm.get('state')?.dirty ||
+                                profileForm.get('state')?.touched)) {
+                                <span class="text-red-500 text-sm">State is required</span>
+                                }
+                            </div>
+
+                            <!-- City -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">City</label>
+                                <ngx-select-dropdown [config]="config1" formControlName="city" [options]="cityData">
+                                </ngx-select-dropdown>
+
+                                @if (profileForm.get('city')?.invalid && (profileForm.get('city')?.dirty ||
+                                profileForm.get('city')?.touched)) {
+                                <span class="text-red-500 text-sm">City is required</span>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Address</label>
+                                <textarea rows="3" formControlName="address" class="form-control"></textarea>
+                                @if (profileForm.get('address')?.invalid && (profileForm.get('address')?.dirty ||
+                                profileForm.get('address')?.touched)) {
+                                <span class="text-red-500 text-sm">Address is required</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="mt-8 flex justify-end gap-3">
+                    <button type="button"
+                        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+                        Cancel
+                    </button>
+                    <button type="submit" (click)="submit(profileForm.value)"
+                        class="px-4 py-2 bg-[#696cff] text-white rounded-md hover:bg-[#787bff] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#696cff]">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="md:col-span-1 space-y-6">
+        <div class="bg-white p-6 rounded-lg border">
+            <div class="flex flex-col items-center space-y-4">
+                <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-[#696cff]">
+                    <img src="{{userProfileDetail?.profile_image_path}}" alt="Profile"
+                        class="w-full h-full object-cover">
+                </div>
+
+                <!-- Trigger file input -->
+                <button type="button" (click)="fileInput.click()"
+                    class="px-4 py-2 text-sm bg-[#696cff] text-white rounded-md hover:bg-[#787bff]">
+                    Change Photo
+                </button>
+
+                <!-- Hidden input, not visually altering UI -->
+                <input #fileInput type="file" accept="image/*" style="display: none" (change)="onImageSelected($event)">
+
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold text-gray-900">{{userProfileDetail?.firstName}}</h3>
+                    <p class="text-gray-500">{{userProfileDetail?.roleName}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,96 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}} Sub Category</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="subCategoryForm">
+        <div class="_card white-bg">
+            <!-- Row 1: 3 Columns -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Sub Category Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Sub Category Name"
+                        formControlName="subCategoryName" />
+                    @if (subCategoryForm.get('subCategoryName')?.invalid &&
+                    (subCategoryForm.get('subCategoryName')?.dirty || subCategoryForm.get('subCategoryName')?.touched))
+                    {
+                    <span class="text-danger">Sub Category Name is Required</span>
+                    }
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label d-flex align-items-center">
+                        HSN Code
+                        <ng-container *ngIf="selectedHsn?.cgst || selectedHsn?.igst || selectedHsn?.sgst">
+                            <span class="ml-2">
+                                ( CGST: {{ selectedHsn?.cgst || '0%' }},
+                               &nbsp; IGST: {{ selectedHsn?.igst || '0%' }},
+                               &nbsp; SGST: {{ selectedHsn?.sgst || '0%' }} )
+                            </span>
+                        </ng-container>
+                    </label>
+
+                    <ngx-select-dropdown place [config]="config" [options]="gstListData" formControlName="hsnCode"
+                        (change)="onSelectHsnCode($event)">
+                    </ngx-select-dropdown>
+
+
+                    @if (subCategoryForm.get('hsnCode')?.invalid &&
+                    (subCategoryForm.get('hsnCode')?.dirty || subCategoryForm.get('hsnCode')?.touched)) {
+                    <span class="text-danger">HSN Code is Required</span>
+                    }
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Rate</label>
+                    <input type="number" class="form-control" placeholder="Enter Rate"
+                        formControlName="rate" />
+                    @if (subCategoryForm.get('rate')?.invalid &&
+                    (subCategoryForm.get('rate')?.dirty || subCategoryForm.get('rate')?.touched))
+                    {
+                    <span class="text-danger">Rate is Required</span>
+                    }
+                </div>
+                <div class="col-md-6 mb-3">
+
+                    <div class="state-part">
+                        <input type="checkbox" formControlName="isState"
+                            class="w-5 h-5 text-blue-600 bg-white border border-gray-300 rounded mb-1" />
+                        <label class="block text-sm font-medium text-gray-700 ml-3">
+                            State
+                        </label>
+                        @if (subCategoryForm.get('isState')?.invalid &&
+                        (subCategoryForm.get('isState')?.dirty || subCategoryForm.get('isState')?.touched)) {
+                        <span class="text-red-600 text-sm mt-1 block">State is Required</span>
+                        }
+                    </div>
+
+                    <div class="plan-part">
+                        <input type="checkbox" formControlName="isplan"
+                            class="w-5 h-5 text-blue-600 bg-white border border-gray-300 rounded mb-1" />
+                        <label class="block text-[50px] font-medium text-gray-700 ml-3">
+                            Plan
+                        </label>
+                        @if (subCategoryForm.get('isplan')?.invalid &&
+                        (subCategoryForm.get('isplan')?.dirty || subCategoryForm.get('isplan')?.touched)) {
+                        <span class="text-red-600 text-sm mt-1 block">Plan is Required</span>
+                        }
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+        <!-- Footer Buttons -->
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(subCategoryForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

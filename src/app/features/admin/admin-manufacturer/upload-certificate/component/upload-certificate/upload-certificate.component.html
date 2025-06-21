@@ -1,0 +1,123 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}} {{selectManu.text}}'s Certificate</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="certificateForm">
+        <div class="row">
+            <!-- Product Dropdown -->
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Product</label>
+                <ngx-select-dropdown  [config]="config" [options]="productList" formControlName="product">
+                </ngx-select-dropdown>
+                @if (certificateForm.get('product')?.invalid && certificateForm.get('product')?.touched) {
+                <span class="text-danger">Product is required</span>
+                }
+            </div>
+
+            <!-- Authority Dropdown -->
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Authority</label>
+                <ngx-select-dropdown  [config]="config" [options]="authorityList" formControlName="authority">
+                </ngx-select-dropdown>
+                @if (certificateForm.get('authority')?.invalid && certificateForm.get('authority')?.touched) {
+                <span class="text-danger">Authority is required</span>
+                }
+            </div>
+
+            <!-- Certificate 1 File Upload -->
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Certificate 1</label>
+                <div class="input-group">
+                    <input type="file" class="form-control" placeholder="Enter Certificate 1"
+                        (change)="onFileChange($event, 'certificate1')" #certificate1Input accept=".pdf" />
+                </div>
+                @if (existingCertificate1Name) {
+                    <div class="mt-1 text-success text-sm">
+                      Existing file: {{ existingCertificate1Name }}
+                    </div>
+                  }
+                @if (certificateForm.get('certificate1')?.invalid && certificateForm.get('certificate1')?.touched) {
+                <span class="text-danger">Certificate is required</span>
+                }
+                @if(certificate1Error) {
+                <span class="text-danger">Invalid file type. Only .pdf files are allowed.</span>
+                }
+            </div>
+
+            <!-- From Date 1 -->
+            <div class="col-md-4 mb-3">
+                <label class="form-label">From Date</label>
+                <div class="input-group">
+                    <input type="date" class="form-control" placeholder="Enter From Date" formControlName="fromDate1" />
+                </div>
+                @if (certificateForm.get('fromDate1')?.invalid && certificateForm.get('fromDate1')?.touched) {
+                <span class="text-danger">From date is required</span>
+                }
+            </div>
+
+            <!-- To Date 1 -->
+            <div class="col-md-4 mb-3">
+                <label class="form-label">To Date</label>
+                <div class="input-group">
+                    <input type="date" class="form-control" placeholder="Enter To Date" formControlName="toDate1" />
+                </div>
+                @if (certificateForm.get('toDate1')?.invalid && certificateForm.get('toDate1')?.touched) {
+                <span class="text-danger">To date is required</span>
+                }
+            </div>
+
+            <!-- Certificate 2 File Upload -->
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Certificate 2</label>
+                <div class="input-group">
+                    <input type="file" class="form-control" placeholder="Enter Certificate 2"
+                        (change)="onFileChange($event, 'certificate2')" #certificate2Input accept=".pdf" />
+                </div>
+                @if (existingCertificate1Name) {
+                    <div class="mt-1 text-success text-sm">
+                      Existing file: {{ existingCertificate2Name }}
+                    </div>
+                  }
+                @if (certificateForm.get('certificate2')?.invalid && certificateForm.get('certificate2')?.touched) {
+                <span class="text-danger">Certificate is required</span>
+                }
+                @if(certificate2Error) {
+                <span class="text-danger">Invalid file type. Only .pdf files are allowed.</span>
+                }
+            </div>
+
+            <!-- From Date 2 -->
+            <div class="col-md-4 mb-3">
+                <label class="form-label">From Date 2</label>
+                <div class="input-group">
+                    <input type="date" class="form-control" placeholder="Select From Date 2"
+                        formControlName="fromDate2" />
+                </div>
+                @if (certificateForm.get('fromDate2')?.invalid && certificateForm.get('fromDate2')?.touched) {
+                <span class="text-danger">From date is required</span>
+                }
+            </div>
+
+            <!-- To Date 2 -->
+            <div class="col-md-4 mb-3">
+                <label class="form-label">To Date 2</label>
+                <div class="input-group">
+                    <input type="date" class="form-control" placeholder="Select To Date 2" formControlName="toDate2" />
+                </div>
+                @if (certificateForm.get('toDate2')?.invalid && certificateForm.get('toDate2')?.touched) {
+                <span class="text-danger">To date is required</span>
+                }
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(certificateForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,266 @@
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-4">
+    <div class="bg-white rounded-lg w-full flex flex-col">
+        <div class="p-6">
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-yellow-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h3 class="text-sm font-medium text-yellow-500">Open</h3>
+            </div>
+            <div class="flex justify-between items-center mt-2">
+                <div class="flex items-center">
+                    <p class="text-2xl font-bold">{{this.myComplainData?.open}}</p>
+                </div>
+                <span class="flex items-center text-yellow-500 text-sm font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    {{calculatePercentage(this.myComplainData?.processing)}}%
+                </span>
+            </div>
+        </div>
+        <button class="bg-[#787bff] p-2 rounded-lg text-white flex items-center justify-center cursor-pointer"
+            (click)="onShowOrder('Open', 0)">
+            View <i class="fa fa-arrow-right pl-2" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="bg-white rounded-lg shadow w-full flex flex-col">
+        <div class="p-6">
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                <h3 class="text-blue-500 text-sm font-medium">Close</h3>
+            </div>
+            <div class="flex justify-between items-center mt-2">
+                <div class="flex items-center">
+                    <p class="text-2xl font-bold">{{this.myComplainData?.close}}</p>
+                </div>
+                <span class="flex items-center text-blue-500 text-sm font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    {{calculatePercentage(this.myComplainData?.processing)}}%
+                </span>
+            </div>
+        </div>
+        <button class="bg-[#787bff] p-2 rounded-lg text-white cursor-pointer" (click)="onShowOrder('Close', 1)">
+            View <i class="fa fa-arrow-right pl-2" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <!-- <div class="bg-white rounded-lg shadow w-full flex flex-col">
+        <div class="p-6">
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <h3 class="text-green-500 text-sm font-medium">Dispatched</h3>
+            </div>
+            <div class="flex justify-between items-center mt-2">
+                <div class="flex items-center">
+                    <p class="text-2xl font-bold">{{this.myComplainData?.dispatched}}</p>
+                </div>
+                <span class="flex items-center text-green-500 text-sm font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    {{calculatePercentage(this.myComplainData?.processing)}}%
+                </span>
+            </div>
+        </div>
+        <button class="bg-[#787bff] p-2 rounded-lg text-white cursor-pointer" (click)="onShowOrder('Dispatched', 3)">
+            View <i class="fa fa-arrow-right pl-2" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="bg-white rounded-lg shadow w-full flex flex-col">
+        <div class="p-6">
+            <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <h3 class="text-red-500 text-sm font-medium">Rejected</h3>
+            </div>
+            <div class="flex justify-between items-center mt-2">
+                <div class="flex items-center">
+                    <p class="text-2xl font-bold">{{this.myComplainData?.rejected}}</p>
+                </div>
+                <span class="flex items-center text-red-500 text-sm font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    {{calculatePercentage(this.myComplainData?.processing)}}%
+                </span>
+            </div>
+        </div>
+        <button class="bg-[#787bff] p-2 rounded-lg text-white cursor-pointer" (click)="onShowOrder('Rejected', 4)">
+            View <i class="fa fa-arrow-right pl-2" aria-hidden="true"></i>
+        </button>
+    </div> -->
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <div class="header-part">
+            <span>{{label}} List</span>
+            <div class="counting">
+                <span>
+                    {{ pagesize.count > 0 ? startValue : 0 }} -
+                    {{ pagesize.count > 0 ? lastValue : 0 }}
+                    OF {{ pagesize.count > 0 ? pagesize.count : 0 }} Complain
+                </span>
+            </div>
+            @if(this.myComplainData?.complaintList && this.myComplainData?.complaintList?.length) {
+                <div class="row">
+                    <div class="d-flex justify-content-center">
+                        <pagination-controls id="myComplainId" [maxSize]="10" [responsive]="true" [nextLabel]="''"
+                            [previousLabel]="''" (pageChange)="onTablePageChange($event)">
+                        </pagination-controls>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="header-container flex flex-col sm:flex-row justify-between gap-4 pb-2">
+            <div class="left-section">
+                <div class="flex items-center justify-between sm:justify-start space-x-2">
+                    <label for="itemsPerPage" class="text-sm text-gray-700 whitespace-nowrap">Items per page:</label>
+                    <select id="itemsPerPage"
+                        class="block w-20 p-2 bg-white border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
+                        [(ngModel)]="pagesize.limit" (change)="onPageSizeChange($event)">
+                        @for (size of [25, 50, 100]; track $index) {
+                        <option [value]="size">{{ size }}</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            @if (userDetails?.RoleId == "2" || userDetails?.RoleId == "3") {
+                <div class="right-section flex flex-col sm:flex-row gap-4 sm:gap-x-2 w-full sm:w-auto">
+                    <button (click)="onComplainGenerate('')"
+                        class="!btn !btn-primary bg-[#696cff] hover:bg-[#787bff] text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 w-full sm:w-auto">
+                        <i class="fa fa-upload" aria-hidden="true"></i> New Complain Request
+                    </button>
+                </div>
+            }
+           
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="overflow-auto">
+                    <div id="datatable_wrapper">
+                        @if (isLoading) {
+                            <app-loader />
+                            } @else {
+                                <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline"
+                                    role="grid" aria-describedby="datatable_info" style="width: 100%" width="100%">
+                                    <thead>
+                                        <tr role="row">
+                                            @for (vehicleHeading of columns; track $index) {
+                                            <th>
+                                                <span>{{ vehicleHeading?.title }}</span>
+                                            </th>
+                                            }
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if(this.myComplainData?.complaintList?.length > 0) {
+                                            @for (item of this.myComplainData?.complaintList | paginate: {id: 'myComplainId',
+                                            itemsPerPage: pagesize.limit, currentPage: pagesize.offset, totalItems:
+                                            pagesize.count}; track $index) {
+                                            <tr>
+                                                <td>
+                                                    {{ (pagesize.offset - 1) * pagesize.limit + $index + 1 }}
+                                                </td>
+                                                <td>
+                                                    @if (item?.is_closed == 0) {
+                                                    <span
+                                                        class="badge border rounded-lg b-0 py-2 font-medium bg-yellow-500 text-white">Open</span>
+                                                    } @else if (item?.is_closed == 1) {
+                                                    <span
+                                                        class="badge border rounded-lg b-0 py-2 font-medium bg-blue-500 text-white">Close</span>
+                                                    } 
+                                                    <!-- @else if (item?.complaint_status_name === 'Dispatched') {
+                                                    <span
+                                                        class="badge border rounded-lg b-0 py-2 font-medium bg-green-500 text-white">{{item?.complaint_status_name}}</span>
+                                                    } @else if (item?.complaint_status_name === 'Rejected') {
+                                                    <span
+                                                        class="badge border rounded-lg b-0 py-2 font-medium bg-red-500 text-white">{{item?.complaint_status_name}}</span>
+                                                    } @else {
+                                                    <span
+                                                        class="badge border rounded-lg b-0 py-2 font-medium bg-gray-500 text-white">{{item?.complaint_status_name}}</span>
+                                                    } -->
+                                                </td>
+                                                <td>{{item?.complaint_datetime ? (item?.complaint_datetime | date: 'dd/MM/yyyy') : 'NA'}}</td>
+                                                <td>{{item?.client_name}}</td>
+                                                <td>{{item?.complaint_category_name}}</td>
+                                                <td>{{item?.ref_name}}</td>
+                                                <td>{{item?.ref_value}}</td>
+                                                <td>{{item?.complaint_priority_name}}</td>
+                                                <td>{{item?.last_updated_date | date: "dd/MM/yyyy"}}</td>
+                                                <td>{{item?.complaint_description}}</td>
+                                                <td>
+                                                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                                            <circle cx="12" cy="6" r="2" fill="currentColor" />
+                                                            <circle cx="12" cy="12" r="2" fill="currentColor" />
+                                                            <circle cx="12" cy="18" r="2" fill="currentColor" />
+                                                        </svg>
+                                                    </button>
+                                                    <mat-menu #menu="matMenu">  
+                                                        @if(userDetails?.RoleId == "7"){
+                                                            <button mat-menu-item (click)="responseComplain(item)">
+                                                                <i class="fas fa-reply mr-2"></i>
+                                                                <span>Response</span>
+                                                            </button>
+                                                        }@else if(userDetails?.RoleId == "6") {
+                                                            <button mat-menu-item (click)="assignComplain(item)">
+                                                                <i class="fas fa-user-check mr-2"></i>
+                                                                <span>Assign Complain</span>
+                                                            </button>
+                                                            
+                                                            <button mat-menu-item (click)="responseComplain(item)">
+                                                                 <i class="fas fa-reply mr-2"></i>
+                                                                <span>Response</span>
+                                                            </button>
+                                                        }@else {
+                                                             <button mat-menu-item (click)="responseComplain(item)">
+                                                                <i class="fas fa-reply mr-2"></i>
+                                                                <span>Response</span>
+                                                            </button>
+                                                        }                                          
+                                                                               
+                                                    </mat-menu>
+                                                </td>
+                                            </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                    </div>
+                </div>
+
+                @if( !this.myComplainData?.complaintList || !this.myComplainData?.complaintList?.length) {
+                <div class="text-center py-4 text-gray-500">
+                    No {{label}} Complain Available
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

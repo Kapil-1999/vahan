@@ -1,0 +1,41 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}} {{selectManu.text}}'s Deivce</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form action="" [formGroup]="stockForm">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Product </label>
+                <ngx-select-dropdown place [config]="config" [options]="productList" formControlName="product">
+                </ngx-select-dropdown>
+                @if (stockForm.get('product')?.invalid && stockForm.get('product')?.touched) {
+                <span class="text-danger">Product is required</span>
+                }
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Excel File</label>
+                <div class="input-group mb-2">
+                    <input type="file" class="form-control" placeholder="Upload Excel File" formControlName="devices"
+                        accept=".xls,.xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                        (change)="uploadExcel($event)" />
+                </div>
+                @if (stockForm.get('devices')?.invalid &&
+                (stockForm.get('devices')?.dirty || stockForm.get('devices')?.touched))
+                {
+                <span class="text-danger">Excel File is Required</span>
+                }
+
+            </div>
+
+        </div>
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(stockForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
