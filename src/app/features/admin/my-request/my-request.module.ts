@@ -10,6 +10,8 @@ import { ChangeRequestStatusComponent } from './component/change-request-status/
 import { OrderRequestHistoryComponent } from './component/order-request-history/order-request-history.component';
 import { RequestPaymentComponent } from './component/request-payment/request-payment.component';
 import { RequestInvoiceGenerateComponent } from './component/request-invoice-generate/request-invoice-generate.component';
+import { PaymentRequestHistoryComponent } from './component/payment-request-history/payment-request-history.component';
+import { VerifyRequestStatusChangeComponent } from './component/verify-request-status-change/verify-request-status-change.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { RequestInvoiceGenerateComponent } from './component/request-invoice-gen
     ChangeRequestStatusComponent,
     OrderRequestHistoryComponent,
     RequestPaymentComponent,
-    RequestInvoiceGenerateComponent
+    RequestInvoiceGenerateComponent,
+    PaymentRequestHistoryComponent,
+    VerifyRequestStatusChangeComponent
   ],
   imports: [
     CommonModule,

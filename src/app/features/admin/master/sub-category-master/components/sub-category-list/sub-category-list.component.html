@@ -35,14 +35,16 @@
                 </div>
             </div>
             <div class="right-section flex flex-col sm:flex-row gap-4 sm:gap-x-2 w-full sm:w-auto">
-                <ngx-select-dropdown [config]="config" [ngModel]="selectedCategory" class="lg:w-[250px] sm:w-full md:w-full" [options]="categoryList" (change)="onSelectCategory($event)">
-                </ngx-select-dropdown >
+                <ngx-select-dropdown [config]="config" [ngModel]="selectedCategory"
+                    class="lg:w-[250px] sm:w-full md:w-full" [options]="categoryList"
+                    (change)="onSelectCategory($event)">
+                </ngx-select-dropdown>
                 <button (click)="onAddSubCategory('')" [disabled]="!selectedCategory || selectedCategory.length == 0"
                     class="!btn !btn-primary bg-[#696cff] hover:bg-[#787bff] text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 w-full sm:w-auto">
                     <i class="fa fa-plus" aria-hidden="true"></i> Create Sub Category
                 </button>
             </div>
-            
+
 
         </div>
         <div class="row">
@@ -73,12 +75,16 @@
                                     </td>
                                     <td>{{item?.device_category_name || 'NA'}}</td>
                                     <td>{{item?.device_subcategory_name || 'NA'}}</td>
-                                    <td>{{item?.gstlsit?.gsT_NAME  || 'NA'}}</td>
+                                    <td>{{item?.gstlsit?.gsT_NAME || 'NA'}}</td>
                                     <td>{{item?.gstlsit?.hsN_CODE || 'NA'}}</td>
-                                    <td>{{item?.gstlsit?.sgst + '%' || '0%'}}</td>
-                                    <td>{{item?.gstlsit?.cgst + '%' || '0%'}}</td>
-                                    <td>{{item?.gstlsit?.igst + '%' || '0%'}}</td>
-                                   
+                                    <td>{{ item?.gstlsit?.cgst != null ? (item?.gstlsit?.cgst | number:'1.2-2') + '%' :
+                                        '0.00%' }}</td>
+                                    <td>{{ item?.gstlsit?.sgst != null ? (item?.gstlsit?.sgst | number:'1.2-2') + '%' :
+                                        '0.00%' }}</td>
+                                    <td>{{ item?.gstlsit?.igst != null ? (item?.gstlsit?.igst | number:'1.2-2') + '%' :
+                                        '0.00%' }}</td>
+
+                                    <td>{{ item?.device_price | number:'1.2-2' }}</td>
                                     <td class="flex !space-x-2">
                                         <button class="btn btn-success" (click)="onAddSubCategory(item)">
                                             <i class="fa fa-pencil"></i>

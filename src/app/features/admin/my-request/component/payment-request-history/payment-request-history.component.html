@@ -1,0 +1,61 @@
+<button class="btn btn-secondary mb-2" (click)="goBack()">
+    <i class="fas fa-arrow-left mr-1"></i> Back
+</button>
+<div class="card">
+    <div class="card-header">
+        <h4>Payment Request History</h4>
+    </div>
+    <div class="card-body">
+        <div class="overflow-auto">
+          <div id="datatable_wrapper">
+            @if (isLoading) {
+              <app-loader />
+            } @else if (hasPaymentData()) {
+              <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline">
+                <thead>
+                  <tr role="row">
+                    @for (vehicleHeading of columns; track $index) {
+                      <th><span>{{ vehicleHeading?.title }}</span></th>
+                    }
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ paymentRequestHistoryData?.customer_name  }}</td>
+                    <td>{{ paymentRequestHistoryData?.created_date ? (paymentRequestHistoryData?.created_date | date : 'dd/MM/yyyy HH:mm:ss') : 'dd/MM/yyyy HH:mm:ss' }}</td>
+                    <td>{{ paymentRequestHistoryData?.mobile_no  }}</td>
+                    <td>{{ paymentRequestHistoryData?.payment_amount  }}</td>
+                    <td>{{ paymentRequestHistoryData?.invoice_no  }}</td>
+                    <td>{{ paymentRequestHistoryData?.refrence_no  }} </td>
+                    <td>{{ paymentRequestHistoryData?.payment_mode  }} 
+                        @if(paymentRequestHistoryData?.payment_mode == 'From Payment Receipt') {
+                            <span class="badge border rounded-lg b-0 py-2 font-medium bg-green-500 text-white cursor-pointer">
+                              <a class="text-white font-medium" [href]="paymentRequestHistoryData?.image_file" target="_blank" rel="noopener noreferrer">
+                                View Receipt
+                              </a>
+                            </span>
+                        }
+                    </td>
+                    <td>{{ paymentRequestHistoryData?.request_status  }}</td>
+                    <td>{{ paymentRequestHistoryData?.varify_by_name  }}</td>
+                    <td>{{ paymentRequestHistoryData?.verify_date ? (paymentRequestHistoryData?.verify_date | date : 'dd/MM/yyyy HH:mm:ss') : 'dd/MM/yyyy HH:mm:ss' }}</td>
+                    <td>{{ paymentRequestHistoryData?.varify_status_name  }}</td>
+                    @if(userDetails?.RoleId == "6"){
+                      <td>
+                        <button (click)="onVerify(paymentRequestHistoryData)" [disabled]="paymentRequestHistoryData?.varify_status_id == 3 || paymentRequestHistoryData?.varify_status_id == 4"
+                          class="btn btn-primary">Verify</button>
+                    </td>
+                    }
+                   
+                  </tr>
+                </tbody>
+              </table>
+            } @else {
+              <div class="text-center py-4 text-gray-500">
+                No Payment Request History Available
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+</div>

@@ -46,4 +46,32 @@ export class MyRequestService {
    .post(url, payload)
    .pipe(catchError((error: HttpErrorResponse) => of(error)));
   }
+
+  UpdateRequestStatus(payload: any): Observable<any> {
+    let url = API_CONSTANT.updateRequestStatus
+    return this.apiService
+   .post(url, payload)
+   .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
+  orderRequestHistory(payload: any): Observable<any> {
+    let url = API_CONSTANT.orderRequestHistory
+    return this.apiService
+   .post(url, payload)
+   .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
+  paymentDetails(payload: any): Observable<any> {
+    let url = API_CONSTANT.paymentRequestDetails
+    return this.apiService
+   .post(url, payload)
+   .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
+  verifyRequestPaymentStatus(payload: any): Observable<any> {
+    let url = API_CONSTANT.verifyRequestPayment
+    return this.apiService
+   .post(url, payload)
+   .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
 }

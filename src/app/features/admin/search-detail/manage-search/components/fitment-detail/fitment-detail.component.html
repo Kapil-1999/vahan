@@ -1,0 +1,52 @@
+<div class="card">
+    <div class="card-header">
+        <div class="header-part">
+            <span>Fitment Detail</span>
+
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div class="mb-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="overflow-auto">
+                        <div id="datatable_wrapper">
+
+                            @if (searchListDta) {
+                            <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline"
+                                role="grid" #TABLE aria-describedby="datatable_info" style="width: 100%" width="100%">
+                                <thead>
+                                    <tr role="row">
+                                        @for (vehicleHeading of columns; track $index) {
+                                        <th>
+                                            <span>{{ vehicleHeading?.title }}</span>
+                                        </th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{searchListDta?.vahanActivationRequestInfo?.permitHolderName || 'NA'}}</td>
+                                        <td>{{searchListDta?.firstName || 'NA'}}</td>
+                                        <td>{{searchListDta?.vahanActivationRequestInfo?.vehicleNo || 'NA'}}</td>
+                                        <td>{{searchListDta?.vahanActivationRequestInfo?.rtoCode || 'NA'}}</td>
+                                        <td>{{searchListDta?.vahanActivationRequestInfo?.trackingID | date :
+                                            'dd/MM/YYYY' }}</td>
+                                        <td>{{searchListDta?.vahanActivationRequestInfo?.vahanCertificate || 'NA' }}
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                            }@else {
+                            <div class="text-center py-4 text-gray-500">
+                                No Fitment Detail Available
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

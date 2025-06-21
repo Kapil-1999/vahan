@@ -168,7 +168,7 @@ export class RequestPaymentComponent {
     }
 
     let payload = {
-      "pk_service_id": this.editData?.fk_service_id,
+      "pk_service_id": this.editData?.pk_device_request_id,
       "request_qty": updatedFormValue.quantity,
       "remarks": formvalue?.remarks,
       "created_by": Number(this.userDetails?.Id) || 0,

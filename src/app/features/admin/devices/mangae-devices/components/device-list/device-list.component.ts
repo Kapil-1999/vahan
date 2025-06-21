@@ -4,6 +4,8 @@ import { CommonService } from '../../../../../shared/services/common.service';
 import { DeviceService } from '../../services/device.service';
 import { CreateDeviceComponent } from '../create-device/create-device.component';
 import { NotificationService } from '../../../../../shared/services/notification.service';
+import * as XLSX from 'xlsx';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-device-list',
@@ -24,12 +26,21 @@ export class DeviceListComponent {
   userDetails: any
   manuFacuturerList: any;
   selectedManufacture: any;
+  selectedDealer: any
   config = {
     displayKey: "text",
     height: '200px',
     search: true,
     placeholder: 'Select Manufacture'
   }
+
+  config1 = {
+    displayKey: "text",
+    height: '200px',
+    search: true,
+    placeholder: 'All Dealer'
+  }
+  dealerList: any;
   get startValue(): number {
     return this.pagesize.offset * this.pagesize.limit - (this.pagesize.limit - 1);
   }
@@ -53,6 +64,7 @@ export class DeviceListComponent {
   ngOnInit() {
     this.setInitialValue()
     this.getManufactureList()
+    // this.getDealerDropDown()
   }
 
   setInitialValue() {
@@ -89,14 +101,20 @@ export class DeviceListComponent {
         text: item.contactPersonName
       }));;
       this.selectedManufacture = this.manuFacuturerList[0];
-      this.pagesize.offset = 1;
-      this.pagesize.limit = 25;
-      this.getDeviceList()
+      this.getDealerDropDown()
+
     })
   }
 
   onSelectManufacture(event: any) {
     this.selectedManufacture = event?.value;
+    this.pagesize.offset = 1;
+    this.pagesize.limit = 25;
+    this.getDeviceList()
+  }
+
+  onSelectDealer(event: any) {
+    this.selectedDealer = event?.value;
     this.pagesize.offset = 1;
     this.pagesize.limit = 25;
     this.getDeviceList()
@@ -112,9 +130,10 @@ export class DeviceListComponent {
       "pageNumber": this.pagesize.offset,
       "pageSize": this.pagesize.limit,
       "searchTerm": this.searchKeyword,
-      "maxDevices": 0
+      "maxDevices": 0,
+      "delaerId": this.selectedDealer?.value ? Number(this.selectedDealer?.value) : 0
     }
-    this.deviceService.deviceList(payload).subscribe((res: any) => {
+    this.deviceService.deviceListV2(payload).subscribe((res: any) => {
       this.isLoading = false
       if (res?.body?.isSuccess == true) {
         this.deviceList = res?.body?.result?.data || []
@@ -139,6 +158,26 @@ export class DeviceListComponent {
     })
   }
 
+  getDealerDropDown() {
+    let payload = {
+      "roleId": Number(localStorage.getItem('role_id')),
+      "parentId": Number(this.selectedManufacture?.value),
+      "searchTerm": '',
+    }
+    this.commonService.dealerListdetail(payload).subscribe((res: any) => {
+      if (res?.status == 200) {
+        this.dealerList = res?.body?.result?.map((item: any) => ({
+          value: item.empId,
+          text: item.contactPersonName
+        }));
+        this.selectedDealer = this.dealerList[0]
+        this.pagesize.offset = 1;
+        this.pagesize.limit = 25;
+        this.getDeviceList()
+      }
+    })
+  }
+
   onAdddevice(value: any) {
     const initialState: ModalOptions = {
       initialState: {
@@ -158,6 +197,36 @@ export class DeviceListComponent {
     });
   }
 
+  downloadExcel() {
+    if (!this.deviceList || this.deviceList.length === 0) {
+      return;
+    }
+
+    const excelData = this.deviceList.map((item: any, index: number) => ({
+      'S.No': index + 1,
+      'Uid': item.uid,
+      'Imei': item.imei,
+      'Iccid': item.iccid,
+      'Vahan S.No.': item.vahan_sno,
+      "Integrator": item.integrator_name,
+      "P. TSP": item.first_tsp,
+      "P. Sim No.": item.first_sim,
+      "S. TSP": item.second_tsp,
+      "S. Sim No.": item.second_sim,
+      "Card State": item.card_state,
+      "Card Status": item.card_status,
+      "Duration": item.sim_duration,
+      "Activation Date": formatDate(item.activated_date, 'yyyy-MM-dd', 'en-US'),
+      "Valid Till": formatDate(item.valid_till_date, 'yyyy-MM-dd', 'en-US'),
+    }));
+
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(excelData);
+
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Device List');
+    XLSX.writeFile(wb, 'Device_List.xlsx');
+  }
+
 
   onTablePageChange(event: number) {
     this.pagesize.offset = event;
@@ -170,19 +239,19 @@ export class DeviceListComponent {
     this.getDeviceList()
   }
 
-  onSearch(event:any) {
+  onSearch(event: any) {
     const searchValue = event.target.value.trim().replace(/\s+/g, ' ');
     this.searchKeyword = searchValue;
     this.deviceList = [];
     this.pagesize.offset = 1;
     this.pagesize.limit = 25;
-    this.getDeviceList();  
+    this.getDeviceList();
   }
 
   clearSearch() {
     this.searchKeyword = '';
     this.pagesize.offset = 1;
     this.pagesize.limit = 25;
-    this.getDeviceList();  
+    this.getDeviceList();
   }
 }

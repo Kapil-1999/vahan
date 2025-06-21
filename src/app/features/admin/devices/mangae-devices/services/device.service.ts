@@ -18,6 +18,14 @@ export class DeviceService {
       .pipe(catchError((error: HttpErrorResponse) => of(error)));
   }
 
+    deviceListV2(payload: any): Observable<any> {
+    let url = API_CONSTANT.deviceListV2
+    return this.apiService
+      .post(url, payload)
+      .pipe(catchError((error: HttpErrorResponse) => of(error)));
+  }
+
+
   addDevice(payload: any): Observable<any> {
     let url = API_CONSTANT.addSingleStock
     return this.apiService

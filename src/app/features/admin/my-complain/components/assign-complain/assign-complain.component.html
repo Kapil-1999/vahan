@@ -1,0 +1,47 @@
+<div class="modal-header text-center">
+    <h5>Assign Complain</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <form [formGroup]="assignComplainForm">
+        <div class="_card white-bg">
+            <!-- Row 1: 3 Columns -->
+            <div class="row">
+               
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Employee Name</label>
+                    <ngx-select-dropdown place [config]="config" [options]="supportTeamList" formControlName="empName"
+                       >
+                    </ngx-select-dropdown>
+                    @if (assignComplainForm.get('empName')?.invalid &&
+                    (assignComplainForm.get('empName')?.dirty || assignComplainForm.get('empName')?.touched)) {
+                    <span class="text-danger">Employee Name is Required</span>
+                    }
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Description</label>
+                   
+                        <textarea class="form-control" placeholder="Enter Description Name"
+                        formControlName="description" rows="3"></textarea>
+                    @if (assignComplainForm.get('description')?.invalid &&
+                    (assignComplainForm.get('description')?.dirty || assignComplainForm.get('description')?.touched))
+                    {
+                    <span class="text-danger">Description is Required</span>
+                    }
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Footer Buttons -->
+        <div class="footer">
+            <div class="button-container">
+                <button class="btn btn-success" type="submit" (click)="submit(assignComplainForm.value)">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

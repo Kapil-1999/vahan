@@ -61,6 +61,18 @@ const routes: Routes = [
    {
     path : "request",
     loadChildren: () => import('../admin/my-request/my-request.module').then(m => m.MyRequestModule) 
+   },
+   {
+    path : "complain",
+    loadChildren: () => import('../admin/my-complain/my-complain.module').then(m => m.MyComplainModule) 
+   },
+   {
+    path : "renewal",
+    loadChildren: () => import('../admin/renewal/renewal.module').then(m => m.RenewalModule) 
+   },
+   {
+    path : "search",
+    loadChildren: () => import('../admin/search-detail/search-detail.module').then(m => m.SearchDetailModule) 
    }
 
 ];

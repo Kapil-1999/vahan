@@ -54,7 +54,6 @@ export class VahanListDetailsComponent {
     this.vahanService.vahanSubList(payload).subscribe((res : any) => {
       this.isLoading = false;
       this.vahanDeviceList = res?.body?.result;
-      console.log(res);
       
     })
 

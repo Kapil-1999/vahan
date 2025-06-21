@@ -5,6 +5,8 @@ import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { AddRequestComponent } from '../add-request/add-request.component';
 import { RequestInvoiceGenerateComponent } from '../request-invoice-generate/request-invoice-generate.component';
 import { RequestPaymentComponent } from '../request-payment/request-payment.component';
+import { ChangeRequestStatusComponent } from '../change-request-status/change-request-status.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-request-list',
@@ -35,7 +37,9 @@ export class RequestListComponent {
   constructor(
     private commonService: CommonService,
     private myRequestService : MyRequestService,
-    private modalService : BsModalService
+    private modalService : BsModalService,
+    private router: Router
+
   ) {
     this.commonService.getUserDetails().subscribe((res: any) => {
       this.userDetails = res;
@@ -51,12 +55,16 @@ export class RequestListComponent {
     this.columns = [
       { key: 'S.No.', title: 'S.No.' },
       { key: 'Request Status', title: 'Request Status' },
-      { key: 'Created On', title: 'Created On' },
-      { key: 'Created By', title: 'Created By' },
+      { key: 'Request On', title: 'Request On' },
+      { key: 'Request By', title: 'Request By' },
       { key : "Service", title: "Service" },
+      { key: 'Invoice Status', title: 'Invoice Status' },
+      { key: 'Invoice Date', title: 'Invoice Date' },
       { key: 'Payment Status', title: 'Payment Status' },
-      {key : 'Last Update Date', title : 'Updated Date'},
-      { key: 'Remark', title: 'Remark' },
+      { key: 'Payment Date', title: 'Payment Date' },
+      { key: 'Verify Status', title: 'Verify Status' },
+      { key: 'Verify Date', title: 'Verify Date' },
+      { key: 'Refrence No.', title: 'Refrence No.' },
       {key : 'Action', title : 'Action'},
     ]
   }
@@ -165,4 +173,44 @@ export class RequestListComponent {
       this.getMyRequestData()
     });
   }
+
+   onChangeSericeStatus(item: any) {
+      const initialState: ModalOptions = {
+        initialState: {
+          editData: item,
+        },
+      };
+      this.bsModalRef = this.modalService.show(
+        ChangeRequestStatusComponent,
+        Object.assign(initialState, {
+          class: 'modal-md modal-dialog-centered alert-popup',
+        })
+      );
+      this.bsModalRef?.content?.mapdata?.subscribe((val: any) => {
+        this.pagesize.offset = 1;
+        this.pagesize.limit = 25;
+        this.getMyRequestData()
+      });
+    }
+
+    orderRequestHistory(item: any) {
+      if (!item?.pk_device_request_id) {
+        console.error('Missing request ID', item);
+        return;
+      }
+  
+      this.router.navigate(
+        ['/admin/request/order-request-history', item.pk_device_request_id, item.created_by]);
+    }
+
+    paymentRequestHistory(item: any) {
+      console.log(item);
+      if (!item?.pk_device_request_id) {
+        console.error('Missing request ID', item);
+        return;
+      }
+  
+      this.router.navigate(
+        ['/admin/request/payment-request-history', item.pk_device_request_id, item.created_by]);
+    }
 }
