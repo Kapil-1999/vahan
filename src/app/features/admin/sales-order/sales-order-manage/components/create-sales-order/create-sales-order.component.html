@@ -21,12 +21,23 @@
 
                 <div class="col-md-4 mb-3">
                     <label class="form-label">PO Number</label>
-                    <input type="text" class="form-control" placeholder="Enter PO Number" formControlName="poNumber" />
+                    <input type="text" class="form-control" placeholder="Enter PO Number" formControlName="poNumber"
+                        maxlength="20"
+                        (keypress)="($event.key.match('[a-zA-Z0-9]') ? true : $event.preventDefault())" />
+
                     @if (salesOrderForm.get('poNumber')?.invalid &&
                     (salesOrderForm.get('poNumber')?.dirty || salesOrderForm.get('poNumber')?.touched)) {
-                    <span class="text-danger">PO Number is Required</span>
+                    <div>
+                        @if (salesOrderForm.get('poNumber')?.errors?.['required']) {
+                        <span class="text-danger">PO Number is required</span>
+                        }
+                        @if (salesOrderForm.get('poNumber')?.errors?.['pattern']) {
+                        <span class="text-danger">Only alphanumeric characters are allowed</span>
+                        }
+                    </div>
                     }
                 </div>
+
 
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Model</label>
@@ -45,31 +56,41 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Rate</label>
-                    <input type="number" class="form-control" placeholder="Enter Rate" formControlName="rate" />
+                    <input type="number" class="form-control" placeholder="Enter Rate" formControlName="rate" min="1"
+                        max="10000" (keypress)="blockAboveMax($event, 'rate')" (input)="onInput($event, 'rate')" />
 
-                    @if (salesOrderForm.get('rate')?.invalid &&
-                    (salesOrderForm.get('rate')?.dirty || salesOrderForm.get('rate')?.touched)) {
-                    <span class="text-danger">Rate is Required</span>
+                    @if (!rateError && salesOrderForm.get('rate')?.errors?.['required']) {
+                    <span class="text-danger">Rate is required</span>
+                    }
+                    @if (rateError) {
+                    <span class="text-danger">Maximum rate allowed is 10000</span>
+                    }
+                    @if (!rateError && salesOrderForm.get('rate')?.errors?.['min']) {
+                    <span class="text-danger">Rate must be at least 1</span>
                     }
                 </div>
-
 
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Quantity</label>
-                    <input type="text" class="form-control" placeholder="Enter Quantity" formControlName="quantity"
-                         />
-                    @if (salesOrderForm.get('quantity')?.invalid &&
-                    (salesOrderForm.get('quantity')?.dirty || salesOrderForm.get('quantity')?.touched)) {
-                    <span class="text-danger">Quantity is Required</span>
+                    <input type="number" class="form-control" placeholder="Enter Quantity" formControlName="quantity"
+                        min="1" max="10000" (keypress)="blockAboveMax($event, 'quantity')"
+                        (input)="onInput($event, 'quantity')" />
+
+                    @if (!quantityError && salesOrderForm.get('quantity')?.errors?.['required']) {
+                    <span class="text-danger">Quantity is required</span>
+                    }
+                    @if (quantityError) {
+                    <span class="text-danger">Maximum quantity allowed is 10000</span>
+                    }
+                    @if (!quantityError && salesOrderForm.get('quantity')?.errors?.['min']) {
+                    <span class="text-danger">Quantity must be at least 1</span>
                     }
                 </div>
-
-               
             </div>
 
             <!-- Row 3: 3 Columns -->
             <div class="row">
-                 <div class="col-md-6 mb-3">
+                <div class="col-md-6 mb-3">
                     <label class="form-label">Tax</label>
                     <input type="text" class="form-control" placeholder="Enter Tax" formControlName="tax" />
                     @if (salesOrderForm.get('tax')?.invalid &&
@@ -80,21 +101,28 @@
 
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Invoice No</label>
-                    <input type="text" class="form-control" placeholder="Enter Invoice No"
-                        formControlName="invoiceNo" />
+                    <input type="text" class="form-control" placeholder="Enter Invoice No" formControlName="invoiceNo"
+                        maxlength="20"
+                        (keypress)="($event.key.match('[a-zA-Z0-9]') ? true : $event.preventDefault())" />
+
                     @if (salesOrderForm.get('invoiceNo')?.invalid &&
                     (salesOrderForm.get('invoiceNo')?.dirty || salesOrderForm.get('invoiceNo')?.touched)) {
-                    <span class="text-danger">Invoice No is Required</span>
+                    <div>
+                        @if (salesOrderForm.get('invoiceNo')?.errors?.['required']) {
+                        <span class="text-danger">Invoice No is required</span>
+                        }
+                        @if (salesOrderForm.get('invoiceNo')?.errors?.['pattern']) {
+                        <span class="text-danger">Only letters and numbers are allowed</span>
+                        }
+                    </div>
                     }
                 </div>
-
             </div>
 
-            <!-- Row 5: Address (Full Width) -->
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <label class="form-label">Remarks</label>
-                    <textarea class="form-control" placeholder="Enter Remarks" formControlName="remarks"
+                    <textarea class="form-control" placeholder="Enter Remarks" formControlName="remarks" maxlength="1000"
                         rows="3"></textarea>
                 </div>
             </div>

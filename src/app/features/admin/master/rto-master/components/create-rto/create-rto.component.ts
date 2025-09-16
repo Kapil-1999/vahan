@@ -43,8 +43,8 @@ export class CreateRtoComponent {
 
   setInitialForm() {
     this.rtoForm = this.fb.group({
-      rtoCode: ['', [Validators.required]],
-      rtoName: ['', [Validators.required]],
+      rtoCode: ['', [Validators.required,]],
+      rtoName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]*$')]],
       stateName: ['', [Validators.required]],
     })
     if (this.editData) {

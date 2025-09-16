@@ -35,7 +35,7 @@ export class CreateStateComponent {
 
   setInitialForm() {
     this.stateForm = this.fb.group({
-      stateName: ['', [Validators.required]],
+      stateName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]*$')]],
     })
     if (this.editData) {
       this.tittle = 'Update'

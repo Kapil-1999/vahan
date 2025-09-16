@@ -36,7 +36,7 @@ export class CreateSalesOrderComponent {
     private commonService: CommonService,
     private NotificationService: NotificationService,
     private salesOrderService: SalesOrderService,
-    private OrderService : OrderService,
+    private OrderService: OrderService,
   ) {
     this.commonService.getUserDetails().subscribe((res: any) => {
       this.userDetails = res
@@ -52,12 +52,12 @@ export class CreateSalesOrderComponent {
   setInitialForm() {
     this.salesOrderForm = this.fb.group({
       date: ['', [Validators.required]],
-      poNumber: ['', [Validators.required]],
+      poNumber: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]*$')]],
       model: [null, [Validators.required]],
-      rate: ['', [Validators.required]],
-      quantity: ['', [Validators.required]],
+      rate: ['0.00', [Validators.required, Validators.min(1),Validators.max(10000)]],
+      quantity: ['0.00', [Validators.required, Validators.min(1), Validators.max(10000)]],
       tax: [{ value: 18, disabled: true }, Validators.required],
-      invoiceNo: ['', [Validators.required]],
+      invoiceNo: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]*$')]],
       // salesManager: ['', [Validators.required]],
       remarks: [''],
     })
@@ -84,6 +84,43 @@ export class CreateSalesOrderComponent {
       })
     }
   }
+
+quantityError: boolean = false;
+rateError: boolean = false;
+
+blockAboveMax(event: KeyboardEvent, field: 'quantity' | 'rate') {
+  const input = event.target as HTMLInputElement;
+  const newValue = input.value + event.key;
+  if (!/^\d+$/.test(event.key)) {
+    event.preventDefault();
+    return;
+  }
+  if (Number(input.value) === 10000) {
+    event.preventDefault(); 
+    return;      
+  }
+
+  if (Number(newValue) > 10000) {
+    event.preventDefault();
+    if (field === 'quantity') this.quantityError = true;
+    if (field === 'rate') this.rateError = true;
+  } else {
+    if (field === 'quantity') this.quantityError = false;
+    if (field === 'rate') this.rateError = false;
+  }
+}
+
+
+onInput(event: Event, field: 'quantity' | 'rate') {
+  const input = event.target as HTMLInputElement;
+  if (input.value === '' || Number(input.value) <= 10000) {
+    if (field === 'quantity') this.quantityError = false;
+    if (field === 'rate') this.rateError = false;
+  }
+}
+
+
+
 
   // product dropdown
   // getProductList() {
@@ -118,7 +155,7 @@ export class CreateSalesOrderComponent {
 
         if (this.editData) {
           const matchedProduct = this.productList.find(
-            (data: any) => data.value == this.editData.pk_product_id
+            (data: any) => data.value == this.editData.fk_product_id
           );
           if (matchedProduct) {
             this.salesOrderForm.patchValue({ model: matchedProduct });
