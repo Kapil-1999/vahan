@@ -11,37 +11,48 @@
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Organization Name</label>
                     <input type="text" class="form-control" formControlName="orgName"
-                        placeholder="Enter Organization Name" />
-                    @if (shippingForm.get('orgName')?.invalid &&
-                    (shippingForm.get('orgName')?.dirty || shippingForm.get('orgName')?.touched)) {
-                    <span class="text-danger">Organization Name is Required</span>
+                        placeholder="Enter Organization Name" maxlength="50" />
+                    @if (shippingForm.get('orgName')?.touched || shippingForm.get('orgName')?.dirty) {
+                    @if (shippingForm.get('orgName')?.hasError('required')) {
+                    <span class="text-danger">Organization Name is required</span>
+                    } @else if (shippingForm.get('orgName')?.hasError('pattern')) {
+                    <span class="text-danger">
+                        Organization Name must be 3–50 characters (letters, numbers, spaces, &, -, . allowed)
+                    </span>
+                    }
                     }
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Contact Person Name</label>
                     <input type="text" class="form-control" formControlName="name"
-                        placeholder="Enter Contact Person Name" />
-                    @if (shippingForm.get('name')?.invalid &&
-                    (shippingForm.get('name')?.dirty || shippingForm.get('name')?.touched)) {
-                    <span class="text-danger">Contact Person Name is Required</span>
+                        placeholder="Enter Contact Person Name" maxlength="30" />
+                    @if (shippingForm.get('name')?.touched || shippingForm.get('name')?.dirty) {
+                    @if (shippingForm.get('name')?.hasError('required')) {
+                    <span class="text-danger">Contact Person Name is required</span>
+                    } @else if (shippingForm.get('name')?.hasError('pattern')) {
+                    <span class="text-danger">
+                        Contact Person Name must be 3–30 characters (letters and spaces only)
+                    </span>
+                    }
                     }
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Contact Person Email</label>
-                    <input type="email" class="form-control" formControlName="email" placeholder="Enter Email" />
+                    <input type="text" class="form-control" formControlName="email" placeholder="Enter Email" maxlength="254"/>
                     @if (shippingForm.get('email')?.touched || shippingForm.get('email')?.dirty) {
                     @if (shippingForm.get('email')?.hasError('required')) {
                     <span class="text-danger">Contact Person Email is required</span>
-                    } @else if (shippingForm.get('email')?.hasError('email')) {
+                    } @else if (shippingForm.get('email')?.hasError('patterm')) {
                     <span class="text-danger">Please enter a valid email address</span>
                     }
                     }
                 </div>
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Contact Person Mobile</label>
-                    <input type="number" class="form-control" formControlName="mobileNo"
+                    <input type="text" (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())"
+                        maxlength="10" class="form-control" formControlName="mobileNo"
                         placeholder="Enter Mobile Number" />
                     @if (shippingForm.get('mobileNo')?.touched || shippingForm.get('mobileNo')?.dirty) {
                     @if (shippingForm.get('mobileNo')?.hasError('required')) {
@@ -52,7 +63,7 @@
                     }
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label class="form-label" style="color: rgb(195, 10, 10);">Is Default</label>
+                    <label class="form-label">Is Default</label>
                     <select class="form-control" formControlName="isDefault">
                         @for(data of shippingAddress; track data) {
                         <option [value]="data?.value">{{data?.text}}</option>
@@ -84,15 +95,21 @@
                 </div>
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Pincode</label>
-                    <input type="text" class="form-control" formControlName="pincode" placeholder="Enter Pincode" />
-                    @if (shippingForm.get('pincode')?.invalid &&
-                    (shippingForm.get('pincode')?.dirty || shippingForm.get('pincode')?.touched)) {
-                    <span class="text-danger">Pincode is Required</span>
+                    <input type="text" class="form-control"
+                        (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" maxlength="6"
+                        formControlName="pincode" placeholder="Enter Pincode" />
+
+                    @if (shippingForm.get('pincode')?.touched || shippingForm.get('pincode')?.dirty) {
+                    @if (shippingForm.get('pincode')?.hasError('required')) {
+                    <span class="text-danger">Pincode is required</span>
+                    } @else if (shippingForm.get('pincode')?.hasError('pattern')) {
+                    <span class="text-danger">Please enter a valid 6-digit</span>
+                    }
                     }
                 </div>
                 <div class="col-md-12 mb-3">
                     <label class="form-label">Address</label>
-                    <textarea class="form-control" formControlName="address" placeholder="Enter Address"
+                    <textarea class="form-control" maxlength="200" formControlName="address" placeholder="Enter Address"
                         rows="3"></textarea>
                 </div>
             </div>

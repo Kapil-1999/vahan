@@ -68,19 +68,25 @@ export class PlaceOrderRequestComponent {
       stateId: [{ value: '', disabled: true }],
       planId: [{ value: '', disabled: true }],
       rate: [{value: 0, disabled: true}, [Validators.required]],
-      quantity: ['0.00', [Validators.required]],
-      amount: ['0.00'],
-      cgst: ['0.00'],
-      sgst: ['0.00'],
-      igst: ['0.00'],
-      tax: ['0.00'],
+      quantity: ['0.00', [Validators.required,Validators.max(10000)]],
+      amount: ['0.00',],
+      cgst: ['0.00', ],
+      sgst: ['0.00', ],
+      igst: ['0.00', ],
+      tax: ['0.00', ],
       billingAmount: ['0.00'],
-      shippingAddress: ['', [Validators.required]],
+      shippingAddress: ['',[Validators.required]],
       paymentMode: ['', [Validators.required]],
-      remarks: [''],
-      bankName: [''],
-      refrence_no: [''],
-      image_byte: [null]  // Changed from [''] to [null]
+      remarks: ['',[Validators.maxLength(1000)]],
+      bankName: ['',[
+      Validators.maxLength(200),
+      Validators.pattern(/^[A-Za-z0-9\s\.,&()-]*$/) 
+    ]],
+      refrence_no: ['',[
+      Validators.maxLength(35),
+      Validators.pattern(/^[A-Za-z0-9-]*$/) 
+    ]],
+      image_byte: [null]  
     });
 
 

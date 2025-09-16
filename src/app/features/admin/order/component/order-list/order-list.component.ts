@@ -195,7 +195,6 @@ export class OrderListComponent {
   }
 
   paymentHistory(item: any) {
-    console.log(item);
     if (!item?.pk_request_id) {
       console.error('Missing request ID', item);
       return;

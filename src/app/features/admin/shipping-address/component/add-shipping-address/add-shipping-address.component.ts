@@ -23,7 +23,7 @@ export class AddShippingAddressComponent {
       "text": "No"
     },
   ];
-  tittle : string = 'Create';
+  tittle: string = 'Create';
   cityData: any;
   stateData: any;
   config = {
@@ -31,50 +31,62 @@ export class AddShippingAddressComponent {
     height: '200px',
     search: true
   };
-  shippingForm! : FormGroup;
+  shippingForm!: FormGroup;
   userDetails: any;
   editData: any;
 
   constructor(
     private modalService: BsModalService,
-    private commonService : CommonService,
-    private fb : FormBuilder,
-    private shippingService : ShippingService,
-    private notfication : NotificationService
+    private commonService: CommonService,
+    private fb: FormBuilder,
+    private shippingService: ShippingService,
+    private notfication: NotificationService
   ) {
     this.commonService.getUserDetails().subscribe((res: any) => {
-      this.userDetails = res; 
+      this.userDetails = res;
     })
   };
 
-  ngOnInit() {    
+  ngOnInit() {
     this.setInitialForm();
     this.getStateDropdown();
   };
 
   setInitialForm() {
     this.shippingForm = this.fb.group({
-      orgName : ['', [Validators.required]],
-      name : ['', [Validators.required]],
-      email : ['', [Validators.required , Validators.email]],
-      mobileNo : ['', [Validators.required , Validators.pattern(/^\d{10}$/)]],
-      pincode : ['', [Validators.required]],
-      isDefault : [0, [Validators.required]],
-      address : [''],
-      state : ['', [Validators.required]],
-      city : ['', [Validators.required]]
+      orgName: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[a-zA-Z0-9&.\-\s]{3,50}$/) 
+        ]
+      ],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[a-zA-Z\s]{3,30}$/) 
+        ]
+      ],
+      email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),Validators.maxLength(254)]],
+      mobileNo: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      pincode: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]],
+      isDefault: [0, [Validators.required]],
+      address: [''],
+      state: ['', [Validators.required]],
+      city: ['', [Validators.required]]
     });
 
     if (this.editData) {
-      this.tittle = 'Update'; 
+      this.tittle = 'Update';
       this.shippingForm.patchValue({
         orgName: this.editData.orgName,
         name: this.editData.contact_person_name,
         email: this.editData.contact_person_email,
         mobileNo: this.editData.contact_person_mobile,
-        isDefault: this.editData.contact_person_mobile,
+        isDefault: this.editData.isDefault ? 1 : 0,
         pincode: this.editData.pinCode,
-        address: this.editData.address, 
+        address: this.editData.address,
       })
     }
   }
@@ -127,12 +139,12 @@ export class AddShippingAddressComponent {
     })
   }
 
-  submit(formvalue:any) {
+  submit(formvalue: any) {
     if (this.shippingForm.invalid) {
       this.shippingForm.markAllAsTouched();
       return;
     }
-    let payload:any = {
+    let payload: any = {
       "empId": Number(this.userDetails?.Id),
       "orgName": formvalue?.orgName,
       "address": formvalue?.address,
@@ -142,21 +154,21 @@ export class AddShippingAddressComponent {
       "contact_person_name": formvalue?.name,
       "contact_person_email": formvalue?.email,
       "contact_person_mobile": formvalue?.mobileNo.toString(),
-      "isDefault": formvalue?.isDefault == 1 ? true : false 
+      "isDefault": formvalue?.isDefault == 1 ? true : false
     };
     let service = this.shippingService.addShippingAddress(payload);
-    if(this.editData?.shipingId) {
+    if (this.editData?.shipingId) {
       payload['shipingId'] = this.editData?.shipingId;
       service = this.shippingService.updateShippingAddress(payload);
     }
     service.subscribe((res: any) => {
-     if(res?.body?.statusCode ==200){
-      this.notfication.showSuccess(res?.body?.actionResponse);
-      this.modalService.hide();
-      this.mapdata.emit();
-     } else {
-      this.notfication.showError(res?.body?.actionResponse);
-     }      
+      if (res?.body?.statusCode == 200) {
+        this.notfication.showSuccess(res?.body?.actionResponse);
+        this.modalService.hide();
+        this.mapdata.emit();
+      } else {
+        this.notfication.showError(res?.body?.actionResponse);
+      }
     })
   }
 

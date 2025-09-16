@@ -14,9 +14,9 @@ import { OrderService } from '../../../../order/services/order.service';
 })
 export class CreateStockComponent {
   @Output() mapdata = new EventEmitter();
-  tittle : string = 'Create';
-  editData:any;
-  selectManu :any;
+  tittle: string = 'Create';
+  editData: any;
+  selectManu: any;
   config = {
     displayKey: "text",
     height: '200px',
@@ -26,17 +26,17 @@ export class CreateStockComponent {
   stockForm!: FormGroup;
 
   constructor(
-    private modalService : BsModalService,
-    private commonService : CommonService,
-    private fb : FormBuilder,
-    private NotificationService : NotificationService,
-    private stockService : StockService,
-    private OrderService : OrderService
-  ){}
+    private modalService: BsModalService,
+    private commonService: CommonService,
+    private fb: FormBuilder,
+    private NotificationService: NotificationService,
+    private stockService: StockService,
+    private OrderService: OrderService
+  ) { }
 
-  ngOnInit() {        
-    this.setInitialForm();    
-    if(!this.editData) {
+  ngOnInit() {
+    this.setInitialForm();
+    if (!this.editData) {
       this.getProductList();
     }
   }
@@ -44,20 +44,21 @@ export class CreateStockComponent {
   setInitialForm() {
     this.stockForm = this.fb.group({
       product: [
-        null, 
-        this.editData ? [] : [Validators.required] 
+        null,
+        this.editData ? [] : [Validators.required]
       ],
-      uid : ['', [Validators.required]],
-      imei : ['', [Validators.required]],
-      iccid : ['', [Validators.required]]
+      uid: ['', [Validators.required, Validators.pattern(/^\d{12}$/)]],
+      imei: ['', [Validators.required, Validators.pattern(/^\d{15}$/)]],
+      iccid: ['', [Validators.required, Validators.pattern(/^\d{20}$/)]]
     });
 
-    if(this.editData) {
+
+    if (this.editData) {
       this.tittle = 'Update'
       this.stockForm.patchValue({
-        uid : this.editData?.uid,
-        imei : this.editData?.imei,
-        iccid : this.editData?.iccid
+        uid: this.editData?.uid,
+        imei: this.editData?.imei,
+        iccid: this.editData?.iccid
       })
     }
   }
@@ -86,14 +87,15 @@ export class CreateStockComponent {
     })
   }
 
-  submit(formValue:any) {
+  submit(e: any, formValue: any) {
+    e.preventDefault()
     if (this.stockForm.invalid) {
       this.stockForm.markAllAsTouched();
       return;
     };
     let successMessage: any = 'Device Added Succesfully';
     let service: any;
-    let payload:any = {
+    let payload: any = {
       "uid": formValue?.uid,
       "imei": formValue?.imei,
       "iccid": formValue?.iccid,
@@ -101,7 +103,7 @@ export class CreateStockComponent {
       "fk_device_type_id": Number(formValue?.product?.value)
     }
     service = this.stockService.addSingleStock(payload);
-    if(this.editData) {
+    if (this.editData) {
       payload = {
         "device_id": Number(this.editData?.device_id),
         "uid": formValue?.uid,
@@ -123,7 +125,8 @@ export class CreateStockComponent {
 
   }
 
-  cancel() {
+  cancel(e:any) {
+    e.preventDefault();
     this.modalService.hide();
   }
 }

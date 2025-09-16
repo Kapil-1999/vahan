@@ -16,10 +16,13 @@
                     <option [value]="size.value">{{ size.text }}</option> 
                     }
                 </select>
+                 @if (chnageStatusForm.get('status')?.invalid && chnageStatusForm.get('status')?.touched) {
+                <span class="text-danger">Status is required</span>
+                }
             </div>
             <div class="col-md-6">
                 <label class="form-label">Remarks</label>
-                <textarea class="form-control" formControlName="remarks" placeholder="Enter Remarks" rows="2" name="" id=""></textarea>
+                <textarea class="form-control"  formControlName="remarks" placeholder="Enter Remarks" rows="2" name="" id="" maxlength="1000"></textarea>
             </div>
         </div>
         <div class="footer">

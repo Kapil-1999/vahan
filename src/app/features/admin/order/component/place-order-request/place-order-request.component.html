@@ -63,7 +63,7 @@
             <div class="col-md-4 mb-3">
                 <label class="form-label">Quanity</label>
                 <div class="input-group">
-                    <input type="number" class="form-control" placeholder="Enter Quanity" formControlName="quantity" />
+                    <input type="text" class="form-control"  (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" placeholder="Enter Quanity" formControlName="quantity" maxlength="5" />
                 </div>
                 @if (placeOrderForm.get('quantity')?.invalid && placeOrderForm.get('quantity')?.touched) {
                 <span class="text-danger">Quanity is required</span>
@@ -134,7 +134,7 @@
             <div class="col-md-4 mb-3">
                 <label class="form-label">Bank Name</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Enter Bank Name" formControlName="bankName" />
+                    <input type="text" class="form-control" placeholder="Enter Bank Name" formControlName="bankName" maxlength="200" />
                 </div>
                 @if (placeOrderForm.get('bankName')?.invalid && placeOrderForm.get('bankName')?.touched) {
                 <span class="text-danger">Bank Name is required</span>
@@ -143,7 +143,7 @@
             <div class="col-md-4 mb-3">
                 <label class="form-label">Refrence No</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Enter Refrence No"
+                    <input type="text" class="form-control" placeholder="Enter Refrence No" maxlength="35"
                         formControlName="refrence_no" />
                 </div>
                 @if (placeOrderForm.get('refrence_no')?.invalid && placeOrderForm.get('refrence_no')?.touched) {
@@ -164,7 +164,7 @@
 
             <div class="col-md-12 mb-3">
                 <label class="form-label">Remarks</label>
-                <textarea class="form-control" placeholder="Enter Remarks" rows="3"
+                <textarea class="form-control" placeholder="Enter Remarks" rows="3"  maxlength="1000"
                     formControlName="remarks"></textarea>
             </div>
         </div>

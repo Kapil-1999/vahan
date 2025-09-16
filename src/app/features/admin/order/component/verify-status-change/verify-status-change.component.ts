@@ -38,7 +38,7 @@ export class VerifyStatusChangeComponent {
   setIntialForm() {
     this.chnageStatusForm = this.fb.group({
       status: ["", [Validators.required]],
-      remarks: [""]
+      remarks: ["",[Validators.maxLength(1000)]]
     });
   }
 

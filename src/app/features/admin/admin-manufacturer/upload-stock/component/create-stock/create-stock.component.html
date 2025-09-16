@@ -1,55 +1,74 @@
 <div class="modal-header text-center">
     <h5>{{tittle}} {{selectManu.text}}'s Deivce</h5>
     <div class="close-modal">
-        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel($event)"></i>
     </div>
 </div>
 <div class="modal-body">
-    <form action="" [formGroup]="stockForm">
+    <form [formGroup]="stockForm" (ngSubmit)="submit($event , stockForm.value)">
         <div class="row">
-            @if(!this.editData) {                
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Product </label>
-                    <ngx-select-dropdown place [config]="config" [options]="productList" formControlName="product">
-                    </ngx-select-dropdown>
-                    @if (stockForm.get('product')?.invalid && stockForm.get('product')?.touched) {
-                    <span class="text-danger">Product is required</span>
-                    }
-                </div>
+            @if(!this.editData) {
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Product</label>
+                <ngx-select-dropdown [config]="config" [options]="productList"
+                    formControlName="product"></ngx-select-dropdown>
+                @if (stockForm.get('product')?.invalid && stockForm.get('product')?.touched) {
+                <span class="text-danger">Product is required</span>
+                }
+            </div>
             }
+
             <div class="col-md-6 mb-3">
                 <label class="form-label">UID</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Enter UID" formControlName="uid" />
+                    <input type="text" (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())"
+                        class="form-control" placeholder="Enter UID" formControlName="uid" maxlength="12" />
                 </div>
-                @if (stockForm.get('uid')?.invalid && stockForm.get('uid')?.touched) {
-                    <span class="text-danger">UID is required</span>
-                    }
+                @if (stockForm.get('uid')?.hasError('required') && stockForm.get('uid')?.touched) {
+                <span class="text-danger">UID is required</span>
+                }
+                @if (stockForm.get('uid')?.hasError('pattern')) {
+                <span class="text-danger">UID cannot be more than 12 characters</span>
+                }
             </div>
+
             <div class="col-md-6 mb-3">
                 <label class="form-label">IMEI</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Enter IMEI" formControlName="imei"/>
+                    <input type="text" 
+                        class="form-control" placeholder="Enter IMEI" formControlName="imei" maxlength="15"
+                        (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" />
                 </div>
-                @if (stockForm.get('imei')?.invalid && stockForm.get('imei')?.touched) {
-                    <span class="text-danger">IMEI is required</span>
-                    }
+                @if (stockForm.get('imei')?.hasError('required') && stockForm.get('imei')?.touched) {
+                <span class="text-danger">IMEI is required</span>
+                }
+                @if (stockForm.get('imei')?.hasError('pattern')) {
+                <span class="text-danger">IMEI must be exactly 15 digits</span>
+                }
             </div>
+
             <div class="col-md-6 mb-3">
                 <label class="form-label">ICCID</label>
                 <div class="input-group mb-2">
-                    <input type="text" class="form-control" placeholder="Enter ICCID" formControlName="iccid"/>
+                    <input type="text" (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())"
+                        class="form-control" placeholder="Enter ICCID" formControlName="iccid" maxlength="20"
+                         />
                 </div>
-                @if (stockForm.get('iccid')?.invalid && stockForm.get('iccid')?.touched) {
-                    <span class="text-danger">ICCID is required</span>
-                    }
+                @if (stockForm.get('iccid')?.hasError('required') && stockForm.get('iccid')?.touched) {
+                <span class="text-danger">ICCID is required</span>
+                }
+                @if (stockForm.get('iccid')?.hasError('pattern')) {
+                <span class="text-danger">ICCID cannot be more than 20 digits</span>
+                }
             </div>
         </div>
+
         <div class="footer">
             <div class="button-container">
-                <button class="btn btn-success" type="submit" (click)="submit(stockForm.value)">Submit</button>
-                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+                <button class="btn btn-success" type="submit">Submit</button>
+                <button class="btn btn-danger" type="button" (click)="cancel($event)">Cancel</button>
             </div>
         </div>
     </form>
+
 </div>

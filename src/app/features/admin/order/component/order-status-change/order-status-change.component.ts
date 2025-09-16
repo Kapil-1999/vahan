@@ -38,7 +38,6 @@ export class OrderStatusChangeComponent {
   };
 
   ngOnInit() {
-    console.log(this.editData);
     this.setIntialForm()
   }
 

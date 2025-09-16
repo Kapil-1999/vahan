@@ -1,7 +1,7 @@
 <div class="modal-header text-center">
-    <h5>{{tittle}} Manufacturer</h5>
+    <h5>{{ tittle }} Manufacturer</h5>
     <div class="close-modal">
-        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+        <i class="fa fa-close" style="cursor: pointer" (click)="cancel()"></i>
     </div>
 </div>
 <div class="modal-body">
@@ -12,70 +12,86 @@
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Organization Name</label>
                     <input type="text" class="form-control" placeholder="Enter Organization Name"
-                        formControlName="orgnizationName" />
-                    @if (manufactureForm.get('orgnizationName')?.invalid &&
-                    (manufactureForm.get('orgnizationName')?.dirty || manufactureForm.get('orgnizationName')?.touched)) {
-                    <span class="text-danger">Organization Name is Required</span>
-                    }
+                        formControlName="orgnizationName" maxlength="50" />
+                    @if (manufactureForm.get('orgnizationName')?.touched ||
+                    manufactureForm.get('orgnizationName')?.dirty) { @if
+                    (manufactureForm.get('orgnizationName')?.hasError('required')) {
+                    <span class="text-danger">Organization Name is required</span>
+                    } @else if
+                    (manufactureForm.get('orgnizationName')?.hasError('pattern')) {
+                    <span class="text-danger">
+                        Organization Name must be 3–50 characters (letters, numbers, spaces,
+                        &, -, . allowed)
+                    </span>
+                    } }
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Contact Person Name</label>
                     <input type="text" class="form-control" placeholder="Enter Contact Person Name"
-                        formControlName="personName" />
-                    @if (manufactureForm.get('personName')?.invalid &&
-                    (manufactureForm.get('personName')?.dirty || manufactureForm.get('personName')?.touched)) {
-                    <span class="text-danger">Contact Person Name is Required</span>
-                    }
+                        formControlName="personName" maxlength="30" />
+                    @if (manufactureForm.get('personName')?.touched ||
+                    manufactureForm.get('personName')?.dirty) { @if
+                    (manufactureForm.get('personName')?.hasError('required')) {
+                    <span class="text-danger">Contact Person Name is required</span>
+                    } @else if (manufactureForm.get('personName')?.hasError('pattern')) {
+                    <span class="text-danger">
+                        Contact Person Name must be 3–30 characters (letters and spaces
+                        only)
+                    </span>
+                    } }
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Email</label>
-                    <input type="text" class="form-control" placeholder="Enter Email" formControlName="email" />
-                  
-                    @if (manufactureForm.get('email')?.touched || manufactureForm.get('email')?.dirty) {
-                      @if (manufactureForm.get('email')?.hasError('required')) {
-                        <span class="text-danger">Email is required</span>
-                      } @else if (manufactureForm.get('email')?.hasError('email')) {
-                        <span class="text-danger">Please enter a valid email address</span>
-                      }
-                    }
-                  </div>
-                  
+                    <input type="text" class="form-control" placeholder="Enter Email" formControlName="email"
+                        maxlength="254" />
+                    @if (manufactureForm.get('email')?.touched) { @if
+                    (manufactureForm.get('email')?.hasError('required')) {
+                    <span class="text-danger">Email is required</span>
+                    } @else if (manufactureForm.get('email')?.hasError('pattern')) {
+                    <span class="text-danger">Please enter a valid email address</span>
+                    } }
+                </div>
             </div>
 
-            <!-- Row 2: 3 Columns -->
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Mobile Number</label>
-                    <input type="number" class="form-control" placeholder="Enter Mobile Number" formControlName="mobileNo" />
-                  
-                    @if (manufactureForm.get('mobileNo')?.touched || manufactureForm.get('mobileNo')?.dirty) {
-                      @if (manufactureForm.get('mobileNo')?.hasError('required')) {
-                        <span class="text-danger">Mobile Number is required</span>
-                      } @else if (manufactureForm.get('mobileNo')?.hasError('pattern')) {
-                        <span class="text-danger">Please enter a valid 10-digit mobile number</span>
-                      }
-                    }
-                  </div>
-                  
+                    <input type="text" class="form-control" placeholder="Enter Mobile Number" formControlName="mobileNo"
+                        (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" maxlength="10" />
+
+                    @if (manufactureForm.get('mobileNo')?.touched ||
+                    manufactureForm.get('mobileNo')?.dirty) { @if
+                    (manufactureForm.get('mobileNo')?.hasError('required')) {
+                    <span class="text-danger">Mobile Number is required</span>
+                    } @else if (manufactureForm.get('mobileNo')?.hasError('pattern')) {
+                    <span class="text-danger">Please enter a valid 10-digit mobile number</span>
+                    } }
+                </div>
 
                 <div class="col-md-4 mb-3">
                     <label class="form-label">GSTN</label>
-                    <input type="text" class="form-control" placeholder="Enter GSTN" formControlName="gstn" />
-                    @if (manufactureForm.get('gstn')?.invalid &&
-                    (manufactureForm.get('gstn')?.dirty || manufactureForm.get('gstn')?.touched)) {
-                    <span class="text-danger">GSTN is Required</span>
-                    }
+                    <input type="text" class="form-control" placeholder="Enter GSTN" formControlName="gstn"
+                        (input)="toGstinInput($event)" maxlength="15" />
+                    @if (manufactureForm.get('gstn')?.touched) { @if
+                    (manufactureForm.get('gstn')?.hasError('required')) {
+                    <span class="text-danger">GSTN is required</span>
+                    } @else if (manufactureForm.get('gstn')?.hasError('pattern')) {
+                    <span class="text-danger">Invalid GSTN format</span>
+                    } }
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label class="form-label">PAN</label>
-                    <input type="text" class="form-control" placeholder="Enter PAN" formControlName="panNo" />
-                    @if (manufactureForm.get('panNo')?.invalid &&
-                    (manufactureForm.get('panNo')?.dirty || manufactureForm.get('panNo')?.touched)) {
-                    <span class="text-danger">PAN is Required</span>
-                    }
+                    <input type="text" class="form-control" placeholder="Enter PAN" formControlName="panNo"
+                        (input)="toPanInput($event)" maxlength="10" />
+                    @if (manufactureForm.get('panNo')?.touched) { @if
+                    (manufactureForm.get('panNo')?.hasError('required')) {
+                    <span class="text-danger">PAN is required</span>
+                    } @else if (manufactureForm.get('panNo')?.hasError('pattern')) {
+                    <span class="text-danger">Format: ABCDE1234F</span>
+                    } }
                 </div>
             </div>
 
@@ -85,32 +101,58 @@
                     <label class="form-label">Status</label>
                     <select class="form-control" formControlName="status">
                         @for(data of StatusDropdown; track data) {
-                        <option [value]="data?.value">{{data?.text}}</option>
+                        <option [value]="data?.value">{{ data?.text }}</option>
                         }
                     </select>
                     @if (manufactureForm.get('status')?.invalid &&
-                    (manufactureForm.get('status')?.dirty || manufactureForm.get('status')?.touched)) {
+                    (manufactureForm.get('status')?.dirty ||
+                    manufactureForm.get('status')?.touched)) {
                     <span class="text-danger">Status is Required</span>
                     }
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Password</label>
-                    <input type="password" class="form-control" placeholder="Enter Password" formControlName="password" />
-                    @if (manufactureForm.get('password')?.invalid &&
-                    (manufactureForm.get('password')?.dirty || manufactureForm.get('password')?.touched)) {
-                    <span class="text-danger">Password is Required</span>
-                    }
+                    <div class="input-group">
+                        <input [type]="showPassword ? 'text' : 'password'" class="form-control"
+                            placeholder="Enter Password" formControlName="password" />
+
+                        <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility()">
+                            <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </button>
+                    </div>
+
+                    <div *ngIf="manufactureForm.get('password')?.touched && manufactureForm.get('password')?.invalid">
+                        <span *ngIf="manufactureForm.get('password')?.hasError('required')"
+                            class="text-red-500 text-sm mt-1">
+                            Password is required
+                        </span>
+                        <span *ngIf="manufactureForm.get('password')?.hasError('minlength')"
+                            class="text-red-500 text-sm mt-1">
+                            Password must be at least 12 characters
+                        </span>
+                        <span *ngIf="manufactureForm.get('password')?.hasError('maxlength')"
+                            class="text-red-500 text-sm mt-1">
+                            Password cannot be more than 15 characters
+                        </span>
+                        <span *ngIf="manufactureForm.get('password')?.hasError('pattern')"
+                            class="text-red-500 text-sm mt-1">
+                            Password must contain at least 1 uppercase, 1 lowercase, 1 number, and 1 special character
+                        </span>
+                    </div>
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Logo</label>
-                    <div  class="flex justify-between item-center gap-2">
-                        <img *ngIf="imagePath" [src]="getImageUrl(imagePath)" alt="Profile Photo" class="w-10 h-10 rounded-full profile-image mb-2" />
-                        <input type="file" class="form-control" formControlName="logo" (change)="onFileChange($event)" />
-                      </div>
+                    <div class="flex justify-between item-center gap-2">
+                        <img *ngIf="imagePath" [src]="getImageUrl(imagePath)" alt="Profile Photo"
+                            class="w-10 h-10 rounded-full profile-image mb-2" />
+                        <input type="file" class="form-control" formControlName="logo"
+                            (change)="onFileChange($event)" />
+                    </div>
                     @if (manufactureForm.get('logo')?.invalid &&
-                    (manufactureForm.get('logo')?.dirty || manufactureForm.get('logo')?.touched)) {
+                    (manufactureForm.get('logo')?.dirty ||
+                    manufactureForm.get('logo')?.touched)) {
                     <span class="text-danger">Logo is Required</span>
                     }
                 </div>
@@ -126,7 +168,8 @@
                         </button>
                     </label>
                     <div class="input-group flex !space-x-2">
-                        <input type="text" class="form-control" placeholder="Enter State Name" formControlName="stateValue" />
+                        <input type="text" class="form-control" placeholder="Enter State Name"
+                            formControlName="stateValue" />
                         <button class="btn btn-info" (click)="addState()">
                             <i class="fa fa-plus"></i> Add
                         </button>
@@ -140,27 +183,29 @@
                             <i class="fa fa-plus"></i> Add State
                         </button>
                     </label>
-                    <ngx-select-dropdown [config]="config" formControlName="state" [options]="stateData" (change)="onSelectState($event)">
+                    <ngx-select-dropdown [config]="config" formControlName="state" [options]="stateData"
+                        (change)="onSelectState($event)">
                     </ngx-select-dropdown>
                     @if (manufactureForm.get('state')?.invalid &&
-                    (manufactureForm.get('state')?.dirty || manufactureForm.get('state')?.touched)) {
+                    (manufactureForm.get('state')?.dirty ||
+                    manufactureForm.get('state')?.touched)) {
                     <span class="text-danger">State is Required</span>
                     }
                 </div>
-                }
-
-                @if(!showCityInput) {
+                } @if(!showCityInput) {
                 <div class="col-md-6 mb-3">
                     <label class="form-label">
                         City
-                        <button class="btn btn-primary btn-sm" (click)="toggleCityButton()" [disabled]="manufactureForm.get('state')?.invalid">
+                        <button class="btn btn-primary btn-sm" (click)="toggleCityButton()"
+                            [disabled]="manufactureForm.get('state')?.invalid">
                             <i class="fa fa-plus"></i> Add City
                         </button>
                     </label>
                     <ngx-select-dropdown [config]="config" formControlName="city" [options]="cityData">
                     </ngx-select-dropdown>
                     @if (manufactureForm.get('city')?.invalid &&
-                    (manufactureForm.get('city')?.dirty || manufactureForm.get('city')?.touched)) {
+                    (manufactureForm.get('city')?.dirty ||
+                    manufactureForm.get('city')?.touched)) {
                     <span class="text-danger">City is Required</span>
                     }
                 </div>
@@ -172,7 +217,8 @@
                         </button>
                     </label>
                     <div class="input-group flex !space-x-2">
-                        <input type="text" class="form-control" placeholder="Enter City Name" formControlName="cityValue" />
+                        <input type="text" class="form-control" placeholder="Enter City Name"
+                            formControlName="cityValue" />
                         <button class="btn btn-info" (click)="addCity()">
                             <i class="fa fa-plus"></i> Add
                         </button>
@@ -185,7 +231,8 @@
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <label class="form-label">Address</label>
-                    <textarea class="form-control" placeholder="Enter Address" formControlName="address" rows="3"></textarea>
+                    <textarea class="form-control" placeholder="Enter Address" formControlName="address" rows="3"
+                        maxlength="1000"></textarea>
                 </div>
             </div>
         </div>
@@ -193,8 +240,12 @@
         <!-- Footer Buttons -->
         <div class="footer">
             <div class="button-container">
-                <button class="btn btn-success" type="submit" (click)="submit(manufactureForm.value)">Submit</button>
-                <button class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+                <button class="btn btn-success" type="submit" (click)="submit(manufactureForm.value)">
+                    Submit
+                </button>
+                <button class="btn btn-danger" type="button" (click)="cancel()">
+                    Cancel
+                </button>
             </div>
         </div>
     </form>

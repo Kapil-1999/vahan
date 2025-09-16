@@ -14,7 +14,7 @@ import { AdminManufacturerService } from '../../services/admin-manufacturer.serv
 export class CreateAdminManufacturerComponent {
   @Output() mapdata = new EventEmitter();
 
-  manufactureForm! : FormGroup;
+  manufactureForm!: FormGroup;
   StatusDropdown = [
     {
       "value": 1,
@@ -25,10 +25,10 @@ export class CreateAdminManufacturerComponent {
       "text": "Barred"
     },
   ];
-  tittle : string = 'Create';
+  tittle: string = 'Create';
   showInput: boolean = false;
-  showCityInput : boolean = false;
-  stateData:any;
+  showCityInput: boolean = false;
+  stateData: any;
   config = {
     displayKey: "text",
     height: '200px',
@@ -36,21 +36,21 @@ export class CreateAdminManufacturerComponent {
   }
   cityData: any;
   userDetails: any;
-  base64Logo: string = ''; 
-  editData:any
+  base64Logo: string = '';
+  editData: any
   selectedState: any;
   imagePath: any;
 
   constructor(
     private fb: FormBuilder,
-    private bsModalService : BsModalService,
-    private commonService : CommonService,
-    private NotificationService :NotificationService,
-    private manufactureService : AdminManufacturerService
+    private bsModalService: BsModalService,
+    private commonService: CommonService,
+    private NotificationService: NotificationService,
+    private manufactureService: AdminManufacturerService,
   ) {
-     this.commonService.getUserDetails().subscribe((res:any) => {
+    this.commonService.getUserDetails().subscribe((res: any) => {
       this.userDetails = res
-     });    
+    });
   };
 
   ngOnInit() {
@@ -59,16 +59,25 @@ export class CreateAdminManufacturerComponent {
     this.getStateDropdown();
   }
 
-  setInitialForm () {    
+  setInitialForm() {
     this.manufactureForm = this.fb.group({
-      orgnizationName: ['', [Validators.required]],
-      personName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      orgnizationName: ['', [
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z0-9&.\-\s]{3,50}$/)
+      ]],
+      personName: ['', [
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z\s]{3,30}$/)
+      ]],
+      email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/), Validators.maxLength(254)]],
       mobileNo: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      panNo: ['', [Validators.required]],
-      gstn: ['', [Validators.required]],
+      panNo: ['', [Validators.required, Validators.pattern(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/)]],
+      gstn: ['', [Validators.required, Validators.pattern(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/)]],
       status: [1, [Validators.required]],
-      password: ['123456', [Validators.required]],
+      password: ['User@123456#', [Validators.required,
+      Validators.maxLength(15),
+      Validators.minLength(12),
+      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{12,15}$/)]],
       state: ['', [Validators.required]],
       stateValue: [''],
       cityValue: [''],
@@ -76,18 +85,18 @@ export class CreateAdminManufacturerComponent {
       logo: [''],
       address: [''],
     })
-    if(this.editData) {
+    if (this.editData) {
       this.tittle = 'Update'
       this.manufactureForm.patchValue({
-        orgnizationName : this.editData?.orgName,
-        personName : this.editData?.contactPersonName,
-        email : this.editData?.email,
-        mobileNo : this.editData?.mobileNo,
-        panNo : this.editData?.panNo,
-        gstn : this.editData?.gstNo,
-        status : this.editData?.empStatus,
-        password : this.editData?.empPassword,
-        address : this.editData?.address
+        orgnizationName: this.editData?.orgName,
+        personName: this.editData?.contactPersonName,
+        email: this.editData?.email,
+        mobileNo: this.editData?.mobileNo,
+        panNo: this.editData?.panNo,
+        gstn: this.editData?.gstNo,
+        status: this.editData?.empStatus,
+        password: this.editData?.empPassword,
+        address: this.editData?.address
       })
       this.imagePath = this.editData?.profile_image_path;
     }
@@ -180,7 +189,7 @@ export class CreateAdminManufacturerComponent {
       this.getCityDropdown(this.selectedState);
     }
   }
-  
+
   addCity() {
     let successMessage = 'City Added Succesfully'
     let errorMessage = 'City Not Added'
@@ -205,13 +214,13 @@ export class CreateAdminManufacturerComponent {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.base64Logo = e.target.result.split(',')[1]; 
+        this.base64Logo = e.target.result.split(',')[1];
       };
       reader.readAsDataURL(file);
     }
   }
 
-  submit(formValue:any) {
+  submit(formValue: any) {
     if (this.manufactureForm.invalid) {
       this.manufactureForm.markAllAsTouched();
       return;
@@ -235,8 +244,8 @@ export class CreateAdminManufacturerComponent {
       "isupload ": 1,
       "ImagePath": this.base64Logo,
       "ImageName": ''
-    }    
-    let service :any;
+    }
+    let service: any;
     let successMessage: any;
     if (this.editData?.empId) {
       successMessage = 'Manufacturer Updated Succesfully';
@@ -259,5 +268,27 @@ export class CreateAdminManufacturerComponent {
 
   cancel() {
     this.bsModalService.hide();
+  };
+
+  toPanInput(event: any) {
+    const input = event.target as HTMLInputElement;
+    const formattedValue = this.commonService.formatPan(input.value);
+    input.value = formattedValue;
+    this.manufactureForm.get('panNo')?.setValue(formattedValue, { emitEvent: false });
   }
+
+
+  toGstinInput(event: any) {
+    const input = event.target as HTMLInputElement;
+    const formattedValue = this.commonService.formatGstin(input.value);
+    input.value = formattedValue;
+    this.manufactureForm.get('gstn')?.setValue(formattedValue, { emitEvent: false });
+  };
+
+  showPassword = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
 }

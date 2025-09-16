@@ -32,8 +32,22 @@ export class LoginComponent {
     private storageService: StorageService
   ) {
     this.loginForm = this.fb.group({
-      phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      password: ['', [Validators.required]]
+      phone: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^\d{10}$/) 
+        ]
+      ],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(15),
+          Validators.minLength(12),
+          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{12,15}$/)
+        ]
+      ]
     });
     this.store.select(selectUser).subscribe((res: any) => {
       this.userDetails = res;
@@ -82,9 +96,9 @@ export class LoginComponent {
         setTimeout(() => {
           if (decodedToken.RoleId == '2' || decodedToken.RoleId == '3') {
             this.router.navigate(['/admin/orders/order-details']);
-          } else if(decodedToken.RoleId == '7'){
+          } else if (decodedToken.RoleId == '7') {
             this.router.navigate(['/admin/complain/complain-list']);
-          }else {
+          } else {
             this.router.navigate(['/admin/manufacturer/manufacturer-list']);
           }
 

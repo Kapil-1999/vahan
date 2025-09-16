@@ -64,7 +64,10 @@ export class VahanDeviceDropdownComponent {
     }
     this.DeviceService.deviceList(payload).subscribe((res: any) => {
       this.isLoading = false;
-      this.vahanDeviceList = res?.body?.result?.data || [];
+      const data = res?.body?.result?.data || [];
+      this.vahanDeviceList = Array.from(
+        new Map(data?.map((item:any) => [item.device_id, item])).values()
+      );
     })
   }
 
@@ -78,17 +81,15 @@ export class VahanDeviceDropdownComponent {
       .map((device: any) => ({ product_id: device.device_id }));
   }
 
-  toggleRowSelection(index: number) {
-    const currentSelectedCount = this.vahanDeviceList.filter((row: any) => row.isSelected).length;
+  toggleRowSelection(index: number, event?: any) {
     const qty = this.editData?.request_qty;
-
-    if (!this.vahanDeviceList[index].isSelected) {
-      if (currentSelectedCount >= qty) {
-        return;
-      }
+    const newValue = event ? event.target.checked : !this.vahanDeviceList[index].isSelected;
+    const currentSelectedCount = this.vahanDeviceList.filter((row: any) => row.isSelected).length;
+    if (!this.vahanDeviceList[index].isSelected && currentSelectedCount >= qty) {
+      return;
     }
 
-    // this.vahanDeviceList[index].isSelected = !this.vahanDeviceList[index].isSelected;
+    this.vahanDeviceList[index].isSelected = newValue;
     this.isAllSelected = this.vahanDeviceList.every((row: any) => row.isSelected);
     this.selectedCount = this.vahanDeviceList.filter((row: any) => row.isSelected).length;
     this.selectedCountData = this.vahanDeviceList
@@ -102,7 +103,7 @@ export class VahanDeviceDropdownComponent {
       "customer_id": this.editData?.created_by,
       "issued_by": Number(this.userDetails?.Id),
       "itemList": this.selectedCountData
-    }
+    };
     this.orderService.itemIssue(payload).subscribe((res: any) => {
       if (res?.body?.statusCode == 200) {
         this.notificationService.showSuccess(res?.body?.actionResponse)

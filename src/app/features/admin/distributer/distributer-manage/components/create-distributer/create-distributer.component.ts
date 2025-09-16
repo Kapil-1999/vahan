@@ -14,7 +14,7 @@ import { DistributerService } from '../../services/distributer.service';
 export class CreateDistributerComponent {
   @Output() mapdata = new EventEmitter()
 
-  distributerForm! : FormGroup;
+  distributerForm!: FormGroup;
   StatusDropdown = [
     {
       "value": 1,
@@ -36,10 +36,10 @@ export class CreateDistributerComponent {
       "text": "No"
     },
   ];
-  tittle : string = 'Create';
+  tittle: string = 'Create';
   showInput: boolean = false;
-  showCityInput : boolean = false;
-  stateData:any;
+  showCityInput: boolean = false;
+  stateData: any;
   config = {
     displayKey: "text",
     height: '200px',
@@ -47,19 +47,19 @@ export class CreateDistributerComponent {
   }
   cityData: any;
   userDetails: any;
-  editData:any
+  editData: any
   selectedState: any;
 
   constructor(
     private fb: FormBuilder,
-    private bsModalService : BsModalService,
-    private commonService : CommonService,
-    private NotificationService :NotificationService,
+    private bsModalService: BsModalService,
+    private commonService: CommonService,
+    private NotificationService: NotificationService,
     private distributerService: DistributerService,
   ) {
-     this.commonService.getUserDetails().subscribe((res:any) => {
+    this.commonService.getUserDetails().subscribe((res: any) => {
       this.userDetails = res
-     });    
+    });
   };
 
   ngOnInit() {
@@ -67,36 +67,39 @@ export class CreateDistributerComponent {
     this.getStateDropdown();
   }
 
-  setInitialForm () {    
+  setInitialForm() {
     this.distributerForm = this.fb.group({
-      orgnizationName: ['', [Validators.required]],
-      personName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      orgnizationName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9&.\-\s]{3,50}$/)]],
+      personName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]{3,30}$/)]],
+      email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/), Validators.maxLength(254)]],
       mobileNo: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      panNo: ['', [Validators.required]],
-      gstn: ['', [Validators.required]],
+      panNo: ['', [Validators.required, Validators.pattern(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/)]],
+      gstn: ['', [Validators.required, Validators.pattern(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/)]],
       status: [1, [Validators.required]],
-      password: ['123456', [Validators.required]],
+      password: ['User@123456#', [Validators.required,
+      Validators.maxLength(15),
+      Validators.minLength(12),
+      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{12,15}$/)]],
       state: ['', [Validators.required]],
       stateValue: [''],
       cityValue: [''],
       city: ['', [Validators.required]],
-      allowArClose: [1,[Validators.required]],
+      allowArClose: [1, [Validators.required]],
       address: [''],
     })
-    if(this.editData) {
+    if (this.editData) {
       this.tittle = 'Update'
       this.distributerForm.patchValue({
-        orgnizationName : this.editData?.orgName,
-        personName : this.editData?.contactPersonName,
-        email : this.editData?.email,
-        mobileNo : this.editData?.mobileNo,
-        panNo : this.editData?.panNo,
-        gstn : this.editData?.gstNo,
-        status : this.editData?.empStatus,
-        password : this.editData?.empPassword,
-        address : this.editData?.address,
-        allowArClose:this.editData?.allowARCode
+        orgnizationName: this.editData?.orgName,
+        personName: this.editData?.contactPersonName,
+        email: this.editData?.email,
+        mobileNo: this.editData?.mobileNo,
+        panNo: this.editData?.panNo,
+        gstn: this.editData?.gstNo,
+        status: this.editData?.empStatus,
+        password: this.editData?.empPassword,
+        address: this.editData?.address,
+        allowArClose: this.editData?.allowARCode
       })
     }
   }
@@ -184,7 +187,7 @@ export class CreateDistributerComponent {
       this.getCityDropdown(this.selectedState);
     }
   }
-  
+
   addCity() {
     let successMessage = 'City Added Succesfully'
     let errorMessage = 'City Not Added'
@@ -204,7 +207,7 @@ export class CreateDistributerComponent {
     })
   }
 
-  submit(formValue:any) {
+  submit(formValue: any) {
     if (this.distributerForm.invalid) {
       this.distributerForm.markAllAsTouched();
       return;
@@ -225,8 +228,8 @@ export class CreateDistributerComponent {
       "address": formValue?.address,
       "pk_state_id": Number(formValue?.state?.value),
       "pk_city_id": Number(formValue?.city?.value),
-    }    
-    let service :any;
+    }
+    let service: any;
     let successMessage: any;
     if (this.editData?.empId) {
       successMessage = 'Distributer Updated Succesfully';
@@ -249,6 +252,28 @@ export class CreateDistributerComponent {
 
   cancel() {
     this.bsModalService.hide();
+  };
+
+  toPanInput(event: any) {
+    const input = event.target as HTMLInputElement;
+    const formattedValue = this.commonService.formatPan(input.value);
+    input.value = formattedValue;
+    this.distributerForm.get('panNo')?.setValue(formattedValue, { emitEvent: false });
   }
+
+
+  toGstinInput(event: any) {
+    const input = event.target as HTMLInputElement;
+    const formattedValue = this.commonService.formatGstin(input.value);
+    input.value = formattedValue;
+    this.distributerForm.get('gstn')?.setValue(formattedValue, { emitEvent: false });
+  };
+
+  showPassword = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
 
 }
