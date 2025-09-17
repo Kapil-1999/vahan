@@ -11,44 +11,72 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Plan Name</label>
-                    <input type="text" class="form-control" placeholder="Enter Plan Name"
-                        formControlName="planName" />
+                    <input type="text" class="form-control" placeholder="Enter Plan Name" formControlName="planName"
+                        maxlength="50"
+                        (keypress)="($event.key.match('[a-zA-Z0-9]') ? true : $event.preventDefault())" />
                     @if (authorityPlanForm.get('planName')?.invalid &&
                     (authorityPlanForm.get('planName')?.dirty || authorityPlanForm.get('planName')?.touched)) {
-                    <span class="text-danger">Plan Name is Required</span>
+                    <div>
+                        @if (authorityPlanForm.get('planName')?.errors?.['required']) {
+                        <span class="text-danger">>Plan Name is Required</span>
+                        }
+                        @if (authorityPlanForm.get('planName')?.errors?.['pattern']) {
+                        <span class="text-danger">Only alphanumeric characters are allowed</span>
+                        }
+                    </div>
                     }
                 </div>
+
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Validity In Days</label>
                     <input type="text" class="form-control" placeholder="Enter Validity In Days"
-                        formControlName="validityInDays" />
+                        formControlName="validityInDays" maxlength="3"
+                        (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" />
+
                     @if (authorityPlanForm.get('validityInDays')?.invalid &&
-                    (authorityPlanForm.get('validityInDays')?.dirty || authorityPlanForm.get('validityInDays')?.touched)) {
-                    <span class="text-danger">Validity In Days is Required</span>
+                    (authorityPlanForm.get('validityInDays')?.dirty ||
+                    authorityPlanForm.get('validityInDays')?.touched)) {
+
+                    <div>
+                        @if (authorityPlanForm.get('validityInDays')?.errors?.['required']) {
+                        <span class="text-danger">Validity In Days is Required</span>
+                        }
+                        @if (authorityPlanForm.get('validityInDays')?.errors?.['pattern']) {
+                        <span class="text-danger">Only numbers are allowed</span>
+                        }
+                    </div>
                     }
                 </div>
+
 
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Plan Price</label>
-                    <input type="text" class="form-control" placeholder="Enter Plan Price"
-                        formControlName="planRate" />
-                    @if (authorityPlanForm.get('planRate')?.invalid &&
-                    (authorityPlanForm.get('planRate')?.dirty || authorityPlanForm.get('planRate')?.touched)) {
-                    <span class="text-danger">Plan Price is Required</span>
+                    <input type="text" class="form-control" placeholder="Enter Plan Price" formControlName="planRate"
+                        maxlength="10" (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" />
+                    @if (authorityPlanForm.get('planRate')?.invalid &&(authorityPlanForm.get('planRate')?.dirty ||
+                    authorityPlanForm.get('planRate')?.touched)) {
+                    <div>
+                        @if (authorityPlanForm.get('planRate')?.errors?.['required']) {
+                        <span class="text-danger">Plan Price is Required</span>
+                        }
+                        @if (authorityPlanForm.get('planRate')?.errors?.['pattern']) {
+                        <span class="text-danger">Only numbers are allowed</span>
+                        }
+                    </div>
                     }
                 </div>
-
 
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Description</label>
                     <input type="text" class="form-control" placeholder="Enter Description"
-                        formControlName="description" />
+                        formControlName="description" maxlength="1000"
+                        (keypress)="($event.key.match('[a-zA-Z0-9]') ? true : $event.preventDefault())" />
                     @if (authorityPlanForm.get('description')?.invalid &&
                     (authorityPlanForm.get('description')?.dirty || authorityPlanForm.get('description')?.touched)) {
                     <span class="text-danger">Description is Required</span>
                     }
                 </div>
-                  
+
             </div>
         </div>
 

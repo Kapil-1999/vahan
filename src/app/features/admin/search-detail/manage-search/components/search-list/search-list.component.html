@@ -16,12 +16,20 @@
                     }
                 </div>
                 <div class="col-md-3 mb-3">
-                    <label class="form-label">Search No.</label>
-                    <input type="text" class="form-control" [placeholder]="placeholderText"
-                        formControlName="searchNo" />
+                    <label class="form-label">Search</label>
+                    <input type="text" class="form-control" [placeholder]="placeholderText" formControlName="searchNo"
+                        maxlength="50"
+                        (keypress)="($event.key.match('[a-zA-Z0-9]') ? true : $event.preventDefault())" />
                     @if (searchForm.get('searchNo')?.invalid &&
                     (searchForm.get('searchNo')?.dirty || searchForm.get('searchNo')?.touched)) {
-                    <span class="text-danger">Search No. is Required</span>
+                    <div>
+                        @if (searchForm.get('searchNo')?.errors?.['required']) {
+                        <span class="text-danger">Search is Required</span>
+                        }
+                        @if (searchForm.get('searchNo')?.errors?.['pattern']) {
+                        <span class="text-danger">Only alphanumeric characters are allowed</span>
+                        }
+                    </div>
                     }
                 </div>
 

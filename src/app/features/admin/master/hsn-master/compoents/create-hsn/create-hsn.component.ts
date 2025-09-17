@@ -40,14 +40,15 @@ export class CreateHsnComponent {
   }
 
   setInitialForm() {
-    this.hsnForm = this.fb.group({
-      hsnName: ['', [Validators.required]],
-      hsnCode: ['', [Validators.required]],
-      cgst: ['', [Validators.required]],
-      sgst: ['', [Validators.required]],
-      igst: ['', [Validators.required]],
-      date: ['', [Validators.required]],
-    })
+   this.hsnForm = this.fb.group({
+  hsnName: ['', [Validators.required, Validators.pattern(/^[A-Za-z& ]+$/), Validators.maxLength(50)]],
+  hsnCode: ['', [Validators.required, Validators.pattern(/^\d{6,8}$/)]],
+  cgst: ['', [Validators.required, Validators.pattern(/^(100(\.0{1,2})?|[0-9]{1,2}(\.[0-9]{1,2})?)$/)]],
+  sgst: ['', [Validators.required, Validators.pattern(/^(100(\.0{1,2})?|[0-9]{1,2}(\.[0-9]{1,2})?)$/)]],
+  igst: ['', [Validators.required, Validators.pattern(/^(100(\.0{1,2})?|[0-9]{1,2}(\.[0-9]{1,2})?)$/)]],
+  date: ['', [Validators.required]]
+});
+
 
     const formatDate = (date: any) => {
       if (!date) return '';
@@ -76,11 +77,12 @@ export class CreateHsnComponent {
   }
 
   updateIGST() {
-    const cgst = this.hsnForm.get('cgst')?.value;
-    const sgst = this.hsnForm.get('sgst')?.value;
-    const igst = cgst + sgst;
-    this.hsnForm.get('igst')?.setValue(igst, { emitEvent: false });
-  }
+  const cgst = parseFloat(this.hsnForm.get('cgst')?.value) || 0;
+  const sgst = parseFloat(this.hsnForm.get('sgst')?.value) || 0;
+  const igst = cgst + sgst;
+  this.hsnForm.get('igst')?.setValue(igst, { emitEvent: false });
+}
+
 
 
   submit(formValue: any) {

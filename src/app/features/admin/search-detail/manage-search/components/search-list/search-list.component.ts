@@ -56,7 +56,7 @@ export class SearchListComponent {
     const defaultSearchType = this.seachTypeDD[0];
     this.searchForm = this.fb.group({
       searchType: [defaultSearchType, [Validators.required]],
-      searchNo: ['', [Validators.required]],
+      searchNo: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]*$')]],
     })
 
     this.updatePlaceholder(defaultSearchType);

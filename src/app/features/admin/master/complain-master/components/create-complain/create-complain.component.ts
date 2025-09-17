@@ -35,7 +35,7 @@ export class CreateComplainComponent {
 
   setInitialForm() {
     this.complainForm = this.fb.group({
-      complainName: ['', [Validators.required]],
+      complainName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]*$')]],
       description: ['', [Validators.required]],
     })
     if (this.editData) {

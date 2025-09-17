@@ -47,7 +47,7 @@ export class CreateAuthorityComponent {
 
   setInitialForm() {
     this.authorityForm = this.fb.group({
-      authorityName: ['', [Validators.required]],
+      authorityName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]*$')]],
       state: ['', [Validators.required]],
       stateValue: [''],
       cityValue: [''],

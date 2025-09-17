@@ -43,12 +43,20 @@
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Refrence Value</label>
                     <input type="text" class="form-control" placeholder="Enter Refrence Value"
-                        formControlName="refrenceValue" />
+                        formControlName="refrenceValue"  maxlength="35" (input)="onReferenceInput($event)"
+                        (keypress)="($event.key.match('[a-zA-Z0-9]') ? true : $event.preventDefault())" />
 
-                    @if (complainForm.get('refrenceValue')?.invalid &&
-                    (complainForm.get('refrenceValue')?.dirty || complainForm.get('refrenceValue')?.touched)) {
-                    <span class="text-danger">Refrence Value is Required</span>
+                    @if (complainForm.get('refrenceValue')?.touched) {
+                    @if (complainForm.get('refrenceValue')?.hasError('required')) {
+                    <span class="text-danger">Refrence Value is required</span>
                     }
+                    @if (complainForm.get('refrenceValue')?.hasError('maxlength')) {
+                    <span class="text-danger">Maximum 35 characters allowed</span>
+                    }
+                    @if (complainForm.get('refrenceValue')?.hasError('pattern')) {
+                    <span class="text-danger">Only letters, numbers, and - are allowed</span>
+                    }
+                }
                 </div>
             </div>
 
@@ -56,7 +64,8 @@
                 <div class="col-md-12 mb-3">
                     <label class="form-label">Complain Description</label>
                     <textarea class="form-control" placeholder="Enter Complain Description"
-                        formControlName="comp_description" rows="3"></textarea>
+                        formControlName="comp_description" rows="3" maxlength="1000"
+                        (keypress)="($event.key.match('[a-zA-Z0-9]') ? true : $event.preventDefault())"></textarea>
                 </div>
             </div>
         </div>

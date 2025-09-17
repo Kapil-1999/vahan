@@ -36,7 +36,7 @@ export class CreateCityComponent {
 
   setInitialForm() {
     this.cityForm = this.fb.group({
-      cityName: ['', [Validators.required]],
+      cityName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]*$')]],
     })
     if (this.editData) {
       this.tittle = 'Update'

@@ -12,10 +12,19 @@
                 <div class="col-md-12 mb-3">
                     <label class="form-label">City Name</label>
                     <input type="text" class="form-control" placeholder="Enter City Name"
-                        formControlName="cityName" />
-                    @if (cityForm.get('cityName')?.invalid &&
+                        formControlName="cityName" maxlength="50"
+                        (keypress)="($event.key.match('[a-zA-Z0-9]') ? true : $event.preventDefault())"/>
+                  
+                     @if (cityForm.get('cityName')?.invalid &&
                     (cityForm.get('cityName')?.dirty || cityForm.get('cityName')?.touched)) {
-                    <span class="text-danger">City Name is Required</span>
+                    <div>
+                        @if (cityForm.get('cityName')?.errors?.['required']) {
+                        <span class="text-danger">City Name is Required</span>
+                        }
+                        @if (cityForm.get('cityName')?.errors?.['pattern']) {
+                        <span class="text-danger">Only alphanumeric characters are allowed</span>
+                        }
+                    </div>
                     }
                 </div>
                   

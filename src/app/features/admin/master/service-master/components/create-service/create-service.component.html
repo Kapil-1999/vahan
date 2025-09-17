@@ -12,16 +12,25 @@
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Service Name</label>
                     <input type="text" class="form-control" placeholder="Enter Service Name"
-                        formControlName="serviceName" />
-                    @if (serviceForm.get('serviceName')?.invalid &&
+                        formControlName="serviceName" maxlength="50"
+                        (keypress)="($event.key.match('[a-zA-Z0-9]') ? true : $event.preventDefault())"/>
+                     @if (serviceForm.get('serviceName')?.invalid &&
                     (serviceForm.get('serviceName')?.dirty || serviceForm.get('serviceName')?.touched)) {
-                    <span class="text-danger">Service Name is Required</span>
+                    <div>
+                        @if (serviceForm.get('serviceName')?.errors?.['required']) {
+                        <span class="text-danger">Service Name is Required</span>
+                        }
+                        @if (serviceForm.get('serviceName')?.errors?.['pattern']) {
+                        <span class="text-danger">Only alphanumeric characters are allowed</span>
+                        }
+                    </div>
                     }
                 </div>
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Description</label>
                     <input type="text" class="form-control" placeholder="Enter Description"
-                        formControlName="description" />
+                        formControlName="description" maxlength="1000"
+                        (keypress)="($event.key.match('[a-zA-Z0-9]') ? true : $event.preventDefault())" />
                     @if (serviceForm.get('description')?.invalid &&
                     (serviceForm.get('description')?.dirty || serviceForm.get('description')?.touched)) {
                     <span class="text-danger">Description is Required</span>

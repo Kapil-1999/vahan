@@ -36,10 +36,10 @@ export class CreateAuthorityPlanComponent {
 
   setInitialForm() {
     this.authorityPlanForm = this.fb.group({
-      planName: ['', [Validators.required]],
-      validityInDays: ['', [Validators.required]],
+      planName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]*$')]],
+      validityInDays: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
       planRate: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+      description: ['',],
     })
     if (this.editData) {
       this.tittle = 'Update'
