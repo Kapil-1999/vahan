@@ -36,7 +36,7 @@ export class CreateBackendComponent {
 
   setInitialForm() {
     this.backendForm = this.fb.group({
-      backendName: ['', [Validators.required]],
+      backendName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]*$')]],
     })
     if (this.editData) {
       this.tittle = 'Update'

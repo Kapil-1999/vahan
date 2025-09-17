@@ -175,7 +175,7 @@ export class CreateDealerComponent {
       this.getCityDropdown(this.selectedState);
     }
   }
-
+  
   addCity() {
     let successMessage = 'City Added Succesfully'
     let errorMessage = 'City Not Added'

@@ -136,6 +136,7 @@ export class CreateFitmentComponent {
       };
     });
   };
+  
   // product dropdown
   getProductList() {
     this.commonService.productList().subscribe((res: any) => {

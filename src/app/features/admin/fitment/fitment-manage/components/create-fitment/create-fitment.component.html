@@ -71,13 +71,9 @@
                 <span class="text-danger">Backend is required</span>
                 }
             </div>
-
-
-
         </div>
 
         <div class="row">
-
             <div class="col-md-4 mb-3">
                 <label class="form-label">RTO</label>
                 <ngx-select-dropdown [config]="config" [options]="rtoList" formControlName="rto">
@@ -109,27 +105,6 @@
                 </span>
                 }
             </div>
-
-            <!-- <div class="col-md-4 mb-3">
-                <label class="form-label">Image 1</label>
-                <input type="file" class="form-control"
-                    formControlName="image_1" />
-                @if (fitmentForm.get('image_1')?.invalid &&
-                (fitmentForm.get('image_1')?.dirty || fitmentForm.get('image_1')?.touched)) {
-                <span class="text-danger">Image 1 is Required</span>
-                }
-            </div>
-
-            <div class="col-md-4 mb-3">
-                <label class="form-label">Image 2</label>
-                <input type="file" class="form-control"
-                    formControlName="image_2" />
-                @if (fitmentForm.get('image_2')?.invalid &&
-                (fitmentForm.get('image_2')?.dirty || fitmentForm.get('image_2')?.touched)) {
-                <span class="text-danger">Image 2 is Required</span>
-                }
-            </div> -->
-
         </div>
 
         <div class="row">
@@ -150,7 +125,7 @@
             <div class="col-md-4 mb-3">
                 <label class="form-label">Registration Year</label>
                 <input type="text" class="form-control" placeholder="Enter Registration Year"
-                    formControlName="registraionYear" maxlength="4" />
+                    formControlName="registraionYear" maxlength="4" (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())"/>
                 @if (fitmentForm.get('registraionYear')?.touched || fitmentForm.get('registraionYear')?.dirty) {
                 <span class="text-danger" *ngIf="fitmentForm.get('registraionYear')?.hasError('required')">
                     Registration Year is required
@@ -209,7 +184,7 @@
             <div class="col-md-4 mb-3">
                 <label class="form-label">Mobile Number</label>
                 <input type="text" class="form-control" placeholder="Enter Mobile Number" formControlName="mobileNo"
-                    maxlength="10" (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())"/>
+                    maxlength="10" (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" />
 
                 @if (fitmentForm.get('mobileNo')?.touched || fitmentForm.get('mobileNo')?.dirty) {
                 @if (fitmentForm.get('mobileNo')?.hasError('required')) {
@@ -241,7 +216,9 @@
 
             <div class="col-md-6 mb-3">
                 <label class="form-label">Aadhar No.</label>
-                <input type="text" class="form-control" placeholder="Enter Aadhar No." (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" formControlName="aadharNo" maxlength="12"/>
+                <input type="text" class="form-control" placeholder="Enter Aadhar No."
+                    (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" formControlName="aadharNo"
+                    maxlength="12" />
                 <div *ngIf="fitmentForm.get('aadharNo')?.invalid &&
               (fitmentForm.get('aadharNo')?.dirty || fitmentForm.get('aadharNo')?.touched)">
                     <span class="text-danger" *ngIf="fitmentForm.get('aadharNo')?.hasError('required')">

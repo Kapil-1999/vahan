@@ -58,7 +58,6 @@ export class CommonService {
       .pipe(catchError((error: HttpErrorResponse) => of(error)));
   }
 
-
   createState(payload: any): Observable<any> {
     let url = API_CONSTANT.createState
     return this.apiService
@@ -118,7 +117,6 @@ export class CommonService {
       .post(url, payload)
       .pipe(catchError((error: HttpErrorResponse) => of(error)));
   }
-
   categoryList(): Observable<any> {
     let url = API_CONSTANT.categoryList
     return this.apiService
@@ -339,30 +337,26 @@ export class CommonService {
   };
 
   formatChassisNo(value: string): string {
-  if (!value) return '';
+    if (!value) return '';
 
-  value = value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    value = value.toUpperCase().replace(/[^A-Z0-9]/g, '');
 
-  let formatted = '';
+    let formatted = '';
 
-  if (value.length > 0) {
-    formatted += value.substring(0, Math.min(3, value.length)).replace(/[^A-Z]/g, '');
+    if (value.length > 0) {
+      formatted += value.substring(0, Math.min(3, value.length)).replace(/[^A-Z]/g, '');
+    }
+
+    if (value.length > 3) {
+      let numbersPart = value.substring(3, 7).replace(/[^0-9]/g, '');
+      formatted += numbersPart;
+    }
+
+    if (value.length > 7) {
+      let rest = value.substring(7, 17).replace(/[^A-Z0-9]/g, '');
+      formatted += rest;
+    }
+
+    return formatted;
   }
-
-  if (value.length > 3) {
-    let numbersPart = value.substring(3, 7).replace(/[^0-9]/g, '');
-    formatted += numbersPart;
-  }
-
-  if (value.length > 7) {
-    let rest = value.substring(7, 17).replace(/[^A-Z0-9]/g, '');
-    formatted += rest;
-  }
-
-  return formatted;
-}
-
-
-
-
 }

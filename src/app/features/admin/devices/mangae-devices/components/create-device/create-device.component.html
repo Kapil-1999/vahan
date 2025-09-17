@@ -11,19 +11,25 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label class="form-label">UID</label>
-                    <input type="text" class="form-control" placeholder="Enter UID" formControlName="uid" />
-                    @if (deviceForm.get('uid')?.invalid &&
-                    (deviceForm.get('uid')?.dirty || deviceForm.get('uid')?.touched)) {
-                    <span class="text-danger">UID is Required</span>
+                    <input type="text" class="form-control" placeholder="Enter UID" formControlName="uid" maxlength="12"
+                        (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" />
+                    @if (deviceForm.get('uid')?.hasError('required') && deviceForm.get('uid')?.touched) {
+                    <span class="text-danger">UID is required</span>
+                    }
+                    @if (deviceForm.get('uid')?.hasError('pattern')) {
+                    <span class="text-danger">UID cannot be more than 12 characters</span>
                     }
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label class="form-label">IMEI</label>
-                    <input type="text" class="form-control" placeholder="Enter IMEI" formControlName="imei" />
-                    @if (deviceForm.get('imei')?.invalid &&
-                    (deviceForm.get('imei')?.dirty || deviceForm.get('imei')?.touched)) {
-                    <span class="text-danger">IMEI is Required</span>
+                    <input type="text" class="form-control" placeholder="Enter IMEI" formControlName="imei" maxlength="15"
+                        (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" />
+                    @if (deviceForm.get('imei')?.hasError('required') && deviceForm.get('imei')?.touched) {
+                    <span class="text-danger">IMEI is required</span>
+                    }
+                    @if (deviceForm.get('imei')?.hasError('pattern')) {
+                    <span class="text-danger">IMEI must be exactly 15 digits</span>
                     }
                 </div>
             </div>
@@ -32,11 +38,14 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label class="form-label">ICCID</label>
-                    <input type="text" class="form-control" placeholder="Enter ICCID" formControlName="iccid" />
+                    <input type="text" class="form-control" placeholder="Enter ICCID" formControlName="iccid"
+                     (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" maxlength="20" />
 
-                    @if (deviceForm.get('iccid')?.invalid &&
-                    (deviceForm.get('iccid')?.dirty || deviceForm.get('iccid')?.touched)) {
-                    <span class="text-danger">ICCID is Required</span>
+                    @if (deviceForm.get('iccid')?.hasError('required') && deviceForm.get('iccid')?.touched) {
+                    <span class="text-danger">ICCID is required</span>
+                    }
+                    @if (deviceForm.get('iccid')?.hasError('pattern')) {
+                    <span class="text-danger">ICCID cannot be more than 20 digits</span>
                     }
                 </div>
 

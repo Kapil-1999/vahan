@@ -1,0 +1,33 @@
+<div class="modal-header text-center">
+    <h5>{{tittle}} Manufacturer</h5>
+    <div class="close-modal">
+        <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="overflow-auto">
+        <div id="datatable_wrapper">
+            <table id="datatable" class="table table-striped nowrap dataTable no-footer dtr-inline" role="grid" #TABLE
+                aria-describedby="datatable_info" style="width: 100%" width="100%">
+                <thead>
+                    <tr role="row">
+                        @for (vehicleHeading of columns; track $index) {
+                        <th>
+                            <span>{{ vehicleHeading?.title }}</span>
+                        </th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{moreDetaildata.empStatus == 0 ? 'Barred' : 'Active'}}</td>
+                        <td>{{moreDetaildata.empPassword || 'NA'}}</td>
+                        <td>{{moreDetaildata.state_name || 'NA'}}</td>
+                        <td>{{moreDetaildata.city_Name || 'NA'}}</td>
+                        <td>{{moreDetaildata.address || 'NA'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -36,7 +36,7 @@ export class UpdateDocketComponent {
 
   setInitialForm() {
     this.docketForm = this.fb.group({
-      docketNo: ['', [Validators.required]],
+      docketNo: ['', [Validators.required,Validators.pattern(/^\d{12}$/)]],
     })
   }
 

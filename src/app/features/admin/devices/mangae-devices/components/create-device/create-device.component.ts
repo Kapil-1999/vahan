@@ -38,9 +38,9 @@ export class CreateDeviceComponent {
 
   setInitialForm () {    
     this.deviceForm = this.fb.group({
-        uid: ['', [Validators.required]],
-        imei: ['', [Validators.required]],
-        iccid: ['', [Validators.required]],
+        uid: ['', [Validators.required , Validators.pattern(/^\d{12}$/)]],
+        imei: ['', [Validators.required,Validators.pattern(/^\d{15}$/)]],
+        iccid: ['', [Validators.required,Validators.pattern(/^\d{20}$/)]],
         product: [null, [Validators.required]],
     })
   }
