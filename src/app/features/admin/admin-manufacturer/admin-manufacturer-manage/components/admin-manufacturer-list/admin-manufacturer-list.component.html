@@ -35,13 +35,12 @@
                 </div>
             </div>
             <div class="right-section flex flex-col sm:flex-row gap-4 sm:gap-x-2 w-full sm:w-auto">
-                
+
                 @if(this.userDetails?.RoleId !== "6") {
-                    <button 
-                        (click)="onAddManufacture('')"
-                        class="!btn !btn-primary bg-[#696cff] hover:bg-[#787bff] text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 w-full sm:w-auto">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Create Manufacturer
-                    </button>
+                <button (click)="onAddManufacture('')"
+                    class="!btn !btn-primary bg-[#696cff] hover:bg-[#787bff] text-white font-medium px-4 py-2 rounded-lg transition-colors duration-200 flex items-center gap-2 w-full sm:w-auto">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Create Manufacturer
+                </button>
                 }
             </div>
         </div>
@@ -80,19 +79,24 @@
                                     <td>
                                         @if(item?.profile_image_path) {
                                         <img class="w-10 h-10" [src]="item?.profile_image_path" alt="" />
-                                        } @else { 
-                                            <img class="w-10 h-10" src="images/no-image.png" alt="" />
+                                        } @else {
+                                        <img class="w-10 h-10" src="images/no-image.png" alt="" />
                                         }
                                     </td>
+                                    <td>
+                                        <button class="btn btn-info" (click)="showDetails(item)">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                    </td>
                                     @if(this.userDetails?.RoleId !== "6") {
-                                        <td class="flex !space-x-2">
-                                            <button class="btn btn-success" (click)="onAddManufacture(item)">
-                                                <i class="fa fa-pencil"></i>
-                                            </button>
-                                            <!-- <button class="btn btn-danger">
+                                    <td class="flex !space-x-2">
+                                        <button class="btn btn-success" (click)="onAddManufacture(item)">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                        <!-- <button class="btn btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button> -->
-                                        </td>
+                                    </td>
                                     }
                                 </tr>
                                 }

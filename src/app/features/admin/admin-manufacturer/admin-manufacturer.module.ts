@@ -12,6 +12,7 @@ import { UploadCertificateComponent } from './upload-certificate/component/uploa
 import { StockListComponent } from './upload-stock/component/stock-list/stock-list.component';
 import { CreateStockComponent } from './upload-stock/component/create-stock/create-stock.component';
 import { AddBulkStockComponent } from './upload-stock/component/add-bulk-stock/add-bulk-stock.component';
+import { ManufactureMoreDetailComponent } from './admin-manufacturer-manage/components/manufacture-more-detail/manufacture-more-detail.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AddBulkStockComponent } from './upload-stock/component/add-bulk-stock/a
     UploadCertificateComponent,
     StockListComponent,
     CreateStockComponent,
-    AddBulkStockComponent
+    AddBulkStockComponent,
+    ManufactureMoreDetailComponent
   ],
   imports: [
     CommonModule,

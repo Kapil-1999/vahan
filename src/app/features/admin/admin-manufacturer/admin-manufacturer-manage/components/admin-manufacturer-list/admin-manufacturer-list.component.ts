@@ -3,6 +3,7 @@ import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { AdminManufacturerService } from '../../services/admin-manufacturer.service';
 import { CommonService } from '../../../../../shared/services/common.service';
 import { CreateAdminManufacturerComponent } from '../create-admin-manufacturer/create-admin-manufacturer.component';
+import { ManufactureMoreDetailComponent } from './../manufacture-more-detail/manufacture-more-detail.component';
 
 @Component({
   selector: 'admin-manufacturer-list',
@@ -54,6 +55,7 @@ export class AdminManufacturerListComponent {
       { key: 'GST', title: 'GST' },
       { key: 'PAN', title: 'PAN' },
       { key: 'Image', title: 'Image' },
+      { key: 'More Detail', title: 'More Detail' },
       { key: 'Action', title: 'Action' }
     ]
   }
@@ -105,5 +107,17 @@ export class AdminManufacturerListComponent {
     });
   }
 
-
+showDetails(data:any){
+   const initialState: ModalOptions = {
+      initialState: {
+        moreDetaildata: data
+      },
+    };
+    this.bsModalRef = this.modalService.show(
+      ManufactureMoreDetailComponent,
+      Object.assign(initialState, {
+        class: 'modal-lg modal-dialog-centered alert-popup',
+      })
+    );
+}
 }

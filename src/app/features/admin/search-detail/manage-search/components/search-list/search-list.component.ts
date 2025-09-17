@@ -70,7 +70,6 @@ export class SearchListComponent {
   }
 
   submit(formValue: any) {
-    this.isLoading = true
     if (this.searchForm.invalid) {
       this.searchForm.markAllAsTouched();
       return;
@@ -79,6 +78,7 @@ export class SearchListComponent {
     let payload = {
       "search_string": formValue?.searchNo
     }
+    this.isLoading = true
 
     this.searchService.vahanSearchDetail(payload).subscribe((res: any) => {
        this.isLoading = false

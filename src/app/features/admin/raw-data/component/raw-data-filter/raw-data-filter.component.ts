@@ -25,7 +25,7 @@ export class RawDataFilterComponent {
 
   setInitialForm() {
     this.rawDataForm = this.fb.group({
-      imei: ['',[Validators.required]],
+      imei: ['',[Validators.required,Validators.pattern(/^\d{15}$/)]],
     })
   }
 

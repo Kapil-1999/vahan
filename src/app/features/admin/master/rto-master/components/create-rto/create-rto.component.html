@@ -11,20 +11,38 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label class="form-label">RTO Code</label>
-                    <input type="text" class="form-control" placeholder="Enter RTO Code"
-                        formControlName="rtoCode" />
+                    <input type="text" class="form-control" placeholder="Enter RTO Code" formControlName="rtoCode"
+                        maxlength="10" (input)="toRtoInput($event)" />
+
                     @if (rtoForm.get('rtoCode')?.invalid &&
                     (rtoForm.get('rtoCode')?.dirty || rtoForm.get('rtoCode')?.touched)) {
-                    <span class="text-danger">RTO Code is Required</span>
+                    <div>
+                        @if (rtoForm.get('rtoCode')?.errors?.['required']) {
+                        <span class="text-danger">RTO Code is Required</span>
+                        }
+                        @if (rtoForm.get('rtoCode')?.errors?.['pattern']) {
+                        <span class="text-danger">Invalid RTO Code format</span>
+                        }
+                    </div>
                     }
                 </div>
+
                 <div class="col-md-6 mb-3">
                     <label class="form-label">RTO Name</label>
-                    <input type="text" class="form-control" placeholder="Enter RTO Name"
-                        formControlName="rtoName" />
+                    <input type="text" class="form-control" placeholder="Enter RTO Name" formControlName="rtoName"
+                        maxlength="50"
+                        (keypress)="($event.key.match('[a-zA-Z0-9]') ? true : $event.preventDefault())" />
+
                     @if (rtoForm.get('rtoName')?.invalid &&
                     (rtoForm.get('rtoName')?.dirty || rtoForm.get('rtoName')?.touched)) {
-                    <span class="text-danger">RTO Name is Required</span>
+                    <div>
+                        @if (rtoForm.get('rtoName')?.errors?.['required']) {
+                        <span class="text-danger">RTO Name is Required</span>
+                        }
+                        @if (rtoForm.get('rtoName')?.errors?.['pattern']) {
+                        <span class="text-danger">Only alphanumeric characters are allowed</span>
+                        }
+                    </div>
                     }
                 </div>
                 <div class="col-md-6 mb-3">
@@ -32,15 +50,14 @@
                     <!-- <ngx-select-dropdown [config]="config" formControlName="state" [options]="stateData">
                     </ngx-select-dropdown> -->
 
-                    <ngx-select-dropdown place [config]="config" [options]="stateListData"formControlName="stateName"
-                    >
-                </ngx-select-dropdown>
+                    <ngx-select-dropdown place [config]="config" [options]="stateListData" formControlName="stateName">
+                    </ngx-select-dropdown>
                     @if (rtoForm.get('stateName')?.invalid &&
                     (rtoForm.get('stateName')?.dirty || rtoForm.get('stateName')?.touched)) {
                     <span class="text-danger">State is Required</span>
                     }
                 </div>
-                  
+
             </div>
         </div>
 

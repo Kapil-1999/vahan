@@ -11,10 +11,14 @@
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <label class="form-label">Docket No.</label>
-                    <input type="text" class="form-control" placeholder="Enter Docket No" formControlName="docketNo" />
-                    @if (docketForm.get('docketNo')?.invalid &&
-                    (docketForm.get('docketNo')?.dirty || docketForm.get('docketNo')?.touched)) {
-                    <span class="text-danger">Docket No. is Required</span>
+                    <input type="text" class="form-control" placeholder="Enter Docket No" formControlName="docketNo" maxlength="12"
+                        (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" />
+
+                     @if (docketForm.get('docketNo')?.hasError('required') && docketForm.get('docketNo')?.touched) {
+                    <span class="text-danger">Docket No. is required</span>
+                    }
+                    @if (docketForm.get('docketNo')?.hasError('pattern')) {
+                    <span class="text-danger">Docket No. cannot be more than 12 characters</span>
                     }
                 </div>
                   
