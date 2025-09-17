@@ -1,5 +1,5 @@
 <div class="modal-header text-center">
-    <h5>Place Order</h5>
+    <h5>Invoice Generate</h5>
     <div class="close-modal">
         <i class="fa fa-close" style="cursor: pointer;" (click)="cancel($event)"></i>
     </div>
@@ -86,14 +86,28 @@
                     <div class="col-md-6 mb-2">
                         <label class="form-label">Refrence No.</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Enter Refrence No." formControlName="refrenceNo" />
+                            <input type="text" class="form-control" placeholder="Enter Refrence No."
+                                formControlName="refrenceNo" maxlength="35"/>
                         </div>
+                        @if (invoiceForm.get('refrenceNo')?.touched) {
+                        @if (invoiceForm.get('refrenceNo')?.hasError('required')) {
+                        <span class="text-danger">Reference No is required</span>
+                        }
+                        @if (invoiceForm.get('refrenceNo')?.hasError('maxlength')) {
+                        <span class="text-danger">Maximum 35 characters allowed</span>
+                        }
+                        @if (invoiceForm.get('refrenceNo')?.hasError('pattern')) {
+                        <span class="text-danger">Only Capital letters, numbers, and - are allowed</span>
+                        }
+                        }
                     </div>
                     <!-- </div> -->
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Rate</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" placeholder="Enter Rate" formControlName="rate" />
+                            <input type="text" class="form-control" placeholder="Enter Rate" formControlName="rate"
+                                maxlength="10"
+                                (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" />
                         </div>
                         <!-- @if (requesetForm.get('rate')?.invalid && requesetForm.get('rate')?.touched) {
                         <span class="text-danger">Rate is required</span>
@@ -103,7 +117,8 @@
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Quanity</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" placeholder="Enter Quanity"
+                            <input type="text" class="form-control" placeholder="Enter Quanity" maxlength="10"
+                                (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())"
                                 formControlName="quantity" />
                         </div>
                         <!-- @if (requesetForm.get('quantity')?.invalid && requesetForm.get('quantity')?.touched) {
@@ -203,11 +218,12 @@
                     </div>
                     <div class="col-md-12 mb-2">
                         <label class="form-label">Remark</label>
-                        <textarea name="" id="" row="2" class="form-control" formControlName="remarks"></textarea>
+                        <textarea name="" id="" row="2" class="form-control" formControlName="remarks"
+                            maxlength="1000"></textarea>
                     </div>
                     <div class="col-md-6">
-                        <button class="btn btn-success w-full" type="submit"
-                            > {{editData?.bill_amount > 0 ? 'Modify Invoice' : 'Generate Invoice' }}</button>
+                        <button class="btn btn-success w-full" type="submit"> {{editData?.bill_amount > 0 ? 'Modify
+                            Invoice' : 'Generate Invoice' }}</button>
                     </div>
                     <div class="col-md-6">
                         <button class="btn btn-danger w-full" (click)="cancel($event)">Cancel</button>

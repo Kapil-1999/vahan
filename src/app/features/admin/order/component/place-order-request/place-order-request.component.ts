@@ -67,31 +67,31 @@ export class PlaceOrderRequestComponent {
       productId: [null, [Validators.required]],
       stateId: [{ value: '', disabled: true }],
       planId: [{ value: '', disabled: true }],
-      rate: [{value: 0, disabled: true}, [Validators.required]],
-      quantity: ['0.00', [Validators.required,Validators.max(10000)]],
+      rate: [{ value: 0, disabled: true }, [Validators.required]],
+      quantity: ['0.00', [Validators.required]],
       amount: ['0.00',],
-      cgst: ['0.00', ],
-      sgst: ['0.00', ],
-      igst: ['0.00', ],
-      tax: ['0.00', ],
+      cgst: ['0.00',],
+      sgst: ['0.00',],
+      igst: ['0.00',],
+      tax: ['0.00',],
       billingAmount: ['0.00'],
-      shippingAddress: ['',[Validators.required]],
+      shippingAddress: ['', [Validators.required]],
       paymentMode: ['', [Validators.required]],
-      remarks: ['',[Validators.maxLength(1000)]],
-      bankName: ['',[
-      Validators.maxLength(200),
-      Validators.pattern(/^[A-Za-z0-9\s\.,&()-]*$/) 
-    ]],
-      refrence_no: ['',[
-      Validators.maxLength(35),
-      Validators.pattern(/^[A-Za-z0-9-]*$/) 
-    ]],
-      image_byte: [null]  
+      remarks: ['', [Validators.maxLength(1000)]],
+      bankName: ['', [
+        Validators.maxLength(200),
+        Validators.pattern(/^[A-Za-z0-9\s\.,&()-]*$/)
+      ]],
+      refrence_no: ['', [
+        Validators.maxLength(35),
+        Validators.pattern(/^[A-Z0-9-]+$/)
+      ]],
+      image_byte: [null]
     });
 
 
     this.placeOrderForm.get('quantity')?.valueChanges.subscribe((value: any) => {
-       this.amountCalculation() 
+      this.amountCalculation()
     });
 
     this.placeOrderForm.get('amount')?.valueChanges.subscribe((value: any) => {
@@ -99,7 +99,7 @@ export class PlaceOrderRequestComponent {
     });
 
     this.placeOrderForm.get('paymentMode')?.valueChanges.subscribe((value: any) => {
-      if(value?.value == '2') {
+      if (value?.value == '2') {
         this.placeOrderForm.get('bankName')?.setValidators([Validators.required]);
         this.placeOrderForm.get('refrence_no')?.setValidators([Validators.required]);
         this.placeOrderForm.get('image_byte')?.setValidators([Validators.required]);
@@ -108,7 +108,7 @@ export class PlaceOrderRequestComponent {
         this.placeOrderForm.get('refrence_no')?.clearValidators();
         this.placeOrderForm.get('image_byte')?.clearValidators();
       }
-      
+
       this.placeOrderForm.get('bankName')?.updateValueAndValidity();
       this.placeOrderForm.get('refrence_no')?.updateValueAndValidity();
       this.placeOrderForm.get('image_byte')?.updateValueAndValidity();
@@ -201,10 +201,10 @@ export class PlaceOrderRequestComponent {
   }
 
 
-  onGetTaxCalculation(e: any) {    
+  onGetTaxCalculation(e: any) {
     const productId = this.placeOrderForm.get('productId')?.value;
-    const shippingAddress = this.placeOrderForm.get('shippingAddress')?.value;    
-    
+    const shippingAddress = this.placeOrderForm.get('shippingAddress')?.value;
+
     if (!productId || Array.isArray(productId)) {
       this.notficationService.showInfo('Please select product for tax calculation');
       return;
@@ -226,20 +226,20 @@ export class PlaceOrderRequestComponent {
     })
   }
 
-  amountCalculation(){
+  amountCalculation() {
     if (this.placeOrderForm.value.shippingAddress === '') {
       this.placeOrderForm.get('shippingAddress')?.markAsTouched();
       return;
     }
     let quantity = this.placeOrderForm.get('quantity')?.value;
-     this.placeOrderForm.get('rate')?.enable()
+    this.placeOrderForm.get('rate')?.enable()
     let rate = this.placeOrderForm.get('rate')?.value || 0;
     let amount = quantity * rate;
     this.placeOrderForm.get('amount')?.enable();
     this.placeOrderForm.patchValue({
       amount: amount.toFixed(2),
     });
-    this.placeOrderForm.get('rate')?.disable() 
+    this.placeOrderForm.get('rate')?.disable()
     this.placeOrderForm.get('amount')?.disable();
   }
 
@@ -252,7 +252,7 @@ export class PlaceOrderRequestComponent {
     let sgstAmount = +(amount * sgst) / 100 || 0;
     let igstAmount = +(amount * igst) / 100 || 0;
     let taxAmount = cgstAmount + sgstAmount + igstAmount || 0;
-    let billingAmount = Number(amount) + taxAmount;    
+    let billingAmount = Number(amount) + taxAmount;
 
     this.placeOrderForm.get('cgst')?.enable();
     this.placeOrderForm.patchValue({
@@ -291,7 +291,7 @@ export class PlaceOrderRequestComponent {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         const base64String = e.target.result.split(',')[1];
-        this.baseUrlPath = base64String;        
+        this.baseUrlPath = base64String;
       };
       reader.readAsDataURL(file);
     }
@@ -302,13 +302,13 @@ export class PlaceOrderRequestComponent {
       this.placeOrderForm.markAllAsTouched();
       return;
     };
-    
+
     const updatedFormValue = this.placeOrderForm.getRawValue();
-    if(Number(updatedFormValue?.billingAmount) === 0) {
+    if (Number(updatedFormValue?.billingAmount) === 0) {
       this.notficationService.showInfo('Please calculate taxes first');
-      return; 
+      return;
     }
-    
+
     let payload = {
       "fk_subcategory_id": Number(formValue.productId?.pk_device_subcategory_id),
       "fk_plan_id": 0,
@@ -341,7 +341,7 @@ export class PlaceOrderRequestComponent {
         "payment_id": this.paymentDetails?.result?.id || "",
         "signature_id": ""
       }
-    }    
+    }
 
     this.OrderService.generateOrder(payload).subscribe((res: any) => {
       if (res?.body?.statusCode == 200) {
@@ -364,10 +364,16 @@ export class PlaceOrderRequestComponent {
       return;
     };
     const updatedFormValue = this.placeOrderForm.getRawValue();
-    if(Number(updatedFormValue?.billingAmount) === 0) {
+    if (Number(updatedFormValue?.billingAmount) === 0) {
       this.notficationService.showInfo('Amount will be greater then Zero');
-      return; 
+      return;
     }
-    this.paymentService.initiatePayment(updatedFormValue?.billingAmount); 
+    this.paymentService.initiatePayment(updatedFormValue?.billingAmount);
+  };
+
+  onReferenceInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value.toUpperCase().trim();
+    this.placeOrderForm.get('refrence_no')?.setValue(value, { emitEvent: false });
   }
 }

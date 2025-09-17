@@ -43,7 +43,7 @@ export class StatusComponent {
     private modalService: BsModalService,
     private fb: FormBuilder,
     private NotificationService: NotificationService,
-    private fitmentService:FitmentService
+    private fitmentService: FitmentService
 
   ) { }
 
@@ -53,21 +53,22 @@ export class StatusComponent {
 
   /*For Form Control*/
   setInitialForm() {
+    this.statusForm = this.fb.group({
+      status: [0, [Validators.required]],
+      comment: ['', [Validators.required]],
+    })
     if (this.statusValue) {
-      console.log("this.statusValue",this.statusValue);
-      
-      const selectedStatus = this.statusValue?.ar_status_model?.fk_status == 1 ?    {
+      const selectedStatus = this.statusValue?.ar_status_model?.fk_status == 1 ? {
         "value": 0,
         "text": "Open"
-      } :  {
+      } : {
         "value": 1,
         "text": "Close"
       }
-     
-      this.statusForm = this.fb.group({
-        status: [selectedStatus, [Validators.required]],
-        comment: [this.statusValue?.ar_status_model?.comment, [Validators.required]],
-      })
+      this.statusForm.patchValue({
+        status: selectedStatus,
+        comment: this.statusValue?.ar_status_model?.comment
+      });
     }
   }
 

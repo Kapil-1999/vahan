@@ -13,7 +13,7 @@
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Contact Person Name</label>
                     <input type="text" class="form-control" placeholder="Enter Contact Person Name"
-                        formControlName="personName" />
+                        formControlName="personName" maxlength="30"/>
                     @if (supportForm.get('personName')?.invalid &&
                     (supportForm.get('personName')?.dirty || supportForm.get('personName')?.touched)) {
                     <span class="text-danger">Contact Person Name is Required</span>
@@ -22,12 +22,12 @@
 
                 <div class="col-md-4 mb-3">
                     <label class="form-label">Email</label>
-                    <input type="text" class="form-control" placeholder="Enter Email" formControlName="email" />
+                    <input type="text" class="form-control" placeholder="Enter Email" formControlName="email" maxlength="254"/>
                   
                     @if (supportForm.get('email')?.touched || supportForm.get('email')?.dirty) {
                       @if (supportForm.get('email')?.hasError('required')) {
                         <span class="text-danger">Email is required</span>
-                      } @else if (supportForm.get('email')?.hasError('email')) {
+                      } @else if (supportForm.get('email')?.hasError('pattern')) {
                         <span class="text-danger">Please enter a valid email address</span>
                       }
                     }
@@ -35,7 +35,7 @@
 
                   <div class="col-md-4 mb-3">
                     <label class="form-label">Mobile Number</label>
-                    <input type="number" class="form-control" placeholder="Enter Mobile Number" formControlName="mobileNo" />
+                    <input type="text" class="form-control" placeholder="Enter Mobile Number" (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" formControlName="mobileNo" maxlength="10"/>
                   
                     @if (supportForm.get('mobileNo')?.touched || supportForm.get('mobileNo')?.dirty) {
                       @if (supportForm.get('mobileNo')?.hasError('required')) {
@@ -49,23 +49,46 @@
             </div>
             <!-- Row 3: 3 Columns -->
             <div class="row">
-                
-
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Password</label>
-                    <input type="password" class="form-control" placeholder="Enter Password" formControlName="password" />
-                    @if (supportForm.get('password')?.invalid &&
-                    (supportForm.get('password')?.dirty || supportForm.get('password')?.touched)) {
-                    <span class="text-danger">Password is Required</span>
-                    }
+                    <div class="input-group">
+                        <input [type]="showPassword ? 'text' : 'password'" class="form-control"
+                            placeholder="Enter Password" formControlName="password" maxlength="15"/>
+
+                        <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility()">
+                            <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </button>
+                    </div>
+
+                    <div *ngIf="supportForm.get('password')?.touched && supportForm.get('password')?.invalid">
+                        <span *ngIf="supportForm.get('password')?.hasError('required')"
+                            class="text-red-500 text-sm mt-1">
+                            Password is required
+                        </span>
+                        <span *ngIf="supportForm.get('password')?.hasError('minlength')"
+                            class="text-red-500 text-sm mt-1">
+                            Password must be at least 12 characters
+                        </span>
+                        <span *ngIf="supportForm.get('password')?.hasError('maxlength')"
+                            class="text-red-500 text-sm mt-1">
+                            Password cannot be more than 15 characters
+                        </span>
+                        <span *ngIf="supportForm.get('password')?.hasError('pattern')"
+                            class="text-red-500 text-sm mt-1">
+                            Password must contain at least 1 uppercase, 1 lowercase, 1 number, and 1 special character
+                        </span>
+                    </div>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Pin Code</label>
                     <input type="text" class="form-control" placeholder="Enter Pin Code"
-                        formControlName="pincode" />
-                    @if (supportForm.get('pincode')?.invalid &&
-                    (supportForm.get('pincode')?.dirty || supportForm.get('pincode')?.touched)) {
-                    <span class="text-danger">Organization Name is Required</span>
+                        formControlName="pincode" (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" maxlength="6"/>
+                    @if (supportForm.get('pincode')?.touched || supportForm.get('pincode')?.dirty) {
+                    @if (supportForm.get('pincode')?.hasError('required')) {
+                    <span class="text-danger">Pincode is required</span>
+                    } @else if (supportForm.get('pincode')?.hasError('pattern')) {
+                    <span class="text-danger">Please enter a valid 6-digit</span>
+                    }
                     }
                 </div>
 
@@ -141,7 +164,7 @@
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <label class="form-label">Address</label>
-                    <textarea class="form-control" placeholder="Enter Address" formControlName="address" rows="3"></textarea>
+                    <textarea class="form-control" placeholder="Enter Address" formControlName="address" rows="3" maxlength="200"></textarea>
                 </div>
             </div>
         </div>
