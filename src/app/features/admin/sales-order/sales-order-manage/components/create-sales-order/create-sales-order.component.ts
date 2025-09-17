@@ -82,6 +82,7 @@ export class CreateSalesOrderComponent {
         invoiceNo: this.editData?.invoice_no,
         remarks: this.editData?.remarks,
       })
+      this.salesOrderForm.get('quantity')?.disable();
     }
   }
 

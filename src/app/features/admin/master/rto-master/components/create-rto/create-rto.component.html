@@ -11,12 +11,22 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label class="form-label">RTO Code</label>
-                    <input type="text" class="form-control" placeholder="Enter RTO Code" formControlName="rtoCode" />
+                    <input type="text" class="form-control" placeholder="Enter RTO Code" formControlName="rtoCode"
+                        maxlength="10" (input)="toRtoInput($event)" />
+
                     @if (rtoForm.get('rtoCode')?.invalid &&
                     (rtoForm.get('rtoCode')?.dirty || rtoForm.get('rtoCode')?.touched)) {
-                    <span class="text-danger">RTO Code is Required</span>
+                    <div>
+                        @if (rtoForm.get('rtoCode')?.errors?.['required']) {
+                        <span class="text-danger">RTO Code is Required</span>
+                        }
+                        @if (rtoForm.get('rtoCode')?.errors?.['pattern']) {
+                        <span class="text-danger">Invalid RTO Code format</span>
+                        }
+                    </div>
                     }
                 </div>
+
                 <div class="col-md-6 mb-3">
                     <label class="form-label">RTO Name</label>
                     <input type="text" class="form-control" placeholder="Enter RTO Name" formControlName="rtoName"
