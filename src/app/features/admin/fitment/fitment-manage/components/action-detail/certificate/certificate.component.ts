@@ -18,6 +18,8 @@ export class CertificateComponent {
   button: any
   base64BackendCertificate: any;
   base64VahanCertificate: any;
+  backendImagePath: any;
+  vahanImagepath: any;
 
   constructor(
     private modalService: BsModalService,
@@ -28,17 +30,33 @@ export class CertificateComponent {
   ) { }
 
   ngOnInit() {
+    console.log(this.certificateValue);
+
     this.setInitialForm()
   }
 
   /*For Form Control*/
-  setInitialForm() {
-    if (this.certificateValue) {
-      this.certificateForm = this.fb.group({
-        backendCertificate: ['', [Validators.required]],
-        vahanCertificate: ['', [Validators.required]],
-      })
-    }
+ setInitialForm() {
+  this.certificateForm = this.fb.group({
+    backendCertificate: ['', [Validators.required]],
+    vahanCertificate: ['', [Validators.required]],
+  });
+
+  if (this.certificateValue) {
+    this.backendImagePath = this.certificateValue?.ar_certificate_model?.backend_certificate;
+    this.vahanImagepath = this.certificateValue?.ar_certificate_model?.vahan_certificate;
+
+    this.certificateForm.get('backendCertificate')?.clearValidators();
+    this.certificateForm.get('backendCertificate')?.updateValueAndValidity();
+    
+    this.certificateForm.get('vahanCertificate')?.clearValidators();
+    this.certificateForm.get('vahanCertificate')?.updateValueAndValidity();
+  }
+}
+
+
+  getImageUrl(path: string): string {
+    return path ? `${path.replace(/\\/g, '/')}` : '';
   }
 
   onFileChange(event: any, documentType: string): void {
@@ -58,14 +76,18 @@ export class CertificateComponent {
   }
 
   submit() {
+    if (this.certificateForm.invalid) {
+      this.certificateForm.markAllAsTouched();
+      return;
+    }
     let payload = {
       "fk_ar_id": Number(this.certificateValue?.id),
-      "backend_certificate_upload": this.base64BackendCertificate,
-      "vahan_certificate_upload": this.base64VahanCertificate,
+      "backend_certificate_upload": this.backendImagePath && !this.base64BackendCertificate ? this.backendImagePath : this.base64BackendCertificate,
+      "vahan_certificate_upload": this.vahanImagepath && !this.base64VahanCertificate ? this.vahanImagepath : this.base64VahanCertificate,
       "backend_certificate": "",
       "vahan_certificate": ""
     }
-
+    
     this.fitmentService.uploadCertificate(payload).subscribe((res: any) => {
       if (res?.body?.isSuccess === true) {
         this.modalService.hide()
