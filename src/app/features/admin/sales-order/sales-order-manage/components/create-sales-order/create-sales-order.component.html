@@ -56,34 +56,36 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Rate</label>
-                    <input type="number" class="form-control" placeholder="Enter Rate" formControlName="rate" min="1"
-                        max="10000" (keypress)="blockAboveMax($event, 'rate')" (input)="onInput($event, 'rate')" />
-
-                    @if (!rateError && salesOrderForm.get('rate')?.errors?.['required']) {
-                    <span class="text-danger">Rate is required</span>
-                    }
-                    @if (rateError) {
-                    <span class="text-danger">Maximum rate allowed is 10000</span>
-                    }
-                    @if (!rateError && salesOrderForm.get('rate')?.errors?.['min']) {
-                    <span class="text-danger">Rate must be at least 1</span>
+                    <input type="text" class="form-control" placeholder="Enter Rate" formControlName="rate"
+                        maxlength="10" (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" />
+                    @if (salesOrderForm.get('rate')?.invalid &&(salesOrderForm.get('rate')?.dirty ||
+                    salesOrderForm.get('rate')?.touched)) {
+                    <div>
+                        @if (salesOrderForm.get('rate')?.errors?.['required']) {
+                        <span class="text-danger">Rate is Required</span>
+                        }
+                        @if (salesOrderForm.get('rate')?.errors?.['pattern']) {
+                        <span class="text-danger">Only numbers are allowed</span>
+                        }
+                    </div>
                     }
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Quantity</label>
-                    <input type="number" class="form-control" placeholder="Enter Quantity" formControlName="quantity"
-                        min="1" max="10000" (keypress)="blockAboveMax($event, 'quantity')"
-                        (input)="onInput($event, 'quantity')" />
+                    <input type="text" class="form-control" placeholder="Enter Quantity" formControlName="quantity"
+                        maxlength="10" (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" />
 
-                    @if (!quantityError && salesOrderForm.get('quantity')?.errors?.['required']) {
-                    <span class="text-danger">Quantity is required</span>
-                    }
-                    @if (quantityError) {
-                    <span class="text-danger">Maximum quantity allowed is 10000</span>
-                    }
-                    @if (!quantityError && salesOrderForm.get('quantity')?.errors?.['min']) {
-                    <span class="text-danger">Quantity must be at least 1</span>
+                           @if (salesOrderForm.get('quantity')?.invalid &&(salesOrderForm.get('quantity')?.dirty ||
+                    salesOrderForm.get('quantity')?.touched)) {
+                    <div>
+                        @if (salesOrderForm.get('quantity')?.errors?.['required']) {
+                        <span class="text-danger">Quantity is Required</span>
+                        }
+                        @if (salesOrderForm.get('quantity')?.errors?.['pattern']) {
+                        <span class="text-danger">Only numbers are allowed</span>
+                        }
+                    </div>
                     }
                 </div>
             </div>
@@ -122,8 +124,8 @@
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <label class="form-label">Remarks</label>
-                    <textarea class="form-control" placeholder="Enter Remarks" formControlName="remarks" maxlength="1000"
-                        rows="3"></textarea>
+                    <textarea class="form-control" placeholder="Enter Remarks" formControlName="remarks"
+                        maxlength="1000" rows="3"></textarea>
                 </div>
             </div>
         </div>

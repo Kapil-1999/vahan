@@ -36,7 +36,7 @@ export class CreateBackendComponent {
 
   setInitialForm() {
     this.backendForm = this.fb.group({
-      backendName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]*$')]],
+      backendName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]*$')]],
     })
     if (this.editData) {
       this.tittle = 'Update'
@@ -81,7 +81,7 @@ export class CreateBackendComponent {
     })
   }
 
-  
+
 
   cancel() {
     this.bsModalService.hide();

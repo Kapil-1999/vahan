@@ -35,7 +35,7 @@ export class CreateCategoryComponent {
 
   setInitialForm() {
     this.categoryForm = this.fb.group({
-      categoryName: ['', [Validators.required]],
+      categoryName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]*$')]],
     })
     if (this.editData) {
       this.tittle = 'Update'

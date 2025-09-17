@@ -49,9 +49,9 @@ export class GenerateComplainComponent {
     this.complainForm = this.fb.group({
       category: [null, [Validators.required]],
       refrence: [null, [Validators.required]],
-      refrenceValue: ['', [Validators.required]],
+      refrenceValue: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]*$')]],
       priority: [null, [Validators.required]],
-      comp_description: ['', [Validators.required]],
+      comp_description: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]*$')]],
     })
   }
 
@@ -73,6 +73,12 @@ export class GenerateComplainComponent {
         this.refrenceList = res?.body
       }
     })
+  }
+
+  onReferenceInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value.toUpperCase().trim();
+    this.complainForm.get('refrenceValue')?.setValue(value, { emitEvent: false });
   }
 
   // Refrence Type dropdown

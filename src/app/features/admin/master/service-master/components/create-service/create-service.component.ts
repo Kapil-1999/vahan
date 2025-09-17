@@ -35,7 +35,7 @@ export class CreateServiceComponent {
 
   setInitialForm() {
     this.serviceForm = this.fb.group({
-      serviceName: ['', [Validators.required]],
+      serviceName: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9]*$')]],
       description: ['', [Validators.required]],
     })
     if (this.editData) {

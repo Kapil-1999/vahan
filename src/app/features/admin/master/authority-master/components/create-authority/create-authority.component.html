@@ -12,10 +12,18 @@
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Authority Name</label>
                     <input type="text" class="form-control" placeholder="Enter Authority Name"
-                        formControlName="authorityName" />
-                    @if (authorityForm.get('authorityName')?.invalid &&
+                        formControlName="authorityName"  maxlength="50"
+                        (keypress)="($event.key.match('[a-zA-Z0-9]') ? true : $event.preventDefault())"/>
+                     @if (authorityForm.get('authorityName')?.invalid &&
                     (authorityForm.get('authorityName')?.dirty || authorityForm.get('authorityName')?.touched)) {
-                    <span class="text-danger">Authority Name is Required</span>
+                    <div>
+                        @if (authorityForm.get('authorityName')?.errors?.['required']) {
+                        <span class="text-danger">Authority Name is Required</span>
+                        }
+                        @if (authorityForm.get('authorityName')?.errors?.['pattern']) {
+                        <span class="text-danger">Only alphanumeric characters are allowed</span>
+                        }
+                    </div>
                     }
                 </div>
 

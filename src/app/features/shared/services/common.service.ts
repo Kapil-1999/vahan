@@ -359,4 +359,31 @@ export class CommonService {
 
     return formatted;
   }
+
+    formatRtoCode(value: any) {
+  value = value.toUpperCase();
+  if (value.length > 10) {
+    value = value.substring(0, 10);
+  }
+
+  if (value.length <= 4) {
+    let letters = value.substring(0, 2).replace(/[^A-Z]/g, '');
+    let digits = value.substring(2).replace(/[^0-9]/g, '');
+    value = letters + digits;
+  } else if (value.length <= 6) {
+    let letters1 = value.substring(0, 2).replace(/[^A-Z]/g, '');
+    let digits = value.substring(2, 4).replace(/[^0-9]/g, '');
+    let letters2 = value.substring(4).replace(/[^A-Z]/g, '');
+    value = letters1 + digits + letters2;
+  } else {
+    let letters1 = value.substring(0, 2).replace(/[^A-Z]/g, '');
+    let digits1 = value.substring(2, 4).replace(/[^0-9]/g, '');
+    let letters2 = value.substring(4, 6).replace(/[^A-Z]/g, '');
+    let digits2 = value.substring(6).replace(/[^0-9]/g, '');
+    value = letters1 + digits1 + letters2 + digits2;
+  }
+
+  return value;
+}
+
 }
