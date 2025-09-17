@@ -21,12 +21,36 @@ export class SimDetailComponent {
     private modalService: BsModalService,
     private fb: FormBuilder,
     private NotificationService: NotificationService,
-    private fitmentService:FitmentService
+    private fitmentService: FitmentService
 
 
   ) { }
 
   ngOnInit() {
+    this.simForm = this.fb.group({
+      iccid: ['', [Validators.required, Validators.pattern(/^\d{20}$/)]],
+
+      primaryImsi: [
+        '',
+        [Validators.required, Validators.pattern(/^\d{15}$/)],
+      ],
+      primaryMsidn: [
+        '',
+        [Validators.required, Validators.pattern(/^\+?[1-9]\d{9,15}$/)],
+      ],
+      secondryImsi: [
+        '',
+        [Validators.required, Validators.pattern(/^\d{15}$/)],
+      ],
+      secondryMsidn: [
+        '',
+        [Validators.required, Validators.pattern(/^\+?[1-9]\d{9,15}$/)],
+      ],
+
+      activationDate: ['', Validators.required],
+      validTill: ['', Validators.required],
+    });
+
     this.setInitialForm()
 
   }
@@ -35,7 +59,7 @@ export class SimDetailComponent {
   /*For Form Control*/
   setInitialForm() {
     const formatDate = (date: any) => {
-      if (!date) return '';
+      if (!date) return;
       if (date instanceof Date) {
         return date.toISOString().split('T')[0];
       }
@@ -44,18 +68,18 @@ export class SimDetailComponent {
       }
       return '';
     };
-    if (this.simValue) {
-      this.simForm = this.fb.group({
-        iccid: [this.simValue?.iccid, [Validators.required]],
-        primaryImsi: [this.simValue?.first_imsi, [Validators.required]],
-        primaryMsidn: [this.simValue?.first_sim, [Validators.required]],
-        secondryImsi: [this.simValue?.second_imsi, [Validators.required]],
-        secondryMsidn: [this.simValue?.second_sim, [Validators.required]],
-        activationDate: [formatDate(this.simValue?.activated_date), [Validators.required]],
-        validTill: [formatDate(this.simValue?.valid_till_date), [Validators.required]],
-      })
-    }
 
+    if (this.simValue) {
+      this.simForm.patchValue({
+        iccid: this.simValue?.iccid,
+        primaryImsi: this.simValue?.first_imsi,
+        primaryMsidn: this.simValue?.first_sim,
+        secondryImsi: this.simValue?.second_imsi,
+        secondryMsidn: this.simValue?.second_sim,
+        activationDate: formatDate(this.simValue?.activated_date),
+        validTill: formatDate(this.simValue?.valid_till_date),
+      });
+    }
   }
 
   submit(formValue: any) {

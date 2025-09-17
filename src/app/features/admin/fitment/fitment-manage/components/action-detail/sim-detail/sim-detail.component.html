@@ -12,12 +12,10 @@
                     <label class="form-label">Iccid</label>
                     <div class="input-group mb-2">
                         <input type="text" class="form-control" placeholder="Enter Iccid" formControlName="iccid"
-                            aria-describedby="button-addon2" readonly />
+                            aria-describedby="button-addon2" readonly maxlength="20" />
                     </div>
-                    @if (simForm.get('iccid')?.invalid &&
-                    (simForm.get('iccid')?.dirty || simForm.get('iccid')?.touched))
-                    {
-                    <span class="text-danger">Iccid is Required</span>
+                    @if (simForm.get('iccid')?.hasError('required') && simForm.get('iccid')?.touched) {
+                    <span class="text-danger">ICCID is required</span>
                     }
                 </div>
 
@@ -51,12 +49,14 @@
                     <label class="form-label">Primary Imsi</label>
                     <div class="input-group mb-2">
                         <input type="text" class="form-control" placeholder="Enter Primary Imsi"
-                            formControlName="primaryImsi" aria-describedby="button-addon2" />
+                         (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" 
+                            formControlName="primaryImsi" aria-describedby="button-addon2" maxlength="15" />
                     </div>
-                    @if (simForm.get('primaryImsi')?.invalid &&
-                    (simForm.get('primaryImsi')?.dirty || simForm.get('primaryImsi')?.touched))
-                    {
+                    @if (simForm.get('primaryImsi')?.hasError('required') && simForm.get('primaryImsi')?.touched) {
                     <span class="text-danger">Primary Imsi is Required</span>
+                    }
+                    @if (simForm.get('primaryImsi')?.hasError('pattern')) {
+                    <span class="text-danger">Primary Imsi cannot be more than 15 digits</span>
                     }
                 </div>
 
@@ -64,25 +64,30 @@
                     <label class="form-label">Primary Msidn</label>
                     <div class="input-group mb-2">
                         <input type="text" class="form-control" placeholder="Enter Primary Msidn"
-                            formControlName="primaryMsidn" aria-describedby="button-addon2" />
+                        (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" 
+                            formControlName="primaryMsidn" aria-describedby="button-addon2" maxlength="15" />
                     </div>
-                    @if (simForm.get('primaryMsidn')?.invalid &&
-                    (simForm.get('primaryMsidn')?.dirty || simForm.get('primaryMsidn')?.touched))
-                    {
-                    <span class="text-danger">Primary Msidn is Required</span>
-                    }
+                    <div *ngIf="simForm.get('primaryMsidn')?.touched && simForm.get('primaryMsidn')?.invalid">
+                        <span class="text-danger" *ngIf="simForm.get('primaryMsidn')?.errors?.['required']">Primary MSISDN is
+                            required.</span>
+                        <span class="text-danger" *ngIf="simForm.get('primaryMsidn')?.errors?.['pattern']">
+                            MSISDN must be 10–15 digits, may start with + (E.164 format).
+                        </span>
+                    </div>
                 </div>
 
                 <div class="col-md-6 mb-2">
                     <label class="form-label">Secondary Imsi</label>
                     <div class="input-group mb-2">
                         <input type="text" class="form-control" placeholder="Enter Secondary Imsi"
-                            formControlName="secondryImsi" aria-describedby="button-addon2" />
+                        (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" 
+                            formControlName="secondryImsi" aria-describedby="button-addon2" maxlength="15"/>
                     </div>
-                    @if (simForm.get('secondryImsi')?.invalid &&
-                    (simForm.get('secondryImsi')?.dirty || simForm.get('secondryImsi')?.touched))
-                    {
+                    @if (simForm.get('secondryImsi')?.hasError('required') && simForm.get('secondryImsi')?.touched) {
                     <span class="text-danger">Secondary Imsi is Required</span>
+                    }
+                    @if (simForm.get('secondryImsi')?.hasError('pattern')) {
+                    <span class="text-danger">Secondary Imsi cannot be more than 15 digits</span>
                     }
                 </div>
 
@@ -90,13 +95,17 @@
                     <label class="form-label">Secondary Msidn</label>
                     <div class="input-group mb-2">
                         <input type="text" class="form-control" placeholder="Enter Secondary Msidn"
-                            formControlName="secondryMsidn" aria-describedby="button-addon2" />
+                        (keypress)="($event.key.match('[0-9]') ? true : $event.preventDefault())" 
+                            formControlName="secondryMsidn" aria-describedby="button-addon2" maxlength="15" />
                     </div>
-                    @if (simForm.get('secondryMsidn')?.invalid &&
-                    (simForm.get('secondryMsidn')?.dirty || simForm.get('secondryMsidn')?.touched))
-                    {
-                    <span class="text-danger">Secondary Msidn is Required</span>
-                    }
+
+                    <div *ngIf="simForm.get('secondryMsidn')?.touched && simForm.get('secondryMsidn')?.invalid">
+                        <span class="text-danger" *ngIf="simForm.get('secondryMsidn')?.errors?.['required']">Secondary
+                            MSISDN is required.</span>
+                        <span class="text-danger" *ngIf="simForm.get('secondryMsidn')?.errors?.['pattern']">
+                            MSISDN must be 10–15 digits, may start with + (E.164 format).
+                        </span>
+                    </div>
                 </div>
 
 
