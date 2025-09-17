@@ -49,15 +49,18 @@ export class CreateSupportComponent {
 
   setInitialForm() {
     this.supportForm = this.fb.group({
-      personName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      personName: ['', [Validators.required,Validators.pattern(/^[a-zA-Z\s]{3,30}$/)]],
+      email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/), Validators.maxLength(254)]],
       mobileNo: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      password: ['123456', [Validators.required]],
+      password: ['User@123456#', [Validators.required,
+      Validators.maxLength(15),
+      Validators.minLength(12),
+      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{12,15}$/)]],
       state: ['', [Validators.required]],
       stateValue: [''],
       cityValue: [''],
       city: ['', [Validators.required]],
-      pincode: ['', [Validators.required]],
+      pincode: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]],
       address: [''],
     })
     if (this.editData) {
@@ -228,5 +231,11 @@ export class CreateSupportComponent {
 
   cancel() {
     this.bsModalService.hide();
+  };
+
+  showPassword = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

@@ -1,24 +1,37 @@
 <div class="modal-header text-center">
-    <h5>Place Order</h5>
+    <h5>Generate Request</h5>
     <div class="close-modal">
         <i class="fa fa-close" style="cursor: pointer;" (click)="cancel()"></i>
     </div>
 </div>
 <div class="modal-body">
     <div class="row">
-        <div class="col-md-8">
-            <div class="left-section flex items-center justify-between sm:justify-start space-x-2 mb-2">
-                <div class="search-form">
-                    <input placeholder="Search for..." type="text" [(ngModel)]="searchKeyword"
-                        (input)="onSearch($event)" class="form-control search-input" />
-                    @if(searchKeyword) {
-                    <button type="button" class="btn-search" (click)="clearSearch()">
-                        <i class="fa fa-close"></i>
-                    </button>
-                    } @else {
-                    <button type="button" class="btn-search">
-                        <i class="fa fa-search"></i>
-                    </button>
+        <div class="col-md-8 ">
+            <div class="flex justify-between">
+                <div class="left-section flex items-center justify-between sm:justify-start space-x-2 mb-2">
+                    <div class="search-form">
+                        <input placeholder="Search for..." type="text" [(ngModel)]="searchKeyword"
+                            (input)="onSearch($event)" class="form-control search-input" />
+                        @if(searchKeyword) {
+                        <button type="button" class="btn-search" (click)="clearSearch()">
+                            <i class="fa fa-close"></i>
+                        </button>
+                        } @else {
+                        <button type="button" class="btn-search">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        }
+                    </div>
+                </div>
+                <div class="right-section">
+                    @if(this.vahanDeviceList?.length) {
+                    <div class="row">
+                        <div class="d-flex justify-content-center">
+                            <pagination-controls id="addreqId" [maxSize]="10" [responsive]="true" [nextLabel]="''"
+                                [previousLabel]="''" (pageChange)="onTablePageChange($event)">
+                            </pagination-controls>
+                        </div>
+                    </div>
                     }
                 </div>
             </div>
@@ -31,7 +44,9 @@
                         aria-describedby="datatable_info" style="width: 100%" width="100%">
                         <thead>
                             <tr role="row">
-                                <th>Select</th>
+                                <th>
+                                    <input type="checkbox" class="cursor-pointer" [checked]="isAllSelected" (change)="toggleSelectAll($event)"> <span class="ml-2">Select All</span>
+                                </th>
                                 @for (vehicleHeading of columns; track $index) {
                                 <th>
                                     <span>{{ vehicleHeading?.title }}</span>
@@ -41,14 +56,20 @@
                         </thead>
                         <tbody>
                             @if(vahanDeviceList?.length) {
-                            <tr *ngFor="let row of vahanDeviceList; let i = index">
+                            <tr *ngFor="let row of vahanDeviceList 
+              | paginate: { id: 'addreqId',
+                            itemsPerPage: pagesize.limit, 
+                            currentPage: pagesize.offset, 
+                            totalItems: pagesize.count }; 
+              let i = index">
                                 <td>
                                     <input type="checkbox" [checked]="row.isSelected" (change)="toggleRowSelection(i)">
                                 </td>
-                                <td>{{row.imei}}</td>
-                                <td>{{row.uid}}</td>
-                                <td>{{row.iccid}}</td>
+                                <td>{{ row.imei }}</td>
+                                <td>{{ row.uid }}</td>
+                                <td>{{ row.iccid }}</td>
                             </tr>
+
                             }
                         </tbody>
                     </table>
@@ -61,6 +82,7 @@
                 }
             </div>
         </div>
+        @if(this.vahanDeviceList?.length) {
         <div class="col-md-4">
             <form [formGroup]="requesetForm" (ngSubmit)="submit(requesetForm.value, $event)">
                 <div class="row">
@@ -76,9 +98,13 @@
                     <div class="col-md-12 mb-3">
                         <label class="form-label">Remarks</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" formControlName="remarks"
-                                placeholder="Enter Remark" />
+                            <input type="text" class="form-control" formControlName="remarks" maxlength="1000"
+                                placeholder="Enter Remark" maxlength="1000" />
                         </div>
+                        @if (requesetForm.get('remarks')?.invalid &&
+                        (requesetForm.get('remarks')?.dirty || requesetForm.get('remarks')?.touched)) {
+                        <span class="text-danger">Remarks is Required</span>
+                        }
                     </div>
                     <div class="col-md-6">
                         <button class="btn btn-success w-full" type="submit">Submit</button>
@@ -90,5 +116,6 @@
             </form>
 
         </div>
+        }
     </div>
 </div>

@@ -45,9 +45,11 @@ export class RequestInvoiceGenerateComponent {
 
   setInitialform() {
     this.invoiceForm = this.fb.group({
-      service_id: [null,[Validators.required]],
+      service_id: [null, [Validators.required]],
       rate: ['0.00'],
-      refrenceNo: [''],
+      refrenceNo: ['', [Validators.maxLength(35),
+      Validators.pattern(/^[A-Z0-9-]+$/)
+      ]],
       quantity: ['0'],
       amount: [{ value: "0.00", disabled: true }],
       igstPer: [{ value: 18, disabled: true }],
@@ -91,7 +93,7 @@ export class RequestInvoiceGenerateComponent {
         tax: this.editData?.tax,
         netamount: this.editData?.net_amount,
         billingAmount: this.editData?.bill_amount,
-        remarks : this.editData?.invoice_remarks
+        remarks: this.editData?.invoice_remarks
       })
     }
   }
@@ -128,7 +130,7 @@ export class RequestInvoiceGenerateComponent {
     this.calculateTax('')
   }
 
-  onGstTypeChange(event: any) {    
+  onGstTypeChange(event: any) {
     const gstType = event;
     if (gstType === '1') {
       this.invoiceForm.get('igst')?.enable();
@@ -161,15 +163,15 @@ export class RequestInvoiceGenerateComponent {
 
   }
 
-  calculateTax(e:any) {
+  calculateTax(e: any) {
     if (this.invoiceForm.value.gstType === '1') {
       this.invoiceForm.get('amount')?.enable();
       this.invoiceForm.get('igst')?.enable();
       this.invoiceForm.get('igstPer')?.enable();
-      let igsctTax = this.invoiceForm.get('amount')?.value * this.invoiceForm.get('igstPer')?.value / 100;      
+      let igsctTax = this.invoiceForm.get('amount')?.value * this.invoiceForm.get('igstPer')?.value / 100;
       this.invoiceForm.patchValue({
         igst: igsctTax.toFixed(2) || 0,
-      });      
+      });
       this.invoiceForm.get('amount')?.disable();
     } else {
       this.invoiceForm.get('amount')?.enable();
@@ -184,8 +186,12 @@ export class RequestInvoiceGenerateComponent {
         sgst: sgstTax.toFixed(2) || 0
       })
       this.invoiceForm.get('amount')?.disable();
-
     };
+    this.invoiceForm.get('igstPer')?.disable();
+    this.invoiceForm.get('cgstPer')?.disable();
+    this.invoiceForm.get('sgstPer')?.disable();
+    this.invoiceForm.get('cgst')?.disable();
+    this.invoiceForm.get('sgst')?.disable();
     this.calculateTotalTax();
   }
 
@@ -193,7 +199,8 @@ export class RequestInvoiceGenerateComponent {
     let totalTax = Number(this.invoiceForm.get('cgst')?.value) + Number(this.invoiceForm.get('sgst')?.value) + Number(this.invoiceForm.get('igst')?.value);
     this.invoiceForm.patchValue({
       tax: totalTax.toFixed(2) || 0
-    })
+    });
+    this.invoiceForm.get('igst')?.disable();
     this.calculateNetAmount();
   }
 
@@ -205,45 +212,45 @@ export class RequestInvoiceGenerateComponent {
     this.calculateBillingAmount();
   }
 
-  calculateBillingAmount() {    
+  calculateBillingAmount() {
     let billingAmount = Number(this.invoiceForm.get('netamount')?.value);
     this.invoiceForm.patchValue({
-      billingAmount: Math.round(billingAmount) || 0 
+      billingAmount: Math.round(billingAmount) || 0
     })
   }
 
-  submit(formvalue: any, e:any) {
+  submit(formvalue: any, e: any) {
     e.preventDefault();
     if (this.invoiceForm.invalid) {
       this.invoiceForm.markAllAsTouched();
       return;
     };
     const updatedFormValue = this.invoiceForm.getRawValue();
-    if(Number(updatedFormValue?.billingAmount) === 0) {
+    if (Number(updatedFormValue?.billingAmount) === 0) {
       this.notficationService.showInfo('Please Billing Amount Should be greater than 0');
-      return; 
-    }    
-    
+      return;
+    }
+
     let payload = {
-        "pk_device_request_id": this.editData?.pk_device_request_id,
-        "fk_service_id": formvalue?.service_id ? Number(formvalue?.service_id?.value) : 0,
-        "fk_client_id": Number(this.editData?.fk_client_id),
-        "invoice_request": Number(updatedFormValue?.quantity),
-        "item_rate": Number(updatedFormValue?.rate),
-        "amount": Number(updatedFormValue?.amount),
-        "cgst": Number(updatedFormValue?.cgst),
-        "sgst": Number(updatedFormValue?.sgst),
-        "igst": Number(updatedFormValue?.igst),
-        "tax": Number(updatedFormValue?.tax),
-        "net_amount": Number(updatedFormValue?.netamount),
-        "rounding": 0,
-        "bill_amount": Number(updatedFormValue?.billingAmount),
-        "invoice_remarks": formvalue?.remarks,
-        "cgst_per": Number(updatedFormValue?.cgstPer),
-        "sgst_per": Number(updatedFormValue?.sgstPer),
-        "igst_per": Number(updatedFormValue?.igstPer),
-        "isIntraGST": formvalue?.gstType == "1" ? 1 : 0,
-        "tally_refrence_no": formvalue?.refrenceNo
+      "pk_device_request_id": this.editData?.pk_device_request_id,
+      "fk_service_id": formvalue?.service_id ? Number(formvalue?.service_id?.value) : 0,
+      "fk_client_id": Number(this.editData?.fk_client_id),
+      "invoice_request": Number(updatedFormValue?.quantity),
+      "item_rate": Number(updatedFormValue?.rate),
+      "amount": Number(updatedFormValue?.amount),
+      "cgst": Number(updatedFormValue?.cgst),
+      "sgst": Number(updatedFormValue?.sgst),
+      "igst": Number(updatedFormValue?.igst),
+      "tax": Number(updatedFormValue?.tax),
+      "net_amount": Number(updatedFormValue?.netamount),
+      "rounding": 0,
+      "bill_amount": Number(updatedFormValue?.billingAmount),
+      "invoice_remarks": formvalue?.remarks,
+      "cgst_per": Number(updatedFormValue?.cgstPer),
+      "sgst_per": Number(updatedFormValue?.sgstPer),
+      "igst_per": Number(updatedFormValue?.igstPer),
+      "isIntraGST": formvalue?.gstType == "1" ? 1 : 0,
+      "tally_refrence_no": formvalue?.refrenceNo
     }
     this.requestService.generateServiceInvoice(payload).subscribe((res: any) => {
       if (res?.body?.statusCode == 200) {
@@ -256,7 +263,7 @@ export class RequestInvoiceGenerateComponent {
     })
   }
 
-  cancel(e:any) {
+  cancel(e: any) {
     e.preventDefault();
     this.bsmodalService.hide();
   }

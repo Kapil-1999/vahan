@@ -82,8 +82,14 @@ export class RequestPaymentComponent {
       gstType: [{ value: '1', disabled: true }],
       remarks: [''],
       paymentMode: [null, [Validators.required]],
-      bankName: [''],
-      refrence_no: [''],
+      bankName: ['',  [
+        Validators.maxLength(200),
+        Validators.pattern(/^[A-Za-z0-9\s\.,&()-]*$/)
+      ]],
+      refrence_no: ['', [
+        Validators.maxLength(35),
+        Validators.pattern(/^[A-Z0-9-]+$/)
+      ]],
       image_byte: [null]
     })
 
@@ -225,5 +231,11 @@ export class RequestPaymentComponent {
   cancel(e: any) {
     e.preventDefault();
     this.bsmodalService.hide();
+  }
+
+   onReferenceInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value.toUpperCase().trim();
+    this.invoiceForm.get('refrence_no')?.setValue(value, { emitEvent: false });
   }
 }
